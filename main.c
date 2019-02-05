@@ -43,7 +43,7 @@ void tour_joueur(int nJoueur, char grille[L][C]){
         scanf("%d", &piece);
     }while(piece > 0 && piece < 4);
 }
-
+ 
 void joueurVSjoueur(char grille[L][C]){
 
 }

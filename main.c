@@ -29,11 +29,34 @@ void afficher_grille(char grille[L][C]){
  * Attention, à reprendre avec les différent type de piece.
 */
 int nonPleine(int piece, int nbCol, int * pos, char grille[L][C]){
-    for(int i = L-1; i >= 0; i--){
-        if(grille[i][nbCol] == ' '){
-            pos = i;
-            return 1;
-        }
+
+    switch(piece){
+        /* Cas 1 et 2 à ajuster en fonctions des règles (j'ai oublié entre creuses et pleines, qui bloque qui) */
+        case 1 :
+                for(int i = L-1; i >= 0; i--){
+                    if(grille[i][nbCol] == ' '){
+                        pos = i;
+                        return 1;
+                    }
+                }
+                break;
+        case 2 :
+                for(int i = L-1; i >= 0; i--){
+                    if(grille[i][nbCol] == ' '){
+                        pos = i;
+                        return 1;
+                    }
+                }
+                break;
+        /* Cas 3 OK */
+        case 3 :
+                for(int i = L-1; i >= 0; i--){
+                    if(grille[i][nbCol] == ' '){
+                        pos = i;
+                        return 1;
+                    }
+                }
+                break;
     }
     return -1;
 }

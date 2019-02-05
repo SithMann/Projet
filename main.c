@@ -24,30 +24,66 @@ void afficher_grille(char grille[L][C]){
     }
 }
 
+/* Fonction pour tester qu'il reste de la place dans une colonne
+ * Renvoie 1 s'il y a de la place, 0 sinon. Affecte par pointeur la position de la première case vide de la colonne
+ * Attention, à reprendre avec les différent type de piece.
+*/
+int nonPleine(int piece, int nbCol, int * pos, char grille[L][C]){
+    for(int i = L-1; i >= 0; i--){
+        if(grille[i][nbCol] == ' '){
+            pos = i;
+            return 1;
+        }
+    }
+    return -1;
+}
+
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
 void tour_joueur(int nJoueur, char grille[L][C]){
-    int col, piece;
+    int col, piece, pos;
+
+    /* Demande de saisie de la piece. Penser à vérifier que piece est un entier plus tard.
+     * Il faudrat aussi prendre en compte le nombre disponible de chaque piece pour la suite.
+    */
+    printf("Choix du type de pièce à jouer : \n");
+    printf("1- Pleine \n");
+    printf("2- Creuse \n");
+    printf("3- Bloquante \n");
+    do{
+        printf("Choix : ");
+        scanf("%d", &piece);
+    }while(piece > 0 && piece < 4);
 
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{
         printf("Veuillez hoisir le numéro de la colonne pour jouer (entier entre 1 et 7): ");
         scanf("%d", &col);
-    }while(nonPleine(col) && col > 0 && col < 8);
+    }while(nonPleine(piece, col, &pos, grille) && col > 0 && col < 8);
 
-    /* Demande de saisie de la piece. Penser à vérifier que piece est un entier plus tard.
-     * Il faudrat aussi prendre en compte le nombre disponible de chaque piece pour la suite.
-    */
-    do{
-        printf("Choix : ");
-        scanf("%d", &piece);
-    }while(piece > 0 && piece < 4);
+    /* Ajout de la piece */
+    switch(piece){
+        case 1: if(nbJoueur == 1) grille[pos][col] = 'P';
+                else grille[pos][col] = 'p';
+                break;
+        case 2: if(nbJoueur == 1) grille[pos][col] = 'C';
+                else grille[pos][col] = 'c';
+                break;
+        case 3: if(nbJoueur == 1) grille[pos][col] = 'B';
+                else grille[pos][col] = 'b';
+                break;
+    }
+     
+
 }
- 
+
+/* Fonction contenant la boucle principale du mode de jeu jVj.
+*/
 void joueurVSjoueur(char grille[L][C]){
 
 }
+
 /*
 void joueurVSia(char grille[L][C]){
 

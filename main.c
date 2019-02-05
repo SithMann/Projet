@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -78,6 +78,4 @@ int main(){
 
     return 0;
 }
-=======
- 
->>>>>>> 57581ec736f0dc7dde8e9afdd9fd0b09e2fc4a1d
+d

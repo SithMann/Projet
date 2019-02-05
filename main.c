@@ -1,3 +1,6 @@
+/* Notes à moi même (et autre chieuse ou rouquin du groupe) :
+ * Peut être faire une structure pièce pour décompter le nombre de pièces utilisées, afficher une pièce, connaitre la valeur numérique de la piece.
+ */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -104,7 +107,7 @@ void tour_joueur(int nJoueur, char grille[L][C]){
 /* Fonction contenant la boucle principale du mode de jeu jVj.
 */
 void joueurVSjoueur(char grille[L][C]){
-
+    //while();
 }
 
 /*

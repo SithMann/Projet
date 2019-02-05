@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "grille.h"
+#include "grille.h" 
 
 #define L 7 // nombre de lignes
 #define C 7 // nombre de colonnes

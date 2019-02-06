@@ -81,10 +81,6 @@ void tour_joueur(int nJoueur, char grille[L][C]){
     piece.nb_piece = N;
     if(nJoueur) piece.couleur = 'jaune';
     else piece.couleur = 'rouge';
-
-    /*Affecter la couleur de la pièce en fonction du choix du type de la pièce
-    * /!\/!\/!\/!\/!\/!\
-    */
      
 
     /* Demande de saisie de la piece. Penser à vérifier que piece est un entier plus tard.

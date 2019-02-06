@@ -1,12 +1,22 @@
 /* Notes à moi même (et autre chieuse ou rouquin du groupe) :
- * Peut être faire une structure pièce pour décompter le nombre de pièces utilisées, afficher une pièce, connaitre la valeur numérique de la piece.
+ * Peut-être faire une structure pièce pour décompter le nombre de pièces utilisées, afficher une pièce, connaitre la valeur numérique de la piece.
  */
 
 #include <stdlib.h>
 #include <stdio.h>
 
-#define L 7
-#define C 7
+#define L 7 /*Lignes*/
+#define C 7 /*Colonnes*/
+
+/*Essai du rouquin de faire la strcuture demandée /!\/!\/!\
+*Pour l'affichage de la pièce il faudrait faire une fonction d'affichage à part ou directement gérer par le sql ??
+*/
+typedef struct piece_s {
+    int nb_piece;
+    char / int valeur; /*Soit J et R ou des valeurs numériques*/
+}piece_t;
+
+
 
 /* Initialisation de la grille
 */

@@ -8,18 +8,15 @@
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
 
-/*Essai du rouquin de faire la strcuture demandée /!\/!\/!\
-*Pour l'affichage de la pièce il faudrait faire une fonction d'affichage à part ou directement gérer par le sql ??
-*/
+
 typedef struct piece_s {
-    int nb_piece;
-    char / int valeur; /*Soit J et R ou des valeurs numériques*/
+    int nb_piece; /*Compteur*/
+    char couleur; /*Jaune ou rouge*/
+    int valeur; /*Pleine,creuse,bloquantes*/
 }piece_t;
 
 
-
-/* Initialisation de la grille
-*/
+/* Initialisation de la grille */
 void init_grille(char grille[L][C]){
     for(int i = 0; i < L; i++){
         for(int j = 0; j < C; j++)
@@ -27,8 +24,7 @@ void init_grille(char grille[L][C]){
     }
 }
 
-/*Affichage de la grille 
-*/
+/*Affichage de la grille */
 void afficher_grille(char grille[L][C]){
     for(int i = 0; i < L; i++){
         for(int j = 0; j < C; j++)
@@ -39,11 +35,11 @@ void afficher_grille(char grille[L][C]){
 
 /* Fonction pour tester qu'il reste de la place dans une colonne
  * Renvoie 1 s'il y a de la place, 0 sinon. Affecte par pointeur la position de la première case vide de la colonne
- * Attention, à reprendre avec les différent type de piece.
+ * Attention, à reprendre avec les différents types de pieces.
 */
-int nonPleine(int piece, int nbCol, int * pos, char grille[L][C]){
+int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
 
-    switch(piece){
+    switch(piece.valeur){
         /* Cas 1 et 2 à ajuster en fonctions des règles (j'ai oublié entre creuses et pleines, qui bloque qui) */
         case 1 :
                 for(int i = L-1; i >= 0; i--){
@@ -78,7 +74,12 @@ int nonPleine(int piece, int nbCol, int * pos, char grille[L][C]){
  * Met à jour la grille et ne renvoie rien.
 */
 void tour_joueur(int nJoueur, char grille[L][C]){
-    int col, piece, pos;
+    int col, pos;
+    piece_t piece;
+    /*Affecter la couleur de la pièce en fonction du choix du type de la pièce
+    * /!\/!\/!\/!\/!\/!\
+    */
+    
 
     /* Demande de saisie de la piece. Penser à vérifier que piece est un entier plus tard.
      * Il faudrat aussi prendre en compte le nombre disponible de chaque piece pour la suite.
@@ -89,8 +90,8 @@ void tour_joueur(int nJoueur, char grille[L][C]){
     printf("3- Bloquante \n");
     do{
         printf("Choix : ");
-        scanf("%d", &piece);
-    }while(piece > 0 && piece < 4);
+        scanf("%d", &piece.valeur);
+    }while(piece.valeur > 0 && piece.valeur < 4);
 
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{
@@ -99,7 +100,7 @@ void tour_joueur(int nJoueur, char grille[L][C]){
     }while(nonPleine(piece, col, &pos, grille) && col > 0 && col < 8);
 
     /* Ajout de la piece */
-    switch(piece){
+    switch(piece.valeur){
         case 1: if(nbJoueur == 1) grille[pos][col] = 'P';
                 else grille[pos][col] = 'p';
                 break;

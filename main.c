@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
@@ -12,7 +13,7 @@
 /* structure de données relatives à une piece */
 typedef struct piece_s {
     int nb_piece; /*Compteur*/
-    char couleur; /*Jaune ou rouge*/
+    char * couleur; /*Jaune ou rouge*/
     int valeur; /*Pleine,creuse,bloquantes*/
 }piece_t;
 
@@ -40,6 +41,11 @@ void afficher_grille(char grille[L][C]){
     }
 }
 
+/* A coder */
+int gagnant(char grille[C][L]){
+    return 1;
+}
+
 /* Fonction pour tester qu'il reste de la place dans une colonne
  * Renvoie 1 s'il y a de la place, 0 sinon. Affecte par pointeur la position de la première case vide de la colonne
  * Attention, à reprendre avec les différents types de pieces.
@@ -51,7 +57,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
         case 1 :
                 for(int i = L-1; i >= 0; i--){
                     if(grille[i][nbCol] == ' '){
-                        pos = i;
+                        *pos = i;
                         return 1;
                     }
                 }
@@ -59,7 +65,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
         case 2 :
                 for(int i = L-1; i >= 0; i--){
                     if(grille[i][nbCol] == ' '){
-                        pos = i;
+                        *pos = i;
                         return 1;
                     }
                 }
@@ -68,7 +74,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
         case 3 :
                 for(int i = L-1; i >= 0; i--){
                     if(grille[i][nbCol] == ' '){
-                        pos = i;
+                        *pos = i;
                         return 1;
                     }
                 }
@@ -80,13 +86,13 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
-return tour_joueur(int nJoueur, char grille[L][C]){
+int tour_joueur(int nJoueur, char grille[L][C]){
     int col, pos;
 
     piece_t piece;
     piece.nb_piece = N;
-    if(nJoueur) piece.couleur = 'jaune';
-    else piece.couleur = 'rouge';
+    if(nJoueur) piece.couleur = "jaune";
+    else piece.couleur = "rouge";
      
 
     /* Demande de saisie de la piece. Penser à vérifier que piece est un entier plus tard.
@@ -107,31 +113,40 @@ return tour_joueur(int nJoueur, char grille[L][C]){
         scanf("%d", &col);
     }while(nonPleine(piece, col, &pos, grille) && col > 0 && col < 8);
 
-    /* Ajout de la piece et mise à jour de la piece*/
+    /* Ajout de la piece */
     switch(piece.valeur){
-        case 1: if(nbJoueur == 1) grille[pos][col] = 'P';
+        case 1: if(nJoueur == 1) grille[pos][col] = 'P';
                 else grille[pos][col] = 'p';
 
                 break;
-        case 2: if(nbJoueur == 1) grille[pos][col] = 'C';
+        case 2: if(nJoueur == 1) grille[pos][col] = 'C';
                 else grille[pos][col] = 'c';
                 break;
-        case 3: if(nbJoueur == 1) grille[pos][col] = 'B';
+        case 3: if(nJoueur == 1) grille[pos][col] = 'B';
                 else grille[pos][col] = 'b';
                 break;
     }
     if(gagnant(grille)) return nJoueur;
     return 0; 
-
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.
 */
-void joueurVSjoueur(char grille[L][C]){
+void joueurVSjoueur(char grille[L][C], joueur_t j1, joueur_t j2){
+   
     while(!gagnant(grille)){
+        system("clear");
         afficher_grille(grille);
-        tour_joueur(joueur);
-        afficher_grille();
+        tour_joueur(j1.nJoueur, grille);
+        system("clear");
+        afficher_grille(grille);
+        if(gagnant(grille)) printf("%s à gagné !! \n", j1.pseudo);
+        else{
+            tour_joueur(j2.nJoueur, grille);
+            system("clear");
+            afficher_grille(grille);
+            if(gagnant(grille)) printf("%s à gagné !! \n", j2.pseudo);
+        }
     }
 }
 
@@ -154,6 +169,7 @@ int main(){
     scanf("%d", &choix);
 
     init_grille(grille);
+    afficher_grille(grille);
     /*
     switch(choix){
         case 1 : joueurVSia(grille);

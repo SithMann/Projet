@@ -9,6 +9,7 @@
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
 #define N 7 /* Nombre dsiponnible de chaque type de pièce */
+#define M 20 /* Taille max pour le pseudo */
 
 /* structure de données relatives à une piece */
 typedef struct piece_s {
@@ -23,6 +24,18 @@ typedef struct joueur_s {
     char * pseudo;
 }joueur_t;
 
+/* fonction de création d'un joueur */
+void creer_joueur(joueur_t * joueur, int n){
+    joueur->nJoueur = n;
+    joueur->pseudo = malloc(sizeof(char)*M);
+}
+
+/* fonction de création d'une piece */
+void creer_piece(piece_t * piece, int n){
+    piece->nb_piece = N;
+    piece->valeur = n;
+    piece->couleur = malloc(sizeof(char)*M);
+}
 
 /* Initialisation de la grille */
 void init_grille(char grille[L][C]){ 
@@ -43,7 +56,7 @@ void afficher_grille(char grille[L][C]){
 
 /* A coder */
 int gagnant(char grille[C][L]){
-    return 1;
+    return 0;
 }
 
 /* Fonction pour tester qu'il reste de la place dans une colonne
@@ -90,7 +103,7 @@ int tour_joueur(int nJoueur, char grille[L][C]){
     int col, pos;
 
     piece_t piece;
-    piece.nb_piece = N;
+    creer_piece(&piece,0);
     if(nJoueur) piece.couleur = "jaune";
     else piece.couleur = "rouge";
      
@@ -105,13 +118,13 @@ int tour_joueur(int nJoueur, char grille[L][C]){
     do{
         printf("Choix : ");
         scanf("%d", &piece.valeur);
-    }while(piece.valeur > 0 && piece.valeur < 4);
+    }while(piece.valeur <= 0 && piece.valeur >= 4);
 
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{
         printf("Veuillez hoisir le numéro de la colonne pour jouer (entier entre 1 et 7): ");
         scanf("%d", &col);
-    }while(nonPleine(piece, col, &pos, grille) && col > 0 && col < 8);
+    }while(!nonPleine(piece, col, &pos, grille) && col <= 0 && col >= 8);
 
     /* Ajout de la piece */
     switch(piece.valeur){
@@ -132,20 +145,25 @@ int tour_joueur(int nJoueur, char grille[L][C]){
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.
 */
-void joueurVSjoueur(char grille[L][C], joueur_t j1, joueur_t j2){
-   
+void joueurVSjoueur(char grille[L][C], joueur_t * j1, joueur_t * j2){
+    printf("\nPseudo joueur 1 : ");
+    scanf("%s", j1->pseudo);
+    printf("\nPseudo joueur 2 : ");
+    scanf("%s", j2->pseudo);
     while(!gagnant(grille)){
         system("clear");
         afficher_grille(grille);
-        tour_joueur(j1.nJoueur, grille);
+        printf("Au tour de %s : \n", j1->pseudo);
+        tour_joueur(j1->nJoueur, grille);
         system("clear");
         afficher_grille(grille);
-        if(gagnant(grille)) printf("%s à gagné !! \n", j1.pseudo);
+        if(gagnant(grille)) printf("%s à gagné !! \n", j1->pseudo);
         else{
-            tour_joueur(j2.nJoueur, grille);
+            printf("Au tour de %s : \n", j2->pseudo);
+            tour_joueur(j2->nJoueur, grille);
             system("clear");
             afficher_grille(grille);
-            if(gagnant(grille)) printf("%s à gagné !! \n", j2.pseudo);
+            if(gagnant(grille)) printf("%s à gagné !! \n", j2->pseudo);
         }
     }
 }
@@ -159,6 +177,9 @@ int main(){
 
     char grille[L][C];
     int choix;
+    joueur_t j1, j2;
+    creer_joueur(&j1, 1);
+    creer_joueur(&j2, 2);
     
     printf("Selectionnez le mode de jeu : \n");
     printf("1- Joueur vs IA \n");
@@ -169,16 +190,16 @@ int main(){
     scanf("%d", &choix);
 
     init_grille(grille);
-    afficher_grille(grille);
-    /*
+
     switch(choix){
-        case 1 : joueurVSia(grille);
+        case 1 : /*joueurVSia(grille);*/
+                printf("En dev !");
                 break;
-        case 2 : joueurVSjoueur(grille);
+        case 2 : joueurVSjoueur(grille, &j1, &j2);
                 break;
-        case 3 :
+        case 3 : exit(1);
                 break;
-    }*/
+    }
 
     return 0;
 }

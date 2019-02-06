@@ -9,12 +9,18 @@
 #define C 7 /*Colonnes*/
 #define N 7 /* Nombre dsiponnible de chaque type de pièce */
 
-
+/* structure de données relatives à une piece */
 typedef struct piece_s {
     int nb_piece; /*Compteur*/
     char couleur; /*Jaune ou rouge*/
     int valeur; /*Pleine,creuse,bloquantes*/
 }piece_t;
+
+/* structure de données relatives à un joueur */
+typedef struct joueur_s {
+    int nJoueur;
+    char * pseudo;
+}joueur_t;
 
 
 /* Initialisation de la grille */
@@ -74,7 +80,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
-void tour_joueur(int nJoueur, char grille[L][C]){
+return tour_joueur(int nJoueur, char grille[L][C]){
     int col, pos;
 
     piece_t piece;
@@ -114,14 +120,19 @@ void tour_joueur(int nJoueur, char grille[L][C]){
                 else grille[pos][col] = 'b';
                 break;
     }
-     
+    if(gagnant(grille)) return nJoueur;
+    return 0; 
 
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.
 */
 void joueurVSjoueur(char grille[L][C]){
-    //while();
+    while(!gagnant(grille)){
+        afficher_grille(grille);
+        tour_joueur(joueur);
+        afficher_grille();
+    }
 }
 
 /*
@@ -142,6 +153,7 @@ int main(){
     printf("\n\n Choix : ");
     scanf("%d", &choix);
 
+    init_grille(grille);
     /*
     switch(choix){
         case 1 : joueurVSia(grille);

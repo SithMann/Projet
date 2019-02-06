@@ -76,7 +76,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
 */
 void tour_joueur(int nJoueur, char grille[L][C]){
     int col, pos;
-    
+
     piece_t piece;
     piece.nb_piece = N;
     if(nJoueur) piece.couleur = 'jaune';
@@ -85,7 +85,7 @@ void tour_joueur(int nJoueur, char grille[L][C]){
     /*Affecter la couleur de la pièce en fonction du choix du type de la pièce
     * /!\/!\/!\/!\/!\/!\
     */
-    
+     
 
     /* Demande de saisie de la piece. Penser à vérifier que piece est un entier plus tard.
      * Il faudrat aussi prendre en compte le nombre disponible de chaque piece pour la suite.

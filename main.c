@@ -18,7 +18,7 @@ typedef struct piece_s {
 
 
 /* Initialisation de la grille */
-void init_grille(char grille[L][C]){
+void init_grille(char grille[L][C]){ 
     for(int i = 0; i < L; i++){
         for(int j = 0; j < C; j++)
             grille[i][j] = ' ';

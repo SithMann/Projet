@@ -45,9 +45,10 @@ void creer_piece(piece_t * piece, int n){
 /* fonction de creation de la grille de jeu */
 void creer_grille(map_t * grille[L][C]){
         for(int i = 0; i < L; i++){
-        for(int j = 0; j < C; j++)
-            grille[i][j]->piece = ' ';
-            grille[i][j]->p = malloc(sizeof(piece_t));
+            for(int j = 0; j < C; j++){
+                grille[i][j]->piece = ' ';
+                grille[i][j]->p = malloc(sizeof(piece_t));
+            }
     }
 }
 
@@ -56,7 +57,7 @@ void afficher_grille(map_t grille[L][C]){
     printf("PUISSANCE 4 ++\n");
     for(int i = 0; i < L; i++){
         for(int j = 0; j < C; j++)
-            printf("%c |", grille[i][j]);
+            printf("%c |", grille[i][j].piece);
         printf("\n");            
     }
 }
@@ -76,7 +77,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, map_t grille[L][C]){
         /* Cas 1 et 2 à ajuster en fonctions des règles (j'ai oublié entre creuses et pleines, qui bloque qui) */
         case 1 :
                 for(int i = L-1; i >= 0; i--){
-                    if(grille[i][nbCol] == ' '){
+                    if(grille[i][nbCol].piece == ' '){
                         *pos = i;
                         return 1;
                     }
@@ -84,7 +85,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, map_t grille[L][C]){
                 break;
         case 2 :
                 for(int i = L-1; i >= 0; i--){
-                    if(grille[i][nbCol] == ' '){
+                    if(grille[i][nbCol].piece == ' '){
                         *pos = i;
                         return 1;
                     }
@@ -93,7 +94,7 @@ int nonPleine(piece_t piece, int nbCol, int * pos, map_t grille[L][C]){
         /* Cas 3 OK */
         case 3 :
                 for(int i = L-1; i >= 0; i--){
-                    if(grille[i][nbCol] == ' '){
+                    if(grille[i][nbCol].piece == ' '){
                         *pos = i;
                         return 1;
                     }
@@ -135,15 +136,15 @@ int tour_joueur(int nJoueur, map_t grille[L][C]){
 
     /* Ajout de la piece */
     switch(piece.valeur){
-        case 1: if(nJoueur == 1) grille[pos][col] = 'P';
-                else grille[pos][col] = 'p';
+        case 1: if(nJoueur == 1) grille[pos][col].piece = 'P';
+                else grille[pos][col].piece = 'p';
 
                 break;
-        case 2: if(nJoueur == 1) grille[pos][col] = 'C';
-                else grille[pos][col] = 'c';
+        case 2: if(nJoueur == 1) grille[pos][col].piece = 'C';
+                else grille[pos][col].piece = 'c';
                 break;
-        case 3: if(nJoueur == 1) grille[pos][col] = 'B';
-                else grille[pos][col] = 'b';
+        case 3: if(nJoueur == 1) grille[pos][col].piece = 'B';
+                else grille[pos][col].piece = 'b';
                 break;
     }
     if(gagnant(grille)) return nJoueur;
@@ -183,6 +184,7 @@ void joueurVSia(map_t grille[L][C]){
 int main(){
 
     map_t grille[L][C];
+    creer_grille(grille);
     int choix;
     joueur_t j1, j2;
     creer_joueur(&j1, 1);
@@ -195,8 +197,6 @@ int main(){
 
     printf("\n\n Choix : ");
     scanf("%d", &choix);
-
-    init_grille(grille);
 
     switch(choix){
         case 1 : /*joueurVSia(grille);*/

@@ -7,6 +7,7 @@
 
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
+#define N 7 /* Nombre dsiponnible de chaque type de pièce */
 
 
 typedef struct piece_s {
@@ -76,6 +77,9 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
 void tour_joueur(int nJoueur, char grille[L][C]){
     int col, pos;
     piece_t piece;
+    piece.nb_piece = N;
+    if(nJoueur) piece.couleur = 'jaune';
+    else piece.couleur = 'rouge';
     /*Affecter la couleur de la pièce en fonction du choix du type de la pièce
     * /!\/!\/!\/!\/!\/!\
     */
@@ -99,10 +103,11 @@ void tour_joueur(int nJoueur, char grille[L][C]){
         scanf("%d", &col);
     }while(nonPleine(piece, col, &pos, grille) && col > 0 && col < 8);
 
-    /* Ajout de la piece */
+    /* Ajout de la piece et mise à jour de la piece*/
     switch(piece.valeur){
         case 1: if(nbJoueur == 1) grille[pos][col] = 'P';
                 else grille[pos][col] = 'p';
+
                 break;
         case 2: if(nbJoueur == 1) grille[pos][col] = 'C';
                 else grille[pos][col] = 'c';

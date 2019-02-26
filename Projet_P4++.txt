@@ -1,24 +1,38 @@
-Dubois, Farizon,  Després.Mathis.
+Dubois.Clément, Farizon.Noémie, Després.Mathis. 
 
 Puissance 4++ : 
+Règle du puissance 4 basique où le but est d'aligner un nombres de pions définis au début du jeu. 
+4 joueurs minimum, 3 types de pièces (pleines, creuses, et bloquantes). 
 
-Règle du puissance 4 basique où le but est d'aligner un nombres de pions définis au début du jeu.
-4 joueurs minimum, 3 types de pièces (pleines, creuses, et bloquantes).
-
-Limites du projet : Réaliser un puissance 4++ avec interface graphique et jeu en réseau.
+Limites du projet : Réaliser un puissance 4++ avec interface graphique et jeu en réseau. 
 
 Priorités ordonnées : 
-    -Jeu dans le terminal
-    -Interface graphique
-    -Jeu en réseau
+
+    -Jeu dans le terminal 
+    -Interface graphique 
+    -Jeu en réseau 
 
 Sous-tâches : 
-    -Création des pièces
-        -Type de pièces
-    -Création de la grille
-        -En fonction du nb de joueurs, de la taille de la grille et des pions à aligner.
-    -Création des joueurs
-        -Choix de l'utilisateur
-    -Conditions de victoire
-    -Différents modes de jeu
-        -joueur vs joueur, joueur vs IA. 
+I/ Jeu dans le terminal
+    1) Jeu de base en joueur contre joueur
+
+        -Création des pièces 
+            -Type de pièces, couleurs des pièces (surlignage dans le terminal, nécessite recherches)
+        -Création de la grille 
+            -L'utilisateur aura le choix entre plusieurs palliers pour la taille de la grille. 
+        -Création des joueurs (avec pseudos)
+            -L'utilisateur pourra choisir le nombre de joueur (minimum 4) 
+        -Conditions de victoire 
+        -Sauvegarde des scores dans un fichier
+
+    2) Jeu avec une IA
+
+        -Faire jouer l'ordinateur de façon aléatoire.
+        -Faire jouer l'ordinateur en suivant une stratégie gagnante.
+        -Plusieurs niveaux avec un pourcentage de coups aléatoire de l'ordinateur.
+
+II/ Jeu en interface graphique
+    1) Phase de tests
+        -Prendre en main la SDL2 pour l'appliquer au projet.
+    2) Le jeu en entier en SDL2
+        -Du menu à la fin de partie, tout sera affiché (pièces, grille etc).

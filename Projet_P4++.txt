@@ -36,8 +36,11 @@ II/ Jeu en interface graphique
         -Prendre en main la SDL2 pour l'appliquer au projet.
     2) Le jeu en entier en SDL2
         -Du menu à la fin de partie, tout sera affiché (pièces, grille etc).
+<<<<<<< HEAD
 
 III/ Jeu en réseau.
 
 
 
+=======
+>>>>>>> f39a4e0694eee8d47546e5b6a9550cebc3ba3de2

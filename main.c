@@ -8,7 +8,7 @@
  
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
-#define N 7 /* Nombre dsiponnible de chaque type de pièce */
+#define N 7 /* Nombre dsiponible de chaque type de pièce */
 #define M 20 /* Taille max pour le pseudo */
 
 /* structure de données relatives à une piece */

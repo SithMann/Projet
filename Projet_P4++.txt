@@ -37,6 +37,7 @@ II/ Jeu en interface graphique
     2) Le jeu en entier en SDL2
         -Du menu à la fin de partie, tout sera affiché (pièces, grille etc).
 
+III/ Jeu en réseau.
 
 
 

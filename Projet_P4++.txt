@@ -1,1 +1,25 @@
-Il faut écrire : limites du projet, soustâches, répartir les soustâches.
+Dubois.Clément, Farizon.Noémie, Després.Mathis. 
+
+Puissance 4++ : 
+Règle du puissance 4 basique où le but est d'aligner un nombres de pions définis au début du jeu. 
+4 joueurs minimum, 3 types de pièces (pleines, creuses, et bloquantes). 
+
+Limites du projet : Réaliser un puissance 4++ avec interface graphique et jeu en réseau. 
+
+Priorités ordonnées : 
+
+    -Jeu dans le terminal 
+    -Interface graphique 
+    -Jeu en réseau 
+
+Sous-tâches : 
+
+    -Création des pièces 
+        -Type de pièces 
+    -Création de la grille 
+        -En fonction du nb de joueurs, de la taille de la grille et des pions à aligner. 
+    -Création des joueurs 
+        -Choix de l'utilisateur 
+    -Conditions de victoire -
+    Différents modes de jeu 
+        -joueur vs joueur, joueur vs IA.

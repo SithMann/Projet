@@ -13,20 +13,30 @@ Priorités ordonnées :
     -Jeu en réseau 
 
 Sous-tâches : 
+I/ Jeu dans le terminal
+    1) Jeu de base en joueur contre joueur
 
-1) Jeu de base en joueur contre joueur
+        -Création des pièces 
+            -Type de pièces, couleurs des pièces (surlignage dans le terminal, nécessite recherches)
+        -Création de la grille 
+            -L'utilisateur aura le choix entre plusieurs palliers pour la taille de la grille. 
+        -Création des joueurs (avec pseudos)
+            -L'utilisateur pourra choisir le nombre de joueur (minimum 4) 
+        -Conditions de victoire 
+        -Sauvegarde des scores dans un fichier
 
-    -Création des pièces 
-        -Type de pièces, couleurs des pièces (surlignage dans le terminal)
-    -Création de la grille 
-        -L'utilisateur aura le choix entre plusieurs palliers pour la taille de la grille. 
-    -Création des joueurs 
-        -L'utilisateur pourra choisir le nombre de joueur (minimum 4) 
-    -Conditions de victoire 
+    2) Jeu avec une IA
 
-2) Jeu avec une IA
+        -Faire jouer l'ordinateur de façon aléatoire.
+        -Faire jouer l'ordinateur en suivant une stratégie gagnante.
+        -Plusieurs niveaux avec un pourcentage de coups aléatoire de l'ordinateur.
 
-    -Faire jouer l'ordinateur de façon, aléatoire.
-    -Faire jouer l'ordinateur en suivant une stratégie gagnante.
+II/ Jeu en interface graphique
+    1) Phase de tests
+        -Prendre en main la SDL2 pour l'appliquer au projet.
+    2) Le jeu en entier en SDL2
+        -Du menu à la fin de partie, tout sera affiché (pièces, grille etc).
+
+
 
 

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
+ 
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
 #define N 7 /* Nombre dsiponnible de chaque type de pièce */

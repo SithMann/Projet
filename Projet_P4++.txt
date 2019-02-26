@@ -14,12 +14,19 @@ Priorités ordonnées :
 
 Sous-tâches : 
 
+1) Jeu de base en joueur contre joueur
+
     -Création des pièces 
-        -Type de pièces 
+        -Type de pièces, couleurs des pièces (surlignage dans le terminal)
     -Création de la grille 
-        -En fonction du nb de joueurs, de la taille de la grille et des pions à aligner. 
+        -L'utilisateur aura le choix entre plusieurs palliers pour la taille de la grille. 
     -Création des joueurs 
-        -Choix de l'utilisateur 
-    -Conditions de victoire -
-    Différents modes de jeu 
-        -joueur vs joueur, joueur vs IA.
+        -L'utilisateur pourra choisir le nombre de joueur (minimum 4) 
+    -Conditions de victoire 
+
+2) Jeu avec une IA
+
+    -Faire jouer l'ordinateur de façon, aléatoire.
+    -Faire jouer l'ordinateur en suivant une stratégie gagnante.
+
+

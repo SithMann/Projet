@@ -36,3 +36,9 @@ II/ Jeu en interface graphique
         -Prendre en main la SDL2 pour l'appliquer au projet.
     2) Le jeu en entier en SDL2
         -Du menu à la fin de partie, tout sera affiché (pièces, grille etc).
+
+
+III/ Jeu en réseau.
+
+    - Connexion à un compte joueur
+        - Sauvegarde de tous ce qui concerne le joueur (mdp, scores etc...)

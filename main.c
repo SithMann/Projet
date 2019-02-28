@@ -8,7 +8,7 @@
  
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
-#define N 7 /* Nombre dsiponnible de chaque type de pièce */
+#define N 7 /* Nombre dsiponible de chaque type de pièce */
 #define M 20 /* Taille max pour le pseudo */
 
 /* structure de données relatives à une piece */
@@ -139,8 +139,11 @@ int tour_joueur(int nJoueur, char grille[L][C]){
                 else grille[pos][col] = 'b';
                 break;
     }
+<<<<<<< HEAD
+=======
     if(gagnant(grille)) return nJoueur;
     return 0; 
+>>>>>>> e97989755d70383f0b6334f8299111514e97efa8
 }
 
 /*Fonction affichant le menu de sélection du début*/

@@ -143,13 +143,51 @@ int tour_joueur(int nJoueur, char grille[L][C]){
     return 0; 
 }
 
-/* Fonction contenant la boucle principale du mode de jeu jVj.
-*/
-void joueurVSjoueur(char grille[L][C], joueur_t * j1, joueur_t * j2){
+/*Fonction affichant le menu de sélection du début*/
+void menu_joueur(){
+    int niveau;/*Choix du niveau*/
+    int nb_pion;/*Nombre de pions à aligner qui influence sur la taille de la grille*/
+    int nb_joueur;/*Nombres de joueurs qui influebnce aussi la taille de la grille*/
+    int nb_ligne = 0; /*Nombre de lignes avant le choix de la difficulté*/
+    int nb_colonne = 0; /*Nombre de colonnes avant le choix de la difficulté*/
+   
+    printf("Nombres de joueurs :");
+    printf("\n\t1- 4 joueurs");
+    printf("\n\t2- 5 joueurs");
+    printf("\n\t3- 6 joueurs");
+
+    printf("Choix du nombre de joueurs : ");
+    scanf("%d", &nb_joueur);
+
+    printf("Nombres de pions à aligner : ");
+    printf("\n\t1- 4 pions");
+    printf("\n\t2- 5 pions");
+    printf("\n\t3- 6 pions");
+
+    printf("Choix du nombre de pions à aligner : ");
+    scanf("%d", &nb_pion);
+
+    printf("\nNiveau de difficulté : ");
+    printf("\n\t1- Facile");
+    printf("\n\t2- Moyen");
+    printf("\n\t3- Difficile");
+
+    printf("Choix du niveau : \n");
+    scanf("%d",niveau);
+    
+    nb_ligne = nb_joueur + nb_pion * ++niveau;
+    nb_colonne = nb_joueur + nb_pion * ++niveau;
+
+}
+
+/* Fonction contenant la boucle principale du mode de jeu jVj.*/
+void joueurVSjoueur(char grille[L][C], joueur_t * j1, joueur_t * j2){ /*Paramètre variable pour le nb joueurs de 4 à 6*/
+     
     printf("\nPseudo joueur 1 : ");
     scanf("%s", j1->pseudo);
     printf("\nPseudo joueur 2 : ");
     scanf("%s", j2->pseudo);
+
     while(!gagnant(grille)){
         system("clear");
         afficher_grille(grille);
@@ -169,14 +207,14 @@ void joueurVSjoueur(char grille[L][C], joueur_t * j1, joueur_t * j2){
 }
 
 /*
-void joueurVSia(char grille[L][C]){
+void joueurVSia(int *niveau, int *nb_joueur){
 
 }*/
 
 int main(){
 
     char grille[L][C];
-    int choix;
+    int choix, niveau, ligne, colonne, nb_joueur;
     joueur_t j1, j2;
     creer_joueur(&j1, 1);
     creer_joueur(&j2, 2);
@@ -195,7 +233,7 @@ int main(){
         case 1 : /*joueurVSia(grille);*/
                 printf("En dev !");
                 break;
-        case 2 : joueurVSjoueur(grille, &j1, &j2);
+        case 2 : joueurVSjoueur(grille, &j1, &j2);/*Appel de menu_joueurvsjoueur plutôt que joueurvsjoueur*/
                 break;
         case 3 : exit(1);
                 break;

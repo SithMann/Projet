@@ -139,11 +139,38 @@ int tour_joueur(int nJoueur, char grille[L][C]){
                 else grille[pos][col] = 'b';
                 break;
     }
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 =======
     if(gagnant(grille)) return nJoueur;
     return 0; 
->>>>>>> e97989755d70383f0b6334f8299111514e97efa8
+>>>>>>> e97989755d70383f0b6334f8299111514e97efa8*/
+}
+
+/* Fonction contenant la boucle principale du mode de jeu jVj.*/
+void joueurVSjoueur(char *grille, joueur_t joueur[]){ 
+    int i;
+
+    for(i = 0; joueur[i].nJoueur; i++){
+        printf("\nPseudo joueur %d : ", ++i);
+        scanf("%s", joueur[i].pseudo);
+    }
+
+    while(!gagnant(grille)){
+        system("clear");
+        afficher_grille(grille);
+        printf("Au tour de %s : \n", j1->pseudo);
+        tour_joueur(j1->nJoueur, grille);
+        system("clear");
+        afficher_grille(grille);
+        if(gagnant(grille)) printf("%s à gagné !! \n", j1->pseudo);
+        else{
+            printf("Au tour de %s : \n", j2->pseudo);
+            tour_joueur(j2->nJoueur, grille);
+            system("clear");
+            afficher_grille(grille);
+            if(gagnant(grille)) printf("%s à gagné !! \n", j2->pseudo);
+        }
+    }
 }
 
 /*Fonction affichant le menu de sélection du début*/
@@ -199,7 +226,7 @@ void menu_joueur(){
         printf("\n\t3- Difficile");
 
         printf("Choix du niveau : \n");
-        scanf("%d",niveau);
+        scanf("%d",&niveau);
         if(niveau < 1 || niveau > 3) printf("Le choix doit être compris entre 1 et 3");
     }while(niveau < 1 || niveau > 3);
 
@@ -209,35 +236,6 @@ void menu_joueur(){
     /*Appel de la fonction joueur VS joueur*/
     joueurVSjoueur(grille[nb_ligne][nb_colonne], joueur); /*Nombres de joueurs à faire*/
 
-}
-
-/* Fonction contenant la boucle principale du mode de jeu jVj.*/
-void joueurVSjoueur(char grille[][], joueur_t joueur[]){ 
-    int i, long_tab;
-    for(i = 0; joueur[i]; i++);
-    long_tab = i;
-
-    for(i = 0; joueur[i]; i++){
-        printf("\nPseudo joueur %d : ", ++i);
-        scanf("%s", joueur[i].pseudo);
-    }
-
-    while(!gagnant(grille)){
-        system("clear");
-        afficher_grille(grille);
-        printf("Au tour de %s : \n", j1->pseudo);
-        tour_joueur(j1->nJoueur, grille);
-        system("clear");
-        afficher_grille(grille);
-        if(gagnant(grille)) printf("%s à gagné !! \n", j1->pseudo);
-        else{
-            printf("Au tour de %s : \n", j2->pseudo);
-            tour_joueur(j2->nJoueur, grille);
-            system("clear");
-            afficher_grille(grille);
-            if(gagnant(grille)) printf("%s à gagné !! \n", j2->pseudo);
-        }
-    }
 }
 
 /*

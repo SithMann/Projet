@@ -213,10 +213,8 @@ void menu_joueur(){
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
 void joueurVSjoueur(char grille[][], joueur_t joueur[]){ 
-    int i, long_tab;
-    for(i = 0; joueur[i]; i++);
-    long_tab = i;
-
+    int i;
+ 
     for(i = 0; joueur[i]; i++){
         printf("\nPseudo joueur %d : ", ++i);
         scanf("%s", joueur[i].pseudo);

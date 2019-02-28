@@ -153,43 +153,74 @@ void menu_joueur(){
     int nb_joueur;/*Nombres de joueurs qui influebnce aussi la taille de la grille*/
     int nb_ligne = 0; /*Nombre de lignes avant le choix de la difficulté*/
     int nb_colonne = 0; /*Nombre de colonnes avant le choix de la difficulté*/
-   
-    printf("Nombres de joueurs :");
-    printf("\n\t1- 4 joueurs");
-    printf("\n\t2- 5 joueurs");
-    printf("\n\t3- 6 joueurs");
-
-    printf("Choix du nombre de joueurs : ");
-    scanf("%d", &nb_joueur);
-
-    printf("Nombres de pions à aligner : ");
-    printf("\n\t1- 4 pions");
-    printf("\n\t2- 5 pions");
-    printf("\n\t3- 6 pions");
-
-    printf("Choix du nombre de pions à aligner : ");
-    scanf("%d", &nb_pion);
-
-    printf("\nNiveau de difficulté : ");
-    printf("\n\t1- Facile");
-    printf("\n\t2- Moyen");
-    printf("\n\t3- Difficile");
-
-    printf("Choix du niveau : \n");
-    scanf("%d",niveau);
     
+    do{
+        printf("Nombres de joueurs :");
+        printf("\n\t1- 4 joueurs");
+        printf("\n\t2- 5 joueurs");
+        printf("\n\t3- 6 joueurs");
+
+        printf("Choix du nombre de joueurs : ");
+        scanf("%d", &nb_joueur);
+        if(nb_joueur < 1 || nb_joueur > 3) printf("Le choix doit être compris entre 1 et 3");
+    }while(nb_joueur < 1 || nb_joueur > 3);
+        
+    /*Réattribution des valeurs à nb_joueur pour le nb_joueur en jeu, en vue des calculs 
+    *du nombre de lignes et de colonnes
+    */
+    if(nb_joueur == 1) nb_joueur = 4; 
+    if(nb_joueur == 2) nb_joueur = 5;
+    if(nb_joueur == 3) nb_joueur = 6;
+    
+    joueur_t joueur[] = malloc(sizeof(joueur_t) * nb_joueur);
+
+    do{
+        printf("Nombres de pions à aligner : ");
+        printf("\n\t1- 4 pions");
+        printf("\n\t2- 5 pions");
+        printf("\n\t3- 6 pions");
+
+        printf("Choix du nombre de pions à aligner : ");
+        scanf("%d", &nb_pion);
+        if(nb_pion < 1 || nb_pion > 3) printf("Le choix doit être compris entre 1 et 3");
+    }while(nb_pion < 1 || nb_pion > 3);
+    
+    /*Réattribution des valeurs à nb_pions pour le nb_pions à aligner en vue des calculs 
+    *du nombre de lignes et de colonnes
+    */
+    if(nb_pion == 1) nb_pion = 4; 
+    if(nb_pion == 2) nb_pion = 5;
+    if(nb_pion == 3) nb_pion = 6;
+
+    do{ 
+        printf("\nNiveau de difficulté : ");
+        printf("\n\t1- Facile");
+        printf("\n\t2- Moyen");
+        printf("\n\t3- Difficile");
+
+        printf("Choix du niveau : \n");
+        scanf("%d",niveau);
+        if(niveau < 1 || niveau > 3) printf("Le choix doit être compris entre 1 et 3");
+    }while(niveau < 1 || niveau > 3);
+
     nb_ligne = nb_joueur + nb_pion * ++niveau;
     nb_colonne = nb_joueur + nb_pion * ++niveau;
+
+    /*Appel de la fonction joueur VS joueur*/
+    joueurVSjoueur(grille[nb_ligne][nb_colonne], joueur); /*Nombres de joueurs à faire*/
 
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
-void joueurVSjoueur(char grille[L][C], joueur_t * j1, joueur_t * j2){ /*Paramètre variable pour le nb joueurs de 4 à 6*/
-     
-    printf("\nPseudo joueur 1 : ");
-    scanf("%s", j1->pseudo);
-    printf("\nPseudo joueur 2 : ");
-    scanf("%s", j2->pseudo);
+void joueurVSjoueur(char grille[][], joueur_t joueur[]){ 
+    int i, long_tab;
+    for(i = 0; joueur[i]; i++);
+    long_tab = i;
+
+    for(i = 0; joueur[i]; i++){
+        printf("\nPseudo joueur %d : ", ++i);
+        scanf("%s", joueur[i].pseudo);
+    }
 
     while(!gagnant(grille)){
         system("clear");

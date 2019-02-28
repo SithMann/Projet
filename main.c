@@ -114,8 +114,6 @@ void tour_joueur(int nJoueur, char grille[L][C]){
                 else grille[pos][col] = 'b';
                 break;
     }
-     
-
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.

@@ -147,7 +147,7 @@ int tour_joueur(int nJoueur, char grille[L][C]){
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
-void joueurVSjoueur(char *grille, joueur_t joueur[]){ 
+void joueurVSjoueur(char *grille, joueur_t joueur[], int nb_joueur){ 
     int i;
 
     for(i = 0; joueur[i].nJoueur; i++){
@@ -158,17 +158,13 @@ void joueurVSjoueur(char *grille, joueur_t joueur[]){
     while(!gagnant(grille)){
         system("clear");
         afficher_grille(grille);
-        printf("Au tour de %s : \n", j1->pseudo);
-        tour_joueur(j1->nJoueur, grille);
-        system("clear");
-        afficher_grille(grille);
-        if(gagnant(grille)) printf("%s à gagné !! \n", j1->pseudo);
-        else{
-            printf("Au tour de %s : \n", j2->pseudo);
-            tour_joueur(j2->nJoueur, grille);
+        for( i = 0; i < (sizeof(joueur_t) * nb_joueur), i++){
+            printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
+            tour_joueur(joueur[i].nJoueur, grille);
             system("clear");
             afficher_grille(grille);
-            if(gagnant(grille)) printf("%s à gagné !! \n", j2->pseudo);
+            if(gagnant(grille)) 
+                printf("%s à gagné !! \n", joueur[i].pseudo);
         }
     }
 }
@@ -234,7 +230,7 @@ void menu_joueur(){
     nb_colonne = nb_joueur + nb_pion * ++niveau;
 
     /*Appel de la fonction joueur VS joueur*/
-    joueurVSjoueur(grille[nb_ligne][nb_colonne], joueur); /*Nombres de joueurs à faire*/
+    joueurVSjoueur(grille[nb_ligne][nb_colonne], joueur, nb_joueur); /*Nombres de joueurs à faire*/
 
 }
 

@@ -158,7 +158,7 @@ void joueurVSjoueur(char *grille, joueur_t joueur[], int nb_joueur){
     while(!gagnant(grille)){
         system("clear");
         afficher_grille(grille);
-        for( i = 0; i < (sizeof(joueur_t) * nb_joueur), i++){
+        for( i = 0; i < (sizeof(joueur_t) * nb_joueur); i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur[i].nJoueur, grille);
             system("clear");

@@ -126,7 +126,7 @@ int tour_joueur(int numJoueur, char grille[L][C], char color){
     }while(!nonPleine(piece, col, &pos, grille) && col <= 0 && col >= 8);
 
     /* Ajout de la piece */
-    switch(piece.valeur){ /**/
+    switch(piece.valeur){ 
         case 1: grille[pos][col] = creerPiece(1,10, color, numJoueur);
                 break;
 
@@ -214,7 +214,7 @@ void menu_joueur(){
     }while(nb_joueur < 1 || nb_joueur > 3);
         
     /*
-    *Réattribution des valeurs à nb_joueur pour le nb_joueur en jeu, en vue des calculs 
+    *Réattribution des valeurs à nb_joueur pour le nb_joueur en jeu, en 
     *du nombre de lignes et de colonnes
     */
     if(nb_joueur == 1) nb_joueur = 4; 
@@ -228,41 +228,8 @@ void menu_joueur(){
         printf("\n\t1- 4 pions");
         printf("\n\t2- 5 pions");
         printf("\n\t3- 6 pions");
-nb_case = nb_ligne * nb_colonne;
 
-    nb_piece_c = (nb_case / 4) * (3/4) / 2;
-    nb_piece_p = (nb_case / 4) * (3/4) / 2;
-    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
-nb_case = nb_ligne * nb_colonne;
-
-    nb_piece_c = (nb_case / 4) * (3/4) / 2;
-    nb_piece_p = (nb_case / 4) * (3/4) / 2;
-    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);igner : ");
-nb_case = nb_ligne * nb_colonne;
-
-    nb_piece_c = (nb_case / 4) * (3/4) / 2;
-    nb_piece_p = (nb_case / 4) * (3/4) / 2;
-    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
-nb_case = nb_ligne * nb_colonne;
-
-    nb_piece_c = (nb_case / 4) * (3/4) / 2;
-    nb_piece_p = (nb_case / 4) * (3/4) / 2;
-    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);("Le choix doit être compris nb_case = nb_ligne * nb_colonne;
-
-    nb_piece_c = (nb_case / 4) * (3/4) / 2;
-    nb_piece_p = (nb_case / 4) * (3/4) / 2;
-    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
-nb_case = nb_ligne * nb_colonne;
-
-    nb_piece_c = (nb_case / 4) * (3/4) / 2;
-    nb_piece_p = (nb_case / 4) * (3/4) / 2;
-    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
-nb_case = nb_ligne * nb_colonne;
-
-    nb_piece_c = (nb_case / 4) * (3/4) / 2;
-    nb_piece_p = (nb_case / 4) * (3/4) / 2;
-    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
-    /*
+     /*
     *Réattribution des valeurs à nb_pions pour le nb_pions à aligner en vue des calculs 
     *du nombre de lignes et de colonnes
     */

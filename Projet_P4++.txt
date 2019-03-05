@@ -1,5 +1,7 @@
 Dubois.Clément, Farizon.Noémie, Després.Mathis. 
 
+https://github.com/SithMann/Projet/invitations
+
 Puissance 4++ : 
 Règle du puissance 4 basique où le but est d'aligner un nombres de pions définis au début du jeu. 
 4 joueurs minimum, 3 types de pièces (pleines, creuses, et bloquantes). 

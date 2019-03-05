@@ -3,12 +3,13 @@
 #include <unistd.h>
 
 /* Structure d'une pièce */
-typedef struct pieces_s{
+typedef struct s_piece{
     int nbpieces; // Le nombre
     int type; // 1, 2, 3 pour (pleine, creuse, bloquante)
-    char *couleur;
-}pieces_t;
+    char couleur;// dans le pt sur joueur char couleur; // R,Y,B,G,W,P 
+    char joueur;// pt sur joueur; // A,B,C,D etc...
+}t_piece;
 
-void afficherPiece(pieces_t piece);
-pieces_t creerPiece(int type, int nb, char *couleur);
-void detruirePiece(pieces_t piece);
+void afficherPiece(t_piece piece);
+t_piece creerPiece(int type, int nb, char couleur, char joueur);
+void detruirePiece(t_piece piece);

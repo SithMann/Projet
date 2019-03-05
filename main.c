@@ -22,6 +22,8 @@ typedef struct piece_s {
 typedef struct joueur_s {
     int nJoueur;
     char * pseudo;
+    int nbWin;
+    char couleur;
 }joueur_t;
 
 /* fonction de création d'un joueur */
@@ -99,16 +101,13 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
-int tour_joueur(int nJoueur, char grille[L][C]){
+int tour_joueur(int numJoueur, char grille[L][C], char color){
     int col, pos;
 
     piece_t piece;
-    creer_piece(&piece,0);
-    if(nJoueur) piece.couleur = "jaune";
-    else piece.couleur = "rouge";
-     
-
-    /* Demande de saisie de la piece. Penser à vérifier que piece est un entier plus tard.
+    
+    /* Demande de saisie de la piece.
+     * plus la vérif entier 
      * Il faudrat aussi prendre en compte le nombre disponible de chaque piece pour la suite.
     */
     printf("Choix du type de pièce à jouer : \n");
@@ -127,23 +126,39 @@ int tour_joueur(int nJoueur, char grille[L][C]){
     }while(!nonPleine(piece, col, &pos, grille) && col <= 0 && col >= 8);
 
     /* Ajout de la piece */
-    switch(piece.valeur){
-        case 1: if(nJoueur == 1) grille[pos][col] = 'P';
-                else grille[pos][col] = 'p';
+    switch(piece.valeur){ 
+        case 1: grille[pos][col] = creerPiece(1,10, color, numJoueur);
+                break;
 
+        case 2: grille[pos][col] = creerPiece(2,10, color, numJoueur);
                 break;
-        case 2: if(nJoueur == 1) grille[pos][col] = 'C';
-                else grille[pos][col] = 'c';
+
+        case 3: grille[pos][col] = creerPiece(3,10, color, numJoueur);
                 break;
-        case 3: if(nJoueur == 1) grille[pos][col] = 'B';
-                else grille[pos][col] = 'b';
-                break;
+
     }
 /*<<<<<<< HEAD
 =======
     if(gagnant(grille)) return nJoueur;
     return 0; 
 >>>>>>> e97989755d70383f0b6334f8299111514e97efa8*/
+}
+
+/*Save des scores
+*  \/\
+* \/| \   A FINIR
+*\/ °  \
+*--------
+*/
+void save(joueur_t winner){
+    
+    char* name = winner.pseudo;
+    FILE * score=fopen("score.txt","r");
+    if( score == NULL )
+        return 0;
+
+    if(name == fscanf(score,"",))
+    fprintf(f,"Le joueur %s a %d victoires", joueur[i].pseudo, joueur[i].nbWin);
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
@@ -153,19 +168,23 @@ void joueurVSjoueur(char *grille, joueur_t joueur[], int nb_joueur){
     /*Saisie des pseudos en fonctions du nombre de joueurs*/
     for(i = 0; joueur[i].nJoueur; i++){
         printf("\nPseudo joueur %d : ", ++i);
-        scanf("%s", joueur[i].pseudo);
+        scanf("%s \n", joueur[i]->pseudo);
+        printf("Choisis ta couleur parmi celles disponibles : Rouge (R), Vert (G), Bleue (B), Jaune (Y), Blanc (W), Rose (P)) : ");
+        scanf("%s", joueur[i].couleur);
     }
-
+    /*Check si le pseudo existe déjà et augmenter son nombre de win en fonction du précédent*/
     while(!gagnant(grille)){
         system("clear");
         afficher_grille(grille);
         for( i = 0; i < (sizeof(joueur_t) * nb_joueur); i++){
-            printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
-            tour_joueur(joueur[i].nJoueur, grille);
+            printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i]->pseudo);
+            tour_joueur(joueur[i].nJoueur, grille, joueur[i].couleur);
             system("clear");
             afficher_grille(grille);
-            if(gagnant(grille)) 
-                printf("%s à gagné !! \n", joueur[i].pseudo);
+            if(gagnant(grille)){
+                printf("%s à gagné !! \n", joueur[i]->pseudo);
+                /*Appel de la save des csores à faire quand la fonction sera fini*/
+            }
         }
     }
 }
@@ -177,12 +196,17 @@ void menu_joueur(){
     int nb_joueur;/*Nombres de joueurs qui influence aussi la taille de la grille*/
     int nb_ligne = 0; /*Nombre de lignes avant le choix de la difficulté*/
     int nb_colonne = 0; /*Nombre de colonnes avant le choix de la difficulté*/
+    int nb_case;
+
+    int nb_piece_b; // Pièces bloquantes
+    int nb_piece_p; // Pièces pleines
+    int nb_piece_c; // Pièces creuses
     
-    do{
-        printf("Nombres de joueurs :");
-        printf("\n\t1- 4 joueurs");
-        printf("\n\t2- 5 joueurs");
-        printf("\n\t3- 6 joueurs");
+    do{nb_case = nb_ligne * nb_colonne;
+       
+           nb_piece_c = (nb_case / 4) * (3/4) / 2;
+           nb_piece_p = (nb_case / 4) * (3/4) / 2;
+           nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
 
         printf("Choix du nombre de joueurs : ");
         scanf("%d", &nb_joueur);
@@ -190,7 +214,7 @@ void menu_joueur(){
     }while(nb_joueur < 1 || nb_joueur > 3);
         
     /*
-    *Réattribution des valeurs à nb_joueur pour le nb_joueur en jeu, en vue des calculs 
+    *Réattribution des valeurs à nb_joueur pour le nb_joueur en jeu, en 
     *du nombre de lignes et de colonnes
     */
     if(nb_joueur == 1) nb_joueur = 4; 
@@ -205,12 +229,7 @@ void menu_joueur(){
         printf("\n\t2- 5 pions");
         printf("\n\t3- 6 pions");
 
-        printf("Choix du nombre de pions à aligner : ");
-        scanf("%d", &nb_pion);
-        if(nb_pion < 1 || nb_pion > 3) printf("Le choix doit être compris entre 1 et 3");
-    }while(nb_pion < 1 || nb_pion > 3);
-    
-    /*
+     /*
     *Réattribution des valeurs à nb_pions pour le nb_pions à aligner en vue des calculs 
     *du nombre de lignes et de colonnes
     */
@@ -232,6 +251,19 @@ void menu_joueur(){
     nb_ligne = nb_joueur + nb_pion * ++niveau;
     nb_colonne = nb_joueur + nb_pion * ++niveau;
 
+    nb_case = nb_ligne * nb_colonne;
+
+    nb_piece_c = (nb_case / nb_joueur) * 1.75 ;
+    nb_piece_p = (nb_case / nb_joueur) * 1.75 ;
+    nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
+
+    int nb_piece_b_f = (int)nb_piece_b; // Pièces bloquantes
+    int nb_piece_p_f = (int)nb_piece_p; // Pièces pleines
+    int nb_piece_c_f = (int)nb_piece_c; // Pièces creuses
+
+    if(nb_piece_b_f + nb_piece_c_f + nb_piece_p_f != (int)nb_case)
+        (int)nb_piece_b_f++;
+
     /*Appel de la fonction joueur VS joueur*/
     joueurVSjoueur(grille[nb_ligne][nb_colonne], joueur, nb_joueur); /*Nombres de joueurs à faire*/
 
@@ -244,7 +276,7 @@ void joueurVSia(int *niveau, int *nb_joueur){
 
 int main(){
 
-    int choix;
+    int choix; /*Choix du joueur pour le début du jeu*/
     
     printf("Selectionnez le mode de jeu : \n");
     printf("1- Joueur vs IA \n");

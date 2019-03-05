@@ -7,7 +7,7 @@ typedef struct s_case{
     t_piece *piece2; //vide si la première pièce est de type bloquante 
 }t_case;
 
-void afficher_grille(int longueur, int largeur, t_case grille[longueur][largeur]){
+void afficher_grille(int longueur, int largeur, t_case **grille){
     int i, j;
     for(i=0; i<longueur; i++){
         for(j=0; j<largeur; j++){
@@ -20,6 +20,14 @@ void afficher_grille(int longueur, int largeur, t_case grille[longueur][largeur]
         }
         printf("\n");
     }
+}
+
+void ajouter_piece(int x, int y, t_case **grille, t_piece piece){
+    //on verrifi si la piece est bloquante avant 
+    if(grille[x][y]->piece1==NULL)
+        grille[x][y]->piece1 = piece;
+    else
+        grille[x][y]->piece2 = piece;
 }
 
 int main(){

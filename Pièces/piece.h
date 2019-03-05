@@ -6,7 +6,7 @@
 typedef struct s_piece{
     int nbpieces; // Le nombre
     int type; // 1, 2, 3 pour (pleine, creuse, bloquante)
-    char couleur;// dans le pt sur joueur char couleur; // R,Y,B,G,W,P 
+    char couleur;// dans le pt sur joueur char couleur; // R,Y,B,G,W,P // enum
     char joueur;// pt sur joueur; // A,B,C,D etc...
 }t_piece;
 

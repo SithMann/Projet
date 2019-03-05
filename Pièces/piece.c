@@ -39,6 +39,7 @@ t_piece creerPiece(int type, int nb, char couleur, char joueur){
     return *piece;
 }
 
+/*destruction d'un objet piece (à revoir) */
 void detruirePiece(t_piece *piece){
     piece->type = NULL;
     piece->nbpieces = NULL;

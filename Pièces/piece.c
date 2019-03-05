@@ -23,7 +23,7 @@ void afficherPiece(t_piece * piece){
         case 'P': printf("\033[45m");
                  break;
     }
-    printf("%c", piece->joueur);    // Pour préciser à qui appartient la pièce
+    printf("%d", piece->type);    // Pour préciser à qui appartient la pièce
     printf("\033[0m"); //Reset de la couleur
 }
 
@@ -39,6 +39,10 @@ t_piece creerPiece(int type, int nb, char couleur, char joueur){
     return *piece;
 }
 
-void detruirePiece(t_piece piece){
-
+void detruirePiece(t_piece *piece){
+    piece->type = NULL;
+    piece->nbpieces = NULL;
+    piece->couleur = NULL;
+    piece->joueur = NULL;
+    free(piece);
 }

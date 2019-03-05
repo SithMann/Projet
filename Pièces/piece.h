@@ -10,6 +10,6 @@ typedef struct s_piece{
     char joueur;// pt sur joueur; // A,B,C,D etc...
 }t_piece;
 
-void afficherPiece(t_piece piece);
+void afficherPiece(t_piece *piece);
 t_piece creerPiece(int type, int nb, char couleur, char joueur);
 void detruirePiece(t_piece piece);

@@ -7,8 +7,7 @@
 
 
 /* affichage d'un objet de type t_piece*/
-void afficherPiece(t_piece piece){
-    printf("Nothing atm\n");
+void afficherPiece(t_piece * piece){
 
     switch(piece->couleur){         // Pour afficher la couleur de la pièce
         case 'R': printf("\033[41m");
@@ -32,11 +31,12 @@ void afficherPiece(t_piece piece){
 t_piece creerPiece(int type, int nb, char couleur, char joueur){
 
     t_piece *piece = NULL;
-    piece = malloc(sizeof(piece_t));
+    piece = malloc(sizeof(t_piece));
     piece->type = type;
-    piece->nb = nb;
+    piece->nbpieces = nb;
     piece->couleur = couleur;
-    return piece;
+    piece->joueur = joueur;
+    return *piece;
 }
 
 void detruirePiece(t_piece piece){

@@ -139,18 +139,42 @@ int tour_joueur(int nJoueur, char grille[L][C]){
                 else grille[pos][col] = 'b';
                 break;
     }
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 =======
     if(gagnant(grille)) return nJoueur;
     return 0; 
->>>>>>> e97989755d70383f0b6334f8299111514e97efa8
+>>>>>>> e97989755d70383f0b6334f8299111514e97efa8*/
+}
+
+/* Fonction contenant la boucle principale du mode de jeu jVj.*/
+void joueurVSjoueur(char *grille, joueur_t joueur[], int nb_joueur){ 
+    int i;
+
+    /*Saisie des pseudos en fonctions du nombre de joueurs*/
+    for(i = 0; joueur[i].nJoueur; i++){
+        printf("\nPseudo joueur %d : ", ++i);
+        scanf("%s", joueur[i].pseudo);
+    }
+
+    while(!gagnant(grille)){
+        system("clear");
+        afficher_grille(grille);
+        for( i = 0; i < (sizeof(joueur_t) * nb_joueur); i++){
+            printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
+            tour_joueur(joueur[i].nJoueur, grille);
+            system("clear");
+            afficher_grille(grille);
+            if(gagnant(grille)) 
+                printf("%s à gagné !! \n", joueur[i].pseudo);
+        }
+    }
 }
 
 /*Fonction affichant le menu de sélection du début*/
 void menu_joueur(){
     int niveau;/*Choix du niveau*/
     int nb_pion;/*Nombre de pions à aligner qui influence sur la taille de la grille*/
-    int nb_joueur;/*Nombres de joueurs qui influebnce aussi la taille de la grille*/
+    int nb_joueur;/*Nombres de joueurs qui influence aussi la taille de la grille*/
     int nb_ligne = 0; /*Nombre de lignes avant le choix de la difficulté*/
     int nb_colonne = 0; /*Nombre de colonnes avant le choix de la difficulté*/
     
@@ -165,14 +189,15 @@ void menu_joueur(){
         if(nb_joueur < 1 || nb_joueur > 3) printf("Le choix doit être compris entre 1 et 3");
     }while(nb_joueur < 1 || nb_joueur > 3);
         
-    /*Réattribution des valeurs à nb_joueur pour le nb_joueur en jeu, en vue des calculs 
+    /*
+    *Réattribution des valeurs à nb_joueur pour le nb_joueur en jeu, en vue des calculs 
     *du nombre de lignes et de colonnes
     */
     if(nb_joueur == 1) nb_joueur = 4; 
     if(nb_joueur == 2) nb_joueur = 5;
     if(nb_joueur == 3) nb_joueur = 6;
     
-    joueur_t joueur[] = malloc(sizeof(joueur_t) * nb_joueur);
+    joueur_t* joueur = malloc(sizeof(joueur_t) * nb_joueur);
 
     do{
         printf("Nombres de pions à aligner : ");
@@ -185,7 +210,8 @@ void menu_joueur(){
         if(nb_pion < 1 || nb_pion > 3) printf("Le choix doit être compris entre 1 et 3");
     }while(nb_pion < 1 || nb_pion > 3);
     
-    /*Réattribution des valeurs à nb_pions pour le nb_pions à aligner en vue des calculs 
+    /*
+    *Réattribution des valeurs à nb_pions pour le nb_pions à aligner en vue des calculs 
     *du nombre de lignes et de colonnes
     */
     if(nb_pion == 1) nb_pion = 4; 
@@ -199,7 +225,7 @@ void menu_joueur(){
         printf("\n\t3- Difficile");
 
         printf("Choix du niveau : \n");
-        scanf("%d",niveau);
+        scanf("%d",&niveau);
         if(niveau < 1 || niveau > 3) printf("Le choix doit être compris entre 1 et 3");
     }while(niveau < 1 || niveau > 3);
 
@@ -207,35 +233,8 @@ void menu_joueur(){
     nb_colonne = nb_joueur + nb_pion * ++niveau;
 
     /*Appel de la fonction joueur VS joueur*/
-    joueurVSjoueur(grille[nb_ligne][nb_colonne], joueur); /*Nombres de joueurs à faire*/
+    joueurVSjoueur(grille[nb_ligne][nb_colonne], joueur, nb_joueur); /*Nombres de joueurs à faire*/
 
-}
-
-/* Fonction contenant la boucle principale du mode de jeu jVj.*/
-void joueurVSjoueur(char grille[][], joueur_t joueur[]){ 
-    int i;
- 
-    for(i = 0; joueur[i]; i++){
-        printf("\nPseudo joueur %d : ", ++i);
-        scanf("%s", joueur[i].pseudo);
-    }
-
-    while(!gagnant(grille)){
-        system("clear");
-        afficher_grille(grille);
-        printf("Au tour de %s : \n", j1->pseudo);
-        tour_joueur(j1->nJoueur, grille);
-        system("clear");
-        afficher_grille(grille);
-        if(gagnant(grille)) printf("%s à gagné !! \n", j1->pseudo);
-        else{
-            printf("Au tour de %s : \n", j2->pseudo);
-            tour_joueur(j2->nJoueur, grille);
-            system("clear");
-            afficher_grille(grille);
-            if(gagnant(grille)) printf("%s à gagné !! \n", j2->pseudo);
-        }
-    }
 }
 
 /*
@@ -245,11 +244,7 @@ void joueurVSia(int *niveau, int *nb_joueur){
 
 int main(){
 
-    char grille[L][C];
-    int choix, niveau, ligne, colonne, nb_joueur;
-    joueur_t j1, j2;
-    creer_joueur(&j1, 1);
-    creer_joueur(&j2, 2);
+    int choix;
     
     printf("Selectionnez le mode de jeu : \n");
     printf("1- Joueur vs IA \n");
@@ -265,7 +260,7 @@ int main(){
         case 1 : /*joueurVSia(grille);*/
                 printf("En dev !");
                 break;
-        case 2 : joueurVSjoueur(grille, &j1, &j2);/*Appel de menu_joueurvsjoueur plutôt que joueurvsjoueur*/
+        case 2 : menu_joueur();
                 break;
         case 3 : exit(1);
                 break;

@@ -12,16 +12,24 @@
 * \file main.c
 * \author Clement Dubois
 * \date 7 mars 2019
-* 
-* 
 */
 
+/**
+* \fn creer_joueur
+* \param pointeur sur un joueur, entier n
+* \return la fonction ne retourne rien
+*/
 /* fonction de création d'un joueur */
 void creer_joueur(t_joueur * joueur, int n){
     joueur->nJoueur = n;
     joueur->pseudo = malloc(sizeof(char)*M);
 }
 
+/**
+* \fn creer_piece 
+* \param pointeur sur un joueur, entier n
+* \return la fonction ne retourne rien 
+*/
 /* fonction de création d'une piece */
 void creer_piece(t_piece * piece, int n){
     piece->nb_piece = N;
@@ -29,11 +37,21 @@ void creer_piece(t_piece * piece, int n){
     piece->couleur = malloc(sizeof(char)*M);
 }
 
+/**
+* \fn gagnant
+* \param matrice grille de type t_case
+* \return la fonction retourne une entier (code) en fonction de si il y a victoire ou defaite du joueur
+*/
 /* A coder */
 int gagnant(t_case ** grille){
     return 0;
 }
 
+/**
+* \fn nonPleine
+* \param piece de type t_piece, entier nombre de colonne, pointeur sur un entier pour la position, matrice grille de type t_case
+* \return la fonction renvoie un entier ...a finir...
+*/
 /* Fonction pour tester qu'il reste de la place dans une colonne
  * Renvoie 1 s'il y a de la place, 0 sinon. Affecte par pointeur la position de la première case vide de la colonne
  * Attention, à reprendre avec les différents types de pieces.
@@ -76,6 +94,11 @@ int nonPleine(t_piece piece, int nbCol, int * pos, t_case ** grille){
     return -1;
 }
 
+/**
+* \fn tour_joueur
+* \param entier nombre de joueur, matrice grille de type t_case, caractere pour stocker la couleur
+* \return la fonction retourne un entier designant le joueur qui devra palcer sa piece
+*/
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
@@ -122,6 +145,11 @@ int tour_joueur(int numJoueur, t_case ** grille, char color){
 >>>>>>> e97989755d70383f0b6334f8299111514e97efa8*/
 }
 
+/**
+* \fn save
+* \param joueur gagnat de type joueur
+* \return la fonction ne retourne rien
+*/
 /*Save des scores
 *  \/\
 * \/| \   A FINIR
@@ -139,6 +167,10 @@ void save(t_joueur winner){
     fprintf(f,"Le joueur %s a %d victoires", joueur[i].pseudo, joueur[i].nbWin);
 }
 
+/**
+* \fn joueurVSjoueur
+* \param ...a finir...
+*/
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
 void joueurVSjoueur(char *grille, t_joueur *joueur, int nb_joueur){ 
     int i;
@@ -167,6 +199,11 @@ void joueurVSjoueur(char *grille, t_joueur *joueur, int nb_joueur){
     }
 }
 
+/**
+* \fn menu_joueur
+* \param pointeur sur entier pour le nombre de ligne, pointeur sur entier pour le nombre de colonne
+* \return la fonction ne retourne rien
+*/
 /*Fonction affichant le menu de sélection du début*/
 void menu_joueur(int * nb_ligne, int * nb_colonne){
     int niveau;/*Choix du niveau*/

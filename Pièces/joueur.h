@@ -8,14 +8,14 @@
 */
 
 /**
-* \typedef enum
+* \typedef enumeration
 * \enum e_couleur
 * \brief structure qui regroupe l'ensemble des couleurs possible que le joueur peut choisir pour ses pieces
 * */
 typedef enum e_couleur{RED,BLUE,GREEN,YELLOW,WHITE,PINK}t_couleur;
 
 /**
-* \typedef struct
+* \typedef structure
 * \struct s_joueur
 * \brief structure qui permet de sauvegarder les informations relatives au joueur tel que le score...
 * */

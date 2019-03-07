@@ -9,7 +9,7 @@
 */
 
 /**
-* \typedef struct
+* \typedef structure
 * \struct s_case
 * \brief structure qui permet de stocker le contenue d'une case de la grille(nombre de pieces, type...)
 */
@@ -19,6 +19,7 @@ typedef struct s_case{
 }t_case;
 
 /**
+* \fn afficher_grille
 * \param entier longueur, entier largeur, matrice grille de type t_case
 * \return la fonction ne retourne rien
 * */
@@ -38,6 +39,7 @@ void afficher_grille(int longueur, int largeur, t_case **grille){
 }
 
 /**
+* \fn ajouter_piece
 * \param entier x, entier y, matrice grille de type t_case, piece de type t_piece
 * \return la fonction ne retourne rien
 * */

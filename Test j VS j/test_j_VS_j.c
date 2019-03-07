@@ -8,7 +8,7 @@
 
 /* A coder */
 int gagnant(t_case ** grille){
-    return 1;
+    return 0;
 }
 
 /* Fonction pour tester qu'il reste de la place dans une colonne
@@ -101,11 +101,7 @@ void tour_joueur(t_joueur joueur, t_case ** grille, int nb_ligne, int nb_colonne
         scanf("%d", &col);
     }while(!nonPleine(piece, col, nb_ligne, grille) && col <= 0 && col >= nb_colonne);
 }
-/*<<<<<<< HEAD
-=======
-    if(gagnant(grille)) return nJoueur;
-    return 0; 
->>>>>>> e97989755d70383f0b6334f8299111514e97efa8*/
+
 
 /*Save des scores
 *  \/\
@@ -127,13 +123,13 @@ void save(t_joueur winner){
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
 void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_ligne, int nb_colonne){ 
     int i;
-    char color;
+    char color = RED;
 
     /*Saisie des pseudos en fonctions du nombre de joueurs*/
-    for(i = 0; joueur[i].nJoueur; i++){
-        printf("\nPseudo joueur %d : ", i+1);
+    for(i = 0; i < nb_joueur; i++){
+        printf("Pseudo joueur %d : ", i+1);
         scanf("%s", joueur[i].pseudo);
-        printf("\nChoisis ta couleur parmi celles disponibles : Rouge (R), Vert (G), Bleue (B), Jaune (Y), Blanc (W), Rose (P)) : ");
+        printf("Choisis ta couleur parmi celles disponibles : Rouge (R), Vert (G), Bleue (B), Jaune (Y), Blanc (W), Rose (P)) : ");
         scanf("%c", &color);
 
         switch(color){
@@ -250,7 +246,7 @@ void menu_joueur(t_case **grille, int * nb_ligne, int * nb_colonne){
         creerPiece(2, nb_piece_c_f, joueur[i]);
         creerPiece(3, nb_piece_b_f, joueur[i]);
     }
-
+    
     /*Appel de la fonction joueur VS joueur*/
     joueurVSjoueur(grille, joueur, nb_joueur, *nb_ligne, *nb_colonne); /*Nombres de joueurs à faire*/
 

@@ -4,7 +4,7 @@
 
 /**
 * \file grille.c
-* \autor Noemie Farizon
+* \author Noemie Farizon
 * \date 5 mars 2019
 *
 * 

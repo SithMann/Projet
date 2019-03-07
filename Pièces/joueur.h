@@ -3,7 +3,7 @@
 
 /**
 * \file joueur.h
-* \autor Mathis Despres
+* \author Mathis Despres
 * \date 7 mars 2019
 *
 * 

@@ -10,7 +10,7 @@
 
 /**
 * \file main.c
-* \autor Clement Dubois
+* \author Clement Dubois
 * \date 7 mars 2019
 * 
 * 

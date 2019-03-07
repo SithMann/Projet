@@ -5,7 +5,7 @@
 
 /**
 * \file piece.h
-* \autor Mathis Despres
+* \author Mathis Despres
 * \date 5 mars 2019
 * 
 * 

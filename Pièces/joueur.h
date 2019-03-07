@@ -9,3 +9,6 @@ typedef struct s_joueur{
     int nJoueur;
     t_couleur couleur;
 }t_joueur;
+
+// Modif pseudo 
+// sauvegarde

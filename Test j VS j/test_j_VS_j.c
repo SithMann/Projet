@@ -1,13 +1,7 @@
-/* Notes à moi même (et autre chieuse ou rouquin du groupe) :
- * 
- */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 
-#include "piece.h"
-#include "joueur.h"
 #include "grille.h"
 
 #define M 20 /* Taille max pour le pseudo */

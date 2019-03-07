@@ -106,7 +106,7 @@ void tour_joueur(t_joueur joueur, t_case ** grille, int nb_ligne, int nb_colonne
     do{
         printf("Veuillez hoisir le numéro de la colonne pour jouer (entier entre 1 et %d): ", nb_colonne);
         scanf("%d", &col);
-    }while(!nonPleine(piece, col, nb_ligne, grille) && col <= 0 && col >= nb_colonne);
+    }while(!nonPleine(piece, col-1, nb_ligne, grille) && col <= 0 && col >= nb_colonne);
 }
 
 
@@ -156,13 +156,11 @@ void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_lig
         }
     }
     /*Check si le pseudo existe déjà et augmenter son nombre de win en fonction du précédent*/
-    //segmentation fault dans cette boucle
+    //segmentation fault dans cette boucle => ok mais mnt le programme s'arrete après le premier coup
     int k =0;
     while(!k){
         system("clear");
-        printf("COUCOU\n");
-        //afficher_grille(nb_ligne, nb_colonne, grille);
-        printf("COUCOU\n");
+        afficher_grille(nb_ligne, nb_colonne, grille);
         for( i = 0; i < (sizeof(t_joueur) * nb_joueur); i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur[i], grille, nb_ligne, nb_colonne);

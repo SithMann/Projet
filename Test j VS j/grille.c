@@ -5,7 +5,6 @@
 void afficher_grille(int longueur, int largeur, t_case **grille){
     int i, j;
     for(i=0; i<longueur; i++){
-        printf("|");
         for(j=0; j<largeur; j++){
             printf("|");
             if(grille[i][j].piece1!=NULL){
@@ -13,7 +12,7 @@ void afficher_grille(int longueur, int largeur, t_case **grille){
                 if(grille[i][j].piece2!=NULL)
                     afficherPiece(grille[i][j].piece2);
             }
-            printf(" ");
+            printf("\t");
         }
         printf("\n");
     }
@@ -40,4 +39,5 @@ t_case **init_grille(int x, int y, t_case **grille){
             grille[i][j].piece2 = NULL;
         }
     }
+    return grille;
 }

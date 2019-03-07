@@ -4,17 +4,8 @@
 #include <string.h>
 #include "piece.h"
 
-/**
-* \file piece.c
-* \author Mathis Despres
-* \date 5 mars 2019
-*/
 
-/**
-* \fn afficherPiece
-* \param pointeur sur type t_piece
-* \return la fonction ne retourne rien
-*/
+
 /* affichage d'un objet de type t_piece*/
 void afficherPiece(t_piece * piece){
 
@@ -36,11 +27,6 @@ void afficherPiece(t_piece * piece){
     printf("\033[0m"); //Reset de la couleur
 }
 
-/**
-* \fn creerPiece
-* \param entier type, entier nombre de pieces, joueur de type t_joueur
-* \return la fonction retourne une piece de type t_piece
-*/
 /* creation d'un objet de type t_piece */
 t_piece creerPiece(int type, int nb, t_joueur joueur){
 
@@ -52,11 +38,6 @@ t_piece creerPiece(int type, int nb, t_joueur joueur){
     return *piece;
 }
 
-/**
-* \fn detruirePiece
-* \param pointeur de type t_piece
-* \return la fonction ne retourne rien
-*/
 /*destruction d'un objet piece (à revoir) */
 void detruirePiece(t_piece *piece){
     piece->type = NULL;

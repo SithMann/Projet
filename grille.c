@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include "piece.h"
 
+/**
+* \file grille.c
+* \autor Noemie Farizon
+* \date 5 mars 2019
+*
+* 
+*/
+
 typedef struct s_case{
     t_piece *piece1; //pointeur sur la premiere piece presente dans la case 
     t_piece *piece2; //vide si la première pièce est de type bloquante 

@@ -1,7 +1,3 @@
-/* Notes à moi même (et autre chieuse ou rouquin du groupe) :
- * 
- */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -11,6 +7,14 @@
 #include "grille.h"
 
 #define M 20 /* Taille max pour le pseudo */
+
+/**
+* \file main.c
+* \autor Clement Dubois
+* \date 7 mars 2019
+* 
+* 
+*/
 
 /* fonction de création d'un joueur */
 void creer_joueur(t_joueur * joueur, int n){

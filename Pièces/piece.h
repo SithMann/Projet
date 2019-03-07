@@ -3,6 +3,14 @@
 #include <unistd.h>
 #include "joueur.h"
 
+/**
+* \file piece.h
+* \autor Mathis Despres
+* \date 5 mars 2019
+* 
+* 
+*/
+
 /* Structure d'une pièce */
 typedef struct s_piece{
     int nbpieces; // Le nombre

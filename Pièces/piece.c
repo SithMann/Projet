@@ -4,7 +4,13 @@
 #include <string.h>
 #include "piece.h"
 
-
+/**
+* \file piece.c
+* \autor Mathis Despres
+* \date 5 mars 2019
+* 
+* 
+*/
 
 /* affichage d'un objet de type t_piece*/
 void afficherPiece(t_piece * piece){

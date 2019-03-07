@@ -26,9 +26,9 @@ int nonPleine(t_piece piece, int nbCol, int nbLig, t_case ** grille){
         * Elle descend le plus bas si il n'y a que des creuses jusqu'à une bloquante ou une pleine
         */
         case 1 : //Pièces creuses
-                if((grille[0][nbCol].piece1 == NULL) || ((grille[0][nbCol].piece1->type == 2) && (grille[0][nbCol].piece2 == NULL))){
+                if((grille[nbLig-1][nbCol].piece1 == NULL) || ((grille[nbLig-1][nbCol].piece1->type == 2) && (grille[nbLig-1][nbCol].piece2 == NULL))){
                     printf("COUCOU\n");
-                    ajouter_piece(0, nbCol, grille, piece);
+                    ajouter_piece(nbLig-1, nbCol, grille, piece);
                     return 1;
                 }else{
                     for(int i = 1; i < nbLig; i++){
@@ -136,6 +136,7 @@ void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_lig
     for(i = 0; i < nb_joueur; i++){
         printf("Pseudo joueur %d : ", i+1);
         scanf("%s", joueur[i].pseudo);
+        joueur[i].nJoueur = i+1;
         //problème ici, il skip le scanf
         printf("Choisis ta couleur parmi celles disponibles : Rouge (R), Vert (G), Bleue (B), Jaune (Y), Blanc (W), Rose (P)) : ");
         scanf("%c", &color);
@@ -160,8 +161,8 @@ void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_lig
     int k =0;
     while(!k){
         system("clear");
-        afficher_grille(nb_ligne, nb_colonne, grille);
-        for( i = 0; i < (sizeof(t_joueur) * nb_joueur); i++){
+       // afficher_grille(nb_ligne, nb_colonne, grille);
+        for( i = 0; i < nb_joueur; i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur[i], grille, nb_ligne, nb_colonne);
             system("clear");
@@ -175,7 +176,7 @@ void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_lig
 }
 
 /*Fonction affichant le menu de sélection du début*/
-void menu_joueur(t_case **grille, int * nb_ligne, int * nb_colonne){
+void menu_joueur(int * nb_ligne, int * nb_colonne){
     int niveau;/*Choix du niveau*/
     int nb_pion;/*Nombre de pions à aligner qui influence sur la taille de la grille*/
     int nb_joueur;/*Nombres de joueurs qui influence aussi la taille de la grille*/
@@ -238,6 +239,8 @@ void menu_joueur(t_case **grille, int * nb_ligne, int * nb_colonne){
     *nb_ligne = nb_joueur + nb_pion * ++niveau;
     *nb_colonne = nb_joueur + nb_pion * ++niveau;
 
+    t_case **grille = init_grille(*nb_ligne,*nb_colonne,grille);
+
     nb_case = (*nb_ligne) * (*nb_colonne);
 
     nb_piece_c = (nb_case / nb_joueur) * 1.75 ;
@@ -272,8 +275,7 @@ int main(){
     int choix; /*Choix du joueur pour le début du jeu*/
     int nb_ligne = 0;
     int nb_colonne = 0;
-    t_case **grille = init_grille(12,12,grille);
-    
+
     while(1){
         printf("Selectionnez le mode de jeu : \n");
         printf("1- Joueur vs IA \n");
@@ -287,7 +289,7 @@ int main(){
             case 1 : /*joueurVSia(grille);*/
                     printf("En dev !");
                     break;
-            case 2 : menu_joueur(grille, &nb_ligne, &nb_colonne);
+            case 2 : menu_joueur(&nb_ligne, &nb_colonne);
                     break;
             case 3 : exit(1);
                     break;

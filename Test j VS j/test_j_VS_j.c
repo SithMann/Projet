@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
+#include "joueur.h"
 #include "grille.h"
 
 #define M 20 /* Taille max pour le pseudo */
@@ -27,7 +27,6 @@ int nonPleine(t_piece piece, int nbCol, int nbLig, t_case ** grille){
         */
         case 1 : //Pièces creuses
                 if((grille[nbLig-1][nbCol].piece1 == NULL) || ((grille[nbLig-1][nbCol].piece1->type == 2) && (grille[nbLig-1][nbCol].piece2 == NULL))){
-                    printf("COUCOU\n");
                     ajouter_piece(nbLig-1, nbCol, grille, piece);
                     return 1;
                 }else{
@@ -49,21 +48,25 @@ int nonPleine(t_piece piece, int nbCol, int nbLig, t_case ** grille){
                     }
                 }
                 break;
-        case 2 :
-                for(int i = 1; i < nbLig; i++){
-                    if(grille[i][nbCol].piece1 == NULL){
-                        if((grille[i + 1][nbCol].piece1->type == 3) || (grille[i + 1][nbCol].piece1->type == 2)){
+        case 2 :if((grille[nbLig-1][nbCol].piece1 == NULL) || ((grille[nbLig-1][nbCol].piece1->type == 1) && (grille[nbLig-1][nbCol].piece2 == NULL))){
+                    ajouter_piece(nbLig-1, nbCol, grille, piece);
+                    return 1;
+                }else{
+                    for(int i = 1; i < nbLig; i++){
+                        if(grille[i][nbCol].piece1 == NULL){
+                            if((grille[i + 1][nbCol].piece1->type == 3) || (grille[i + 1][nbCol].piece1->type == 2)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                            else if((grille[i+1][nbCol].piece1->type == 1) && (grille[i+1][nbCol].piece2->type == 2)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                        }
+                        else if((grille[i][nbCol].piece1->type == 1) && (grille[i][nbCol].piece2 == NULL)){
                             ajouter_piece(i, nbCol, grille, piece);
                             return 1;
                         }
-                        else if((grille[i+1][nbCol].piece1->type == 1) && (grille[i+1][nbCol].piece2->type == 2)){
-                            ajouter_piece(i, nbCol, grille, piece);
-                            return 1;
-                        }
-                    }
-                    else if((grille[i][nbCol].piece1->type == 1) && (grille[i][nbCol].piece2 == NULL)){
-                        ajouter_piece(i, nbCol, grille, piece);
-                        return 1;
                     }
                 }
                 break;
@@ -85,8 +88,7 @@ int nonPleine(t_piece piece, int nbCol, int nbLig, t_case ** grille){
  * Met à jour la grille et ne renvoie rien.
 */
 void tour_joueur(t_joueur joueur, t_case ** grille, int nb_ligne, int nb_colonne){
-    
-    t_piece piece;
+    int type = 0;
     int col;
     
     /* Demande de saisie de la piece.
@@ -99,14 +101,14 @@ void tour_joueur(t_joueur joueur, t_case ** grille, int nb_ligne, int nb_colonne
     printf("3- Bloquante \n");
     do{
         printf("Choix : ");
-        scanf("%d", &piece.type);
-    }while(piece.type <= 0 && piece.type >= 4);
-
+        scanf("%d", &type);
+    }while(type <= 0 && type >= 4);
+    
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{
         printf("Veuillez hoisir le numéro de la colonne pour jouer (entier entre 1 et %d): ", nb_colonne);
         scanf("%d", &col);
-    }while(!nonPleine(piece, col-1, nb_ligne, grille) && col <= 0 && col >= nb_colonne);
+    }while(!nonPleine(joueur.piece[type-1], col-1, nb_ligne, grille) && col <= 0 && col >= nb_colonne);
 }
 
 
@@ -204,7 +206,6 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
     if(nb_joueur == 2) nb_joueur = 5;
     if(nb_joueur == 3) nb_joueur = 6;
     
-    t_joueur* joueur = malloc(sizeof(t_joueur) * nb_joueur);
 
     do{
         printf("Nombres de pions à aligner : ");
@@ -254,11 +255,8 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
     if(nb_piece_b_f + nb_piece_c_f + nb_piece_p_f != (int)nb_case)
         nb_piece_b_f++;
 
-    for(int i = 0; i < nb_joueur; i++){
-        creerPiece(1, nb_piece_p_f, joueur[i]);
-        creerPiece(2, nb_piece_c_f, joueur[i]);
-        creerPiece(3, nb_piece_b_f, joueur[i]);
-    }
+    t_joueur* joueur = creer_joueurs(nb_joueur, joueur,nb_piece_b_f,nb_piece_p_f,nb_piece_c_f);
+
     
     /*Appel de la fonction joueur VS joueur*/
     joueurVSjoueur(grille, joueur, nb_joueur, *nb_ligne, *nb_colonne); /*Nombres de joueurs à faire*/

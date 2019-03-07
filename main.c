@@ -1,30 +1,20 @@
 /* Notes à moi même (et autre chieuse ou rouquin du groupe) :
- * Peut-être faire une structure pièce pour décompter le nombre de pièces utilisées, afficher une pièce, connaitre la valeur numérique de la piece.
+ * 
  */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+
+#include "piece.h"
+#include "joueur.h"
+#include "grille.h"
+
  
 #define L 7 /*Lignes*/
 #define C 7 /*Colonnes*/
 #define N 7 /* Nombre dsiponible de chaque type de pièce */
 #define M 20 /* Taille max pour le pseudo */
-
-/* structure de données relatives à une piece */
-typedef struct piece_s {
-    int nb_piece; /*Compteur*/
-    char * couleur; /*Jaune ou rouge*/
-    int valeur; /*Pleine,creuse,bloquantes*/
-}piece_t;
-
-/* structure de données relatives à un joueur */
-typedef struct joueur_s {
-    int nJoueur;
-    char * pseudo;
-    int nbWin;
-    char couleur;
-}joueur_t;
 
 /* fonction de création d'un joueur */
 void creer_joueur(joueur_t * joueur, int n){
@@ -39,23 +29,6 @@ void creer_piece(piece_t * piece, int n){
     piece->couleur = malloc(sizeof(char)*M);
 }
 
-/* Initialisation de la grille */
-void init_grille(char grille[L][C]){ 
-    for(int i = 0; i < L; i++){
-        for(int j = 0; j < C; j++)
-            grille[i][j] = ' ';
-    }
-}
-
-/*Affichage de la grille */
-void afficher_grille(char grille[L][C]){
-    for(int i = 0; i < L; i++){
-        for(int j = 0; j < C; j++)
-            printf("%c |", grille[i][j]);
-        printf("\n");            
-    }
-}
-
 /* A coder */
 int gagnant(char grille[C][L]){
     return 0;
@@ -67,8 +40,13 @@ int gagnant(char grille[C][L]){
 */
 int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
 
-    switch(piece.valeur){
-        /* Cas 1 et 2 à ajuster en fonctions des règles (j'ai oublié entre creuses et pleines, qui bloque qui) */
+    switch(piece.type){
+        /* Cas 1 et 2 à ajuster en fonctions des règles 
+        * Cas 1 : Creuses : Si il y a une pleine la creuse va directement dans la pleine
+        * Elle descend le plus bas si il n'y a que des pleines jusqu'à une bloquante ou une creuse
+        * Cas 2 : Pleines : Si il y a une creuse la pleine va directement dans la creuse
+        * Elle descend le plus bas si il n'y a que des creuses jusqu'à une bloquante ou une pleine
+        */
         case 1 :
                 for(int i = L-1; i >= 0; i--){
                     if(grille[i][nbCol] == ' '){
@@ -102,8 +80,8 @@ int nonPleine(piece_t piece, int nbCol, int * pos, char grille[L][C]){
  * Met à jour la grille et ne renvoie rien.
 */
 int tour_joueur(int numJoueur, char grille[L][C], char color){
+    
     int col, pos;
-
     piece_t piece;
     
     /* Demande de saisie de la piece.
@@ -116,8 +94,8 @@ int tour_joueur(int numJoueur, char grille[L][C], char color){
     printf("3- Bloquante \n");
     do{
         printf("Choix : ");
-        scanf("%d", &piece.valeur);
-    }while(piece.valeur <= 0 && piece.valeur >= 4);
+        scanf("%d", &piece.type);
+    }while(piece.type <= 0 && piece.type >= 4);
 
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{
@@ -126,7 +104,7 @@ int tour_joueur(int numJoueur, char grille[L][C], char color){
     }while(!nonPleine(piece, col, &pos, grille) && col <= 0 && col >= 8);
 
     /* Ajout de la piece */
-    switch(piece.valeur){ 
+    switch(piece.type){ 
         case 1: grille[pos][col] = creerPiece(1,10, color, numJoueur);
                 break;
 
@@ -162,7 +140,7 @@ void save(joueur_t winner){
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
-void joueurVSjoueur(char *grille, joueur_t joueur[], int nb_joueur){ 
+void joueurVSjoueur(char *grille, joueur_t *joueur, int nb_joueur){ 
     int i;
 
     /*Saisie des pseudos en fonctions du nombre de joueurs*/

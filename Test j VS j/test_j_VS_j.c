@@ -26,25 +26,31 @@ int nonPleine(t_piece piece, int nbCol, int nbLig, t_case ** grille){
         * Elle descend le plus bas si il n'y a que des creuses jusqu'à une bloquante ou une pleine
         */
         case 1 : //Pièces creuses
-                for(int i = 0; i < nbLig; i++){
-                    if(grille[i][nbCol].piece1 == NULL){
-                        if((grille[i + 1][nbCol].piece1->type == 3) || (grille[i + 1][nbCol].piece1->type == 1)){
+                if((grille[0][nbCol].piece1 == NULL) || ((grille[0][nbCol].piece1->type == 2) && (grille[0][nbCol].piece2 == NULL))){
+                    printf("COUCOU\n");
+                    ajouter_piece(0, nbCol, grille, piece);
+                    return 1;
+                }else{
+                    for(int i = 1; i < nbLig; i++){
+                        if(grille[i][nbCol].piece1 == NULL){
+                            if((grille[i + 1][nbCol].piece1->type == 3) || (grille[i + 1][nbCol].piece1->type == 1)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                            else if((grille[i+1][nbCol].piece1->type == 2) && (grille[i+1][nbCol].piece2->type == 1)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                        }
+                        else if((grille[i][nbCol].piece1->type == 2) && (grille[i][nbCol].piece2 == NULL)){
                             ajouter_piece(i, nbCol, grille, piece);
                             return 1;
                         }
-                        else if((grille[i+1][nbCol].piece1->type == 2) && (grille[i+1][nbCol].piece2->type == 1)){
-                            ajouter_piece(i, nbCol, grille, piece);
-                            return 1;
-                        }
-                    }
-                    else if((grille[i][nbCol].piece1->type == 2) && (grille[i][nbCol].piece2 == NULL)){
-                        ajouter_piece(i, nbCol, grille, piece);
-                        return 1;
                     }
                 }
                 break;
         case 2 :
-                for(int i = 0; i < nbLig; i++){
+                for(int i = 1; i < nbLig; i++){
                     if(grille[i][nbCol].piece1 == NULL){
                         if((grille[i + 1][nbCol].piece1->type == 3) || (grille[i + 1][nbCol].piece1->type == 2)){
                             ajouter_piece(i, nbCol, grille, piece);
@@ -62,14 +68,15 @@ int nonPleine(t_piece piece, int nbCol, int nbLig, t_case ** grille){
                 }
                 break;
         /* Cas 3 : BLOQUANTES OK */
-        case 3 :
-                for(int i = nbLig-1; i >= 0; i--){
+        case 3 : 
+                for(int i = nbLig-1; i > 0; i--){
                     if(grille[i][nbCol].piece1 == NULL){
                         ajouter_piece(i, nbCol, grille, piece);
                         return 1;
                     }
                 }
                 break;
+        default :     printf("Erreur\n");
     }
     return -1;
 }
@@ -129,6 +136,7 @@ void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_lig
     for(i = 0; i < nb_joueur; i++){
         printf("Pseudo joueur %d : ", i+1);
         scanf("%s", joueur[i].pseudo);
+        //problème ici, il skip le scanf
         printf("Choisis ta couleur parmi celles disponibles : Rouge (R), Vert (G), Bleue (B), Jaune (Y), Blanc (W), Rose (P)) : ");
         scanf("%c", &color);
 
@@ -148,15 +156,19 @@ void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_lig
         }
     }
     /*Check si le pseudo existe déjà et augmenter son nombre de win en fonction du précédent*/
-    while(!gagnant(grille)){
+    //segmentation fault dans cette boucle
+    int k =0;
+    while(!k){
         system("clear");
-        afficher_grille(nb_ligne, nb_colonne, grille);
+        printf("COUCOU\n");
+        //afficher_grille(nb_ligne, nb_colonne, grille);
+        printf("COUCOU\n");
         for( i = 0; i < (sizeof(t_joueur) * nb_joueur); i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur[i], grille, nb_ligne, nb_colonne);
             system("clear");
             afficher_grille(nb_ligne, nb_colonne, grille);
-            if(gagnant(grille)){
+            if(/*gagnant(grille)*/k){
                 printf("%s à gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }
@@ -173,7 +185,7 @@ void menu_joueur(t_case **grille, int * nb_ligne, int * nb_colonne){
     int nb_piece_b; // Pièces bloquantes
     int nb_piece_p; // Pièces pleines
     int nb_piece_c; // Pièces creuses
-    
+
     do{
         printf("Nombres de joueurs : ");
         printf("\n\t1- 4 joueurs");
@@ -262,7 +274,7 @@ int main(){
     int choix; /*Choix du joueur pour le début du jeu*/
     int nb_ligne = 0;
     int nb_colonne = 0;
-    t_case **grille = NULL;
+    t_case **grille = init_grille(12,12,grille);
     
     while(1){
         printf("Selectionnez le mode de jeu : \n");

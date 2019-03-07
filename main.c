@@ -17,7 +17,7 @@
 #define M 20 /* Taille max pour le pseudo */
 
 /* fonction de création d'un joueur */
-void creer_joueur(joueur_t * joueur, int n){
+void creer_joueur(t_joueur * joueur, int n){
     joueur->nJoueur = n;
     joueur->pseudo = malloc(sizeof(char)*M);
 }
@@ -128,7 +128,7 @@ int tour_joueur(int numJoueur, char grille[L][C], char color){
 *\/ °  \
 *--------
 */
-void save(joueur_t winner){
+void save(t_joueur winner){
     
     char* name = winner.pseudo;
     FILE * score=fopen("score.txt","r");
@@ -140,7 +140,11 @@ void save(joueur_t winner){
 }
 
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
+<<<<<<< HEAD
 void joueurVSjoueur(char *grille, joueur_t *joueur, int nb_joueur){ 
+=======
+void joueurVSjoueur(char *grille, t_joueur joueur[], int nb_joueur){ 
+>>>>>>> ea742e082c491deb5f63f8b7f5d9332c2867679b
     int i;
 
     /*Saisie des pseudos en fonctions du nombre de joueurs*/
@@ -154,7 +158,7 @@ void joueurVSjoueur(char *grille, joueur_t *joueur, int nb_joueur){
     while(!gagnant(grille)){
         system("clear");
         afficher_grille(grille);
-        for( i = 0; i < (sizeof(joueur_t) * nb_joueur); i++){
+        for( i = 0; i < (sizeof(t_joueur) * nb_joueur); i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i]->pseudo);
             tour_joueur(joueur[i].nJoueur, grille, joueur[i].couleur);
             system("clear");
@@ -199,7 +203,7 @@ void menu_joueur(){
     if(nb_joueur == 2) nb_joueur = 5;
     if(nb_joueur == 3) nb_joueur = 6;
     
-    joueur_t* joueur = malloc(sizeof(joueur_t) * nb_joueur);
+    t_joueur* joueur = malloc(sizeof(t_joueur) * nb_joueur);
 
     do{
         printf("Nombres de pions à aligner : ");

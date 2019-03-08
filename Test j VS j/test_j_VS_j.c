@@ -130,7 +130,7 @@ void save(t_joueur winner){
 /* Fonction contenant la boucle principale du mode de jeu jVj.*/
 void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_ligne, int nb_colonne){ 
     int i;
-    char color = RED;
+    char color;
 
     /*Saisie des pseudos en fonctions du nombre de joueurs*/
     for(i = 0; i < nb_joueur; i++){

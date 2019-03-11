@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
+#include "joueur.h"
 
 void afficher_grille(int longueur, int largeur, t_case **grille){
     int i, j;

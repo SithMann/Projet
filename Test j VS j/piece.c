@@ -15,7 +15,7 @@ t_piece creerPiece(int type, int nb){
 
 /*destruction d'un objet piece (à revoir) */
 void detruirePiece(t_piece *piece){
-    piece->type = NULL;
-    piece->nbpieces = NULL;
+    piece->type = 0;
+    piece->nbpieces = 0;
     free(piece);
 }

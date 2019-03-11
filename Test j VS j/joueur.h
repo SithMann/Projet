@@ -2,7 +2,7 @@
 #define __JOUEUR_H__
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <stdio.h> 
 #include "piece.h"
 
 typedef enum e_couleur{RED,BLUE,GREEN,YELLOW,WHITE,PINK}t_couleur;

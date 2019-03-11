@@ -163,7 +163,7 @@ void joueurVSjoueur(t_case **grille, t_joueur *joueur, int nb_joueur, int nb_lig
     int k =0;
     while(!k){
         system("clear");
-       // afficher_grille(nb_ligne, nb_colonne, grille);
+       /*afficher_grille(nb_ligne, nb_colonne, grille);*/
         for( i = 0; i < nb_joueur; i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur[i], grille, nb_ligne, nb_colonne);
@@ -240,7 +240,8 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
     *nb_ligne = nb_joueur + nb_pion * ++niveau;
     *nb_colonne = nb_joueur + nb_pion * ++niveau;
 
-    t_case **grille = init_grille(*nb_ligne,*nb_colonne,grille);
+    t_case **grille;
+    grille = init_grille(*nb_ligne,*nb_colonne,grille);
 
     nb_case = (*nb_ligne) * (*nb_colonne);
 
@@ -255,7 +256,8 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
     if(nb_piece_b_f + nb_piece_c_f + nb_piece_p_f != (int)nb_case)
         nb_piece_b_f++;
 
-    t_joueur* joueur = creer_joueurs(nb_joueur, joueur,nb_piece_b_f,nb_piece_p_f,nb_piece_c_f);
+    t_joueur* joueur;
+    joueur = creer_joueurs(nb_joueur, joueur,nb_piece_b_f,nb_piece_p_f,nb_piece_c_f);
 
     
     /*Appel de la fonction joueur VS joueur*/

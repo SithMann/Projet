@@ -4,9 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Structure représentant une case dans la grille, elle contient deux slots pour des pieces
+ * Chaque slot stock un joueur et un type de piece.
+ */
 typedef struct s_case{
-    t_piece *piece1; //pointeur sur la premiere piece presente dans la case 
-    t_piece *piece2; //vide si la première pièce est de type bloquante 
+    #include <attributs_objet.h>
+    t_place *slot1;
+    t_place *slot2; 
 }t_case;
+
+t_case * creer_case();
+void afficher_case(t_case laCase);
 
 #endif

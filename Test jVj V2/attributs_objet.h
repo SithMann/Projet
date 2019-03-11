@@ -1,0 +1,1 @@
+  void (*p_affiche)(objet_t *);

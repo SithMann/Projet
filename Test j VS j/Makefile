@@ -8,3 +8,7 @@ grille.o : grille.c grille.h
 	gcc -g -Wall -c grille.c grille.h
 test_j_VS_j.o : test_j_VS_j.c grille.h
 	gcc -g -Wall -c test_j_VS_j.c grille.h
+
+clean : 
+	rm -rf *.o
+	rm -rf *.h.gch

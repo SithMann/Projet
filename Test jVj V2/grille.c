@@ -23,6 +23,7 @@ void afficher_grille(int longueur, int largeur, t_grille grille){
 /* Fonction qui crée une matrice qui sera la grille de jeu (alloue la mémoire)
  * Renvoie un pointeur sur la grille
  */
+extern
 t_grille * creer_grille(int longueur, int largeur, void * typeGrille){
     t_grille * grille = malloc(sizeof(t_grille));
     grille->laGrille = malloc(sizeof(typeGrille)*longueur);
@@ -38,6 +39,7 @@ t_grille * creer_grille(int longueur, int largeur, void * typeGrille){
 /* Libère l'espace alloué à la grille
  *
  */
+extern
 void detruire_grille(t_grille grille){
       free(grille->laGrille);
       free(grille);

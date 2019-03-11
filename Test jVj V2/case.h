@@ -14,6 +14,6 @@ typedef struct s_case{
 }t_case;
 
 t_case * creer_case();
-void afficher_case(t_case laCase);
+
 
 #endif

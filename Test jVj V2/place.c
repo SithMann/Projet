@@ -8,4 +8,8 @@
  */
 t_place * creer_place(){
     t_place * place = malloc(sizeof(t_place));
+    place->joueur = NULL;
+    place->piece = NULL;
+
+    return (place);
 }

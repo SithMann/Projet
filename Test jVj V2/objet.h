@@ -5,9 +5,9 @@
  * DEFINITION OBJET  
  */
 
-typedef struct objet_s objet_t ;
+typedef struct s_objet t_objet ;
 
-struct objet_s 
+struct s_objet
 {
 #include <attributs_objet.h>
 };

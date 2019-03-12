@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "objet.h"
+#include "place.h"
 
 /* Structure représentant une case dans la grille, elle contient deux slots pour des pieces
  * Chaque slot stock un joueur et un type de piece.

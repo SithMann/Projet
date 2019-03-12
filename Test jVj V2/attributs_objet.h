@@ -1,1 +1,1 @@
-  void (*p_affiche)(objet_t *);
+  void (*p_affiche)(t_objet *);

@@ -3,15 +3,15 @@
 #include "grille.h"
 #include "joueur.h"
 
-void afficher_grille(int longueur, int largeur, t_case **grille){
+void afficher_grille(int longueur, int largeur, t_case **grille, t_joueur joueur){
     int i, j;
     for(i=0; i<longueur; i++){
         for(j=0; j<largeur; j++){
             printf("|");
             if(grille[i][j].piece1!=NULL){
-                afficherPiece(grille[i][j].piece1);
+                afficherPiece(grille[i][j].piece1, joueur);
                 if(grille[i][j].piece2!=NULL)
-                    afficherPiece(grille[i][j].piece2);
+                    afficherPiece(grille[i][j].piece2, joueur);
             }
             printf("\t");
         }

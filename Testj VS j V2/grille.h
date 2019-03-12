@@ -5,12 +5,16 @@
 #include <stdlib.h>
 #include "piece.h"
 
+typedef struct s_contenu_case{
+    
+}t_contenu_case;
+
 typedef struct s_case{
     t_piece *piece1; //pointeur sur la premiere piece presente dans la case 
     t_piece *piece2; //vide si la première pièce est de type bloquante 
 }t_case;
 
-void afficher_grille(int longueur, int largeur, t_case **grille);
-void ajouter_piece(int x, int y, t_case **grille, t_piece piece);
-t_case **init_grille(int x, int y, t_case **grille);
+void afficher_grille();
+void ajouter_piece();
+t_case **init_grille();
 #endif 

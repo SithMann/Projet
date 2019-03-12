@@ -9,7 +9,7 @@ typedef struct s_objet t_objet ;
 
 struct s_objet
 {
-#include <attributs_objet.h>
+#include "attributs_objet.h"
 };
 
 #endif

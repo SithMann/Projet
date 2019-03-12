@@ -10,7 +10,7 @@
  * Sauvegarde du joueur et de la piece pour avoir accès à la couleur et au type.
  */
 typedef struct s_place{
-    #include <attributs_objet.h>
+    #include "attributs_objet.h"
     t_joueur * joueur;
     t_piece * piece;
 }t_place;

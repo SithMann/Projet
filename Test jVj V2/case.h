@@ -10,7 +10,7 @@
  * Chaque slot stock un joueur et un type de piece.
  */
 typedef struct s_case{
-    #include <attributs_objet.h>
+    #include "attributs_objet.h"
     t_place *slot1;
     t_place *slot2; 
 }t_case;

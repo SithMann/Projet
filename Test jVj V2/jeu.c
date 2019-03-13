@@ -3,7 +3,32 @@
 #include "objet.h"
 #include "grille.h"
 
+int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
+    int count = 0;
+    // Test victoire vertical
+    for(int i = 0; i < grille->longeur; i++){
+        for(int j = 0; j< grille->largeur; j++){
+            if(grille->laGrille[i][j].slot1->joueur.nJoueur == joueur.nJoueur ||  grille->laGrille[i][j].slot2->joueur.nJoueur == joueur.nJoueur)
+                count++;
+            else count = 0;
+            if(count == nbJetons) return 1;
+        }
+    }
 
+    // Test victoire horizontal
+    for(int i = 0; i < grille->longeur; i++){
+        for(int j = 0; j< grille->largeur; j++){
+            if(grille->laGrille[j][i].slot1->joueur.nJoueur == joueur.nJoueur ||  grille->laGrille[j][i].slot2->joueur.nJoueur == joueur.nJoueur)
+                count++;
+            else count = 0;
+            if(count == nbJetons) return 1;
+        }
+    }
+
+    // Test diagonale gauche
+    
+    return 0;
+}
 
 /* Fonction pour tester qu'il reste de la place dans une colonne
  * Renvoie 1 s'il y a de la place, 0 sinon. Affecte par pointeur la position de la première case vide de la colonne

@@ -20,6 +20,17 @@ void afficher_grille(t_grille grille){
     }
 }
 
+extern
+void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur joueur){
+    if(grille->laGrille[x][y].slot1 == NULL){
+        grille->laGrille[x][y].slot1.piece = &piece;
+        grille->laGrille[x][y].slot1.joueur = &joueur;
+    }
+    else
+        grille->laGrille[x][y].slot2.piece = &piece;
+        grille->laGrille[x][y].slot2.joueur = &joueur;
+}
+
 /* Fonction qui crée une matrice qui sera la grille de jeu (alloue la mémoire)
  * Renvoie un pointeur sur la grille
  */

@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "joueur.h"
 #include "grille.h"
 
 #define M 20 /* Taille max pour le pseudo */

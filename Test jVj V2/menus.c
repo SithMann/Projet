@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "jeu.h"
 #include "grille.h"
-#include "joueur.h"
+
 
 /*Fonction affichant le menu de sélection du début*/
 void menu_joueur(int * nb_ligne, int * nb_colonne){

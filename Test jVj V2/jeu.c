@@ -26,7 +26,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     }
 
     // Test diagonale gauche
-    
+
     return 0;
 }
 
@@ -36,7 +36,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
  */
 
 int nonPleine(t_piece piece, int nbCol, t_grille grille, t_joueur joueur){
-
+    int i = 0;
     switch(piece.type){
         /* Cas 1 et 2 à ajuster en fonctions des règles 
         * Cas 1 : Creuses : Si il y a une pleine la creuse va directement dans la pleine
@@ -44,18 +44,49 @@ int nonPleine(t_piece piece, int nbCol, t_grille grille, t_joueur joueur){
         * Cas 2 : Pleines : Si il y a une creuse la pleine va directement dans la creuse
         * Elle descend le plus bas si il n'y a que des creuses jusqu'à une bloquante ou une pleine
         */
-        case 1 :while(grille->laGrille[grille.longueur][nbCol].slot1 == NULL || grille->laGrille[grille.longueur - 1][nbCol].slot1.piece.type == 2);
-                    ajouter_piece(i, nbCol, piece, joueur);
-                        return 1;
-                }
-                else {
-                    for(int i = 0; i < grille.longueur; i++){
-                        if(grille->laGrille[i][nbCol].slot1.piece.type == 2 || grille->laGrille[i][nbCol].slot1.piece.type == 3){
-                            ajouter_piece(i - 1, nbCol, piece, joueur);
+        case 1 :if((grille.laGrille[nbLig-1][nbCol].slot1 == NULL) || ((grille.laGrille[nbLig-1][nbCol].slot1->type == 2) && (grille.laGrille[nbLig-1][nbCol].slot2 == NULL))){
+                    ajouter_piece(nbLig-1, nbCol, grille, piece);
+                    return 1;
+                }else{
+                    for(int i = 1; i < nbLig; i++){
+                        if(grille.laGrille[i][nbCol].slot1 == NULL){
+                            if((grille.laGrille[i + 1][nbCol].slot1->type == 3) || (grille.laGrille[i + 1][nbCol].slot1->type == 1)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                            else if((grille.laGrille[i+1][nbCol].slot1->type == 2) && (grille.laGrille[i+1][nbCol].slot2 == NULL)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                        }
+                        else if((grille.laGrille[i][nbCol].slot1->type == 2) && (grille.laGrille[i][nbCol].slot2 == NULL)){
+                            ajouter_piece(i, nbCol, grille, piece);
+                            return 1;
                         }
                     }
+                }
                 break;
-        case 2 :
+        case 2 :if((grille.laGrille[nbLig-1][nbCol].slot1 == NULL) || ((grille.laGrille[nbLig-1][nbCol].slot1->type == 1) && (grille.laGrille[nbLig-1][nbCol].slot2 == NULL))){
+                    ajouter_piece(nbLig-1, nbCol, grille, piece);
+                    return 1;
+                }else{
+                    for(int i = 1; i < nbLig; i++){
+                        if(grille.laGrille[i][nbCol].slot1 == NULL){
+                            if((grille.laGrille[i + 1][nbCol].slot1->type == 3) || (grille.laGrille[i + 1][nbCol].slot1->type == 2)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                            else if((grille.laGrille[i+1][nbCol].slot1->type == 1) && (grille.laGrille[i+1][nbCol].slot2 == NULL)){
+                                ajouter_piece(i, nbCol, grille, piece);
+                                return 1;
+                            }
+                        }
+                        else if((grille.laGrille[i][nbCol].slot1->type == 1) && (grille.laGrille[i][nbCol].slot2 == NULL)){
+                            ajouter_piece(i, nbCol, grille, piece);
+                            return 1;
+                        }
+                    }
+                }
                 break;
         /* Cas 3 : BLOQUANTES OK */
         case 3 : 

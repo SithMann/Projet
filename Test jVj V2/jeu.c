@@ -19,7 +19,16 @@ int nonPleine(t_piece piece, int nbCol, t_grille grille, t_joueur joueur){
         * Cas 2 : Pleines : Si il y a une creuse la pleine va directement dans la creuse
         * Elle descend le plus bas si il n'y a que des creuses jusqu'à une bloquante ou une pleine
         */
-        case 1 :
+        case 1 :while(grille->laGrille[grille.longueur][nbCol].slot1 == NULL || grille->laGrille[grille.longueur - 1][nbCol].slot1.piece.type == 2);
+                    ajouter_piece(i, nbCol, piece, joueur);
+                        return 1;
+                }
+                else {
+                    for(int i = 0; i < grille.longueur; i++){
+                        if(grille->laGrille[i][nbCol].slot1.piece.type == 2 || grille->laGrille[i][nbCol].slot1.piece.type == 3){
+                            ajouter_piece(i - 1, nbCol, piece, joueur);
+                        }
+                    }
                 break;
         case 2 :
                 break;

@@ -12,5 +12,5 @@ typedef struct s_case{
 
 void afficher_grille(int longueur, int largeur, t_case **grille);
 void ajouter_piece(int x, int y, t_case **grille, t_piece piece);
-
+t_case **init_grille(int x, int y, t_case **grille);
 #endif 

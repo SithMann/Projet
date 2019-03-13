@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
+typedef enum { PLEINE, CREUSE, BLOQUANTE } t_piece;
 
 /* Structure d'une pièce */
 typedef struct s_piece{

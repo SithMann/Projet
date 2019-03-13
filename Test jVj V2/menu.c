@@ -83,7 +83,7 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
         *nb_piece_b_f++;
 
     /*Création de la grille avec le nb de lignes et colonnes  calculées*/
-    t_grille * grille = creer_grille(*nb_ligne, *nb_colonne, sizeof(t_case));
+    t_grille * grille = creer_grille(*nb_ligne, *nb_colonne, sizeof(t_case*));
 
     /*Boucle qui crée les joueurs avec leur numéro et le nb de pièces de chaque type*/
     t_joueur *joueur = malloc(sizeof(t_joueur)*nb_joueur);
@@ -92,5 +92,5 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
         joueur[i] = creer_joueur(i+1, *nb_piece_b_f, *nb_piece_p_f, *nb_piece_c_f);
     }
 
-    joueurVSjoueur(grille, joueur, nb_joueur, *nb_ligne, *nb_colonne);
+    joueurVSjoueur(grille, joueur, nb_joueur);
 }

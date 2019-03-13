@@ -15,6 +15,6 @@ typedef struct s_joueur{
     t_piece * piece;
 }t_joueur;
 
-t_joueur * creer_joueur(int nbJ, t_joueur * joueur, int nb_piece_b_f, int nb_piece_p_f, int nb_piece_c_f);
+t_joueur creer_joueur(int nbJ, int nb_piece_b_f, int nb_piece_p_f, int nb_piece_c_f);
 
 #endif

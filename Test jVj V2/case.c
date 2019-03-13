@@ -16,7 +16,7 @@ t_case * creer_case(){
     lacase->slot1 = NULL;
     lacase->slot2 = NULL;
 
-    laCase->p_affiche = (void (*) (t_objet *))afficher_case;
+    lacase->p_affiche = (void (*) (t_objet *))afficher_case;
 
     return (lacase);
 }

@@ -8,8 +8,8 @@
 */ 
 t_piece * creerPiece(int type, int nbpieces){
     t_piece * piece = malloc(sizeof(piece));
-    t_piece->type = type;
-    t_piece->nbpieces = nbpieces;
+    piece->type = type;
+    piece->nbpieces = nbpieces;
 
     return (piece);
 }

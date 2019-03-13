@@ -6,9 +6,9 @@
 int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     int count = 0;
     // Test victoire vertical
-    for(int i = 0; i < grille->longeur; i++){
+    for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
-            if(grille->laGrille[i][j].slot1->joueur.nJoueur == joueur.nJoueur ||  grille->laGrille[i][j].slot2->joueur.nJoueur == joueur.nJoueur)
+            if(grille->laGrille[i][j].slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j].slot2->joueur->nJoueur == joueur.nJoueur)
                 count++;
             else count = 0;
             if(count == nbJetons) return 1;
@@ -16,9 +16,9 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     }
 
     // Test victoire horizontal
-    for(int i = 0; i < grille->longeur; i++){
+    for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
-            if(grille->laGrille[j][i].slot1->joueur.nJoueur == joueur.nJoueur ||  grille->laGrille[j][i].slot2->joueur.nJoueur == joueur.nJoueur)
+            if(grille->laGrille[j][i].slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i].slot2->joueur->nJoueur == joueur.nJoueur)
                 count++;
             else count = 0;
             if(count == nbJetons) return 1;

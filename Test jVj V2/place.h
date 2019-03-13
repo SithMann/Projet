@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "objet.h"
 #include "piece.h"
 #include "joueur.h"
 

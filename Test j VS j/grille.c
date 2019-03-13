@@ -7,11 +7,18 @@ void afficher_grille(int longueur, int largeur, t_case **grille, t_joueur joueur
     int i, j;
     for(i=0; i<longueur; i++){
         for(j=0; j<largeur; j++){
+<<<<<<< HEAD
+            if(grille[i][j].piece1!=NULL){
+                afficherPiece(grille[i][j].piece1);
+                if(grille[i][j].piece2!=NULL)
+                    afficherPiece(grille[i][j].piece2);
+=======
             printf("|");
             if(grille[i][j].piece1!=NULL){
                 afficherPiece(grille[i][j].piece1, joueur);
                 if(grille[i][j].piece2!=NULL)
                     afficherPiece(grille[i][j].piece2, joueur);
+>>>>>>> 6da620fbb9d95f48a44abfc4768c7e8dfe6f7b63
             }
             printf("\t");
         }

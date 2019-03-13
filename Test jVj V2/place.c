@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "place.h"
 
 
@@ -7,7 +8,20 @@
 */
 static
 void afficher_place(t_place * espace){
-    printf("%s", espace->joueur->couleur);
+    switch(espace->joueur->couleur){
+        case RED: printf("\033[41m");
+                 break;
+        case YELLOW: printf("\033[43m");
+                 break;
+        case BLUE: printf("\033[44m");
+                 break;
+        case GREEN: printf("\033[42m");
+                 break;
+        case WHITE: printf("\033[47m");
+                 break;
+        case PINK: printf("\033[45m");
+                 break;
+    }
     printf("%d", espace->piece->type);
 }
 

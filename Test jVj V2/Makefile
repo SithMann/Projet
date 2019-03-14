@@ -6,7 +6,7 @@ PROG = puissance4++
 
 all: $(PROG)
 
-$(PROG) : menu.o piece.o case.o jeu.o place.o grille.o joueur.o main.o
+$(PROG) : menu.o case.o jeu.o place.o grille.o joueur.o main.o
 	$(CC) $^ -o $@ $(CFLAGS) 
 
 %.o:%.c %.h

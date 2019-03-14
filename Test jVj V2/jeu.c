@@ -8,7 +8,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     // Test victoire vertical
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
-            if(grille->laGrille[i][j].slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j].slot2->joueur->nJoueur == joueur.nJoueur)
+            if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur.nJoueur)
                 count++;
             else count = 0;
             if(count == nbJetons) return 1;
@@ -18,7 +18,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     // Test victoire horizontal
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
-            if(grille->laGrille[j][i].slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i].slot2->joueur->nJoueur == joueur.nJoueur)
+            if(grille->laGrille[j][i]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i]->slot2->joueur->nJoueur == joueur.nJoueur)
                 count++;
             else count = 0;
             if(count == nbJetons) return 1;
@@ -37,51 +37,51 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
 
 int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur joueur){
 
-    switch(piece.type){
+    switch(piece){
         /* Cas 1 et 2 à ajuster en fonctions des règles 
         * Cas 1 : Creuses : Si il y a une pleine la creuse va directement dans la pleine
         * Elle descend le plus bas si il n'y a que des pleines jusqu'à une bloquante ou une creuse
         * Cas 2 : Pleines : Si il y a une creuse la pleine va directement dans la creuse
         * Elle descend le plus bas si il n'y a que des creuses jusqu'à une bloquante ou une pleine
         */
-        case 1 :if((grille->laGrille[grille->longueur-1][nbCol].slot1 == NULL) || ((grille->laGrille[grille->longueur-1][nbCol].slot1->piece->type == 2) && (grille->laGrille[grille->longueur-1][nbCol].slot2 == NULL))){
+        case PLEINE :if((grille->laGrille[grille->longueur-1][nbCol]->slot1 == NULL) || ((grille->laGrille[grille->longueur-1][nbCol]->slot1->piece == CREUSE) && (grille->laGrille[grille->longueur-1][nbCol]->slot2 == NULL))){
                     ajouter_piece(grille->longueur-1, nbCol, grille, piece, joueur);
                     return 1;
                 }else{
                     for(int i = 1; i < grille->longueur; i++){
-                        if(grille->laGrille[i][nbCol].slot1 == NULL){
-                            if((grille->laGrille[i + 1][nbCol].slot1->piece->type == 3) || (grille->laGrille[i + 1][nbCol].slot1->piece->type == 1)){
+                        if(grille->laGrille[i][nbCol]->slot1 == NULL){
+                            if((grille->laGrille[i + 1][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i + 1][nbCol]->slot1->piece == PLEINE)){
                                 ajouter_piece(i, nbCol, grille, piece, joueur);
                                 return 1;
                             }
-                            else if((grille->laGrille[i+1][nbCol].slot1->piece->type == 2) && (grille->laGrille[i+1][nbCol].slot2 == NULL)){
+                            else if((grille->laGrille[i+1][nbCol]->slot1->piece == CREUSE) && (grille->laGrille[i+1][nbCol]->slot2 == NULL)){
                                 ajouter_piece(i, nbCol, grille, piece, joueur);
                                 return 1;
                             }
                         }
-                        else if((grille->laGrille[i][nbCol].slot1->piece->type == 2) && (grille->laGrille[i][nbCol].slot2 == NULL)){
+                        else if((grille->laGrille[i][nbCol]->slot1->piece == CREUSE) && (grille->laGrille[i][nbCol]->slot2 == NULL)){
                             ajouter_piece(i, nbCol, grille, piece, joueur);
                             return 1;
                         }
                     }
                 }
                 break;
-        case 2 :if((grille->laGrille[grille->longueur-1][nbCol].slot1 == NULL) || ((grille->laGrille[grille->longueur-1][nbCol].slot1->piece->type == 1) && (grille->laGrille[grille->longueur-1][nbCol].slot2 == NULL))){
+        case CREUSE :if((grille->laGrille[grille->longueur-1][nbCol]->slot1 == NULL) || ((grille->laGrille[grille->longueur-1][nbCol]->slot1->piece == PLEINE) && (grille->laGrille[grille->longueur-1][nbCol]->slot2 == NULL))){
                     ajouter_piece(grille->longueur-1, nbCol, grille, piece, joueur);
                     return 1;
                 }else{
                     for(int i = 1; i < grille->longueur; i++){
-                        if(grille->laGrille[i][nbCol].slot1 == NULL){
-                            if((grille->laGrille[i + 1][nbCol].slot1->piece->type == 3) || (grille->laGrille[i + 1][nbCol].slot1->piece->type == 2)){
+                        if(grille->laGrille[i][nbCol]->slot1 == NULL){
+                            if((grille->laGrille[i + 1][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i + 1][nbCol]->slot1->piece == CREUSE)){
                                 ajouter_piece(i, nbCol, grille, piece, joueur);
                                 return 1;
                             }
-                            else if((grille->laGrille[i+1][nbCol].slot1->piece->type == 1) && (grille->laGrille[i+1][nbCol].slot2 == NULL)){
+                            else if((grille->laGrille[i+1][nbCol]->slot1->piece == PLEINE) && (grille->laGrille[i+1][nbCol]->slot2 == NULL)){
                                 ajouter_piece(i, nbCol, grille, piece, joueur);
                                 return 1;
                             }
                         }
-                        else if((grille->laGrille[i][nbCol].slot1->piece->type == 1) && (grille->laGrille[i][nbCol].slot2 == NULL)){
+                        else if((grille->laGrille[i][nbCol]->slot1->piece == PLEINE) && (grille->laGrille[i][nbCol]->slot2 == NULL)){
                             ajouter_piece(i, nbCol, grille, piece, joueur);
                             return 1;
                         }
@@ -89,9 +89,9 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur joueur){
                 }
                 break;
         /* Cas 3 : BLOQUANTES OK */
-        case 3 : 
+        case BLOQUANTE : 
                 for(int i = grille->longueur-1; i > 0; i--){
-                    if(grille->laGrille[i][nbCol].slot1 == NULL){
+                    if(grille->laGrille[i][nbCol]->slot1 == NULL){
                         ajouter_piece(i, nbCol, grille, piece, joueur);
                         return 1;
                     }
@@ -122,9 +122,9 @@ void tour_joueur(t_joueur joueur, t_grille * grille){
     do{
         printf("Choix : ");
         scanf("%d", &type);
-        if(!joueur.piece[type-1].nbpieces)
+        if(!joueur.piece[type-1])
             printf("Plus de pieces de ce type disponible !\n");
-    }while((type <= 0 && type >= 4) || !joueur.piece[type-1].nbpieces);
+    }while((type <= 0 && type >= 4) || !joueur.piece[type-1]);
     
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{

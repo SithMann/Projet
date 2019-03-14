@@ -70,17 +70,13 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
     nb_case = (*nb_ligne) * (*nb_colonne);
 
     nb_piece_c = (nb_case / nb_joueur) * 1.75 ;
-    nb_piece_p = (nb_case / nb_joueur) * 1.75 ;
+    nb_piece_p = (nb_case / nb_joueur) * 1.75 ; 
     nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
-printf("ICI\n");
-    int *nb_piece_b_f = (int)nb_piece_b; // Pièces bloquantes
-    int *nb_piece_p_f = (int)nb_piece_p; // Pièces pleines
-    int *nb_piece_c_f = (int)nb_piece_c; // Pièces creuses
-
+    int res;
 printf("ICI\n");
     /*Comme c'est un calcul de float, j'ajoute un si c'est arrondi en dessous*/
-    if((*nb_piece_b_f + *nb_piece_c_f + *nb_piece_p_f) != (int)nb_case)
-        (*nb_piece_b_f)++;
+    if((res = ((int)nb_piece_c + (int)nb_piece_p, (int)nb_piece_b)) != (int)nb_case)
+        nb_piece_b++;
 printf("ICI\n");
 
     /*Création de la grille avec le nb de lignes et colonnes  calculées*/
@@ -90,7 +86,7 @@ printf("ICI\n");
     t_joueur *joueur = malloc(sizeof(t_joueur)*nb_joueur);
 
     for(int i = 0; i < nb_joueur; i++){
-        joueur[i] = creer_joueur(i+1, *nb_piece_b_f, *nb_piece_p_f, *nb_piece_c_f);
+        joueur[i] = creer_joueur(i+1, nb_piece_b, nb_piece_p, nb_piece_c);
     }
 
     joueurVSjoueur(grille, joueur, nb_joueur);

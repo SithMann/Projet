@@ -3,9 +3,10 @@
 
 #include <stdlib.h>
 #include <stdio.h> 
-#include "piece.h"
+
 
 typedef enum e_couleur{RED,BLUE,GREEN,YELLOW,WHITE,PINK}t_couleur;
+typedef enum { PLEINE, CREUSE, BLOQUANTE } t_piece;
 
 typedef struct s_joueur{
     char pseudo[15];//temporaire

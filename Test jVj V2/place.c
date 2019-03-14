@@ -22,7 +22,7 @@ void afficher_place(t_place * espace){
         case PINK: printf("\033[45m");
                  break;
     }
-    printf("%d", espace->piece->type);
+    printf("%d", espace->piece);
 }
 
 /* Fonction qui crée(alloue la mémoire) un slot dans une case de la grille de jeu 
@@ -32,7 +32,7 @@ extern
 t_place * creer_place(){
     t_place * place = malloc(sizeof(t_place));
     place->joueur = NULL;
-    place->piece = NULL;
+    place->piece = 0; // peut être à changer
 
     place->p_affiche = (void (*) (t_objet *))afficher_place;
 

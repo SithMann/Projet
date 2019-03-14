@@ -72,15 +72,16 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
     nb_piece_c = (nb_case / nb_joueur) * 1.75 ;
     nb_piece_p = (nb_case / nb_joueur) * 1.75 ;
     nb_piece_b = nb_case - (nb_piece_c + nb_piece_p);
-
+printf("ICI\n");
     int *nb_piece_b_f = (int)nb_piece_b; // Pièces bloquantes
     int *nb_piece_p_f = (int)nb_piece_p; // Pièces pleines
     int *nb_piece_c_f = (int)nb_piece_c; // Pièces creuses
 
-
+printf("ICI\n");
     /*Comme c'est un calcul de float, j'ajoute un si c'est arrondi en dessous*/
-    if(*nb_piece_b_f + *nb_piece_c_f + *nb_piece_p_f != (int)nb_case)
-        *nb_piece_b_f++;
+    if((*nb_piece_b_f + *nb_piece_c_f + *nb_piece_p_f) != (int)nb_case)
+        (*nb_piece_b_f)++;
+printf("ICI\n");
 
     /*Création de la grille avec le nb de lignes et colonnes  calculées*/
     t_grille * grille = creer_grille(*nb_ligne, *nb_colonne, sizeof(t_case*));

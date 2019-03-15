@@ -5,10 +5,11 @@
 static
 void afficher_case(t_case * laCase){
     printf("ICI\n");
-    if(laCase->slot1->joueur != NULL)
-        printf("ICI\n");
+    if(laCase->slot1->joueur != NULL){
+        printf("LA\n");
         laCase->slot1->p_affiche((t_objet *)laCase->slot1);
         printf("ICI\n");
+    }
     if(laCase->slot2->joueur != NULL)
         laCase->slot2->p_affiche((t_objet *)laCase->slot2);
 }

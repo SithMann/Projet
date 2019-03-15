@@ -3,30 +3,52 @@
 #include "objet.h"
 #include "grille.h"
 
+int est_valide(int ligne, int colonne, t_grille * grille){
+    return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
+}
+
 int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     int count = 0;
     // Test victoire vertical
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
-            if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur.nJoueur)
-                count++;
-            else count = 0;
-            if(count == nbJetons) return 1;
+            if(est_valide(i,j,grille)){
+                if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur.nJoueur)
+                    count++;
+                else count = 0;
+                if(count == nbJetons) return 1;
+            }
         }
     }
 
     // Test victoire horizontal
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
-            if(grille->laGrille[j][i]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i]->slot2->joueur->nJoueur == joueur.nJoueur)
-                count++;
-            else count = 0;
-            if(count == nbJetons) return 1;
+            if(est_valide(i,j,grille)){
+                if(grille->laGrille[j][i]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i]->slot2->joueur->nJoueur == joueur.nJoueur)
+                    count++;
+                else count = 0;
+                if(count == nbJetons) return 1;
+            }
         }
     }
 
     // Test diagonale gauche
+    for(int i = 0; i < grille->longueur; i++){
+        for(int j = 0; j< grille->largeur; j++){
+            if(est_valide(i,j,grille)){
+                if(grille->laGrille[i+1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i+1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
+                    count++;
+                else count = 0;
+                if(count == nbJetons) return 1;
 
+                if(grille->laGrille[i-1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i-1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
+                    count++;
+                else count = 0;
+                if(count == nbJetons) return 1;   
+            }
+        }
+    }
     return 0;
 }
 
@@ -174,21 +196,22 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
 
     /*Saisie des pseudos en fonctions du nombre de joueurs*/
     for(i = 0; i < nb_joueur; i++){
-        test_color = 0;
-        printf("Pseudo joueur %d : ", i+1);
+        printf("\nPseudo joueur %d : ", i+1);
         scanf("%s", joueur[i].pseudo);
         joueur[i].nJoueur = i+1;
         do{
+            test_color = 0;
             printf("\n Choisis ta couleur parmi celles disponibles : Red (R), Green (G), Blue (B), Yellow (Y), White (W), Pink (P)) : ");
             scanf(" %c", &color);
             if(color != 'R' && color != 'G' && color != 'B' && color != 'Y' && color != 'W' && color != 'P')
                 printf("\nVeuillez choisir l'initiale des couleurs proposées.");
             for(int j = 0; couleur[j]; j++){
-                if(couleur[j] == color)
+                if(couleur[j] == color){
+                    printf("\nCette couleur a déjà été sélectionnée par un autre joueur !");
                     test_color = 1;
+                }
             }
-            
-        }while(color != 'R' && color != 'G' && color != 'B' && color != 'Y' && color != 'W' && color != 'P' && test_color == 1);
+        }while((color != 'R' && color != 'G' && color != 'B' && color != 'Y' && color != 'W' && color != 'P') || test_color == 1);
         
 
         switch(color){

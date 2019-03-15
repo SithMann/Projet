@@ -4,9 +4,12 @@
 
 static
 void afficher_case(t_case * laCase){
-    if(laCase->slot1 != NULL)
+    printf("ICI\n");
+    if(laCase->slot1->joueur != NULL)
+        printf("ICI\n");
         laCase->slot1->p_affiche((t_objet *)laCase->slot1);
-    if(laCase->slot2 != NULL)
+        printf("ICI\n");
+    if(laCase->slot2->joueur != NULL)
         laCase->slot2->p_affiche((t_objet *)laCase->slot2);
 }
 
@@ -16,7 +19,7 @@ t_case * creer_case(){
     lacase->slot1 = NULL;
     lacase->slot2 = NULL;
 
-    laCase->p_affiche = (void (*) (t_objet *))afficher_case;
+    lacase->p_affiche = (void (*) (t_objet *))afficher_case;
 
     return (lacase);
 }

@@ -1,9 +1,12 @@
 CFLAGS = -g -Wall
 CC = gcc
 
-all: test_j_VS_j
+PROG = puissance4++
 
-test_j_VS_j : case.o place.o grille.o joueur.o test_j_VS_j.o
+
+all: $(PROG)
+
+$(PROG) : menu.o case.o jeu.o place.o grille.o joueur.o main.o
 	$(CC) $^ -o $@ $(CFLAGS) 
 
 %.o:%.c %.h

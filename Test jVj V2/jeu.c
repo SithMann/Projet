@@ -69,34 +69,14 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
         */
         case PLEINE :
                 fprintf(stderr, "PIECE PLEINE colonne=%d\n", nbCol);
-                /*if((grille->laGrille[grille->longueur-1][nbCol]->slot1 == NULL) || ((grille->laGrille[grille->longueur-1][nbCol]->slot1->piece == CREUSE) && (grille->laGrille[grille->longueur-1][nbCol]->slot2 == NULL))){
-                    ajouter_piece(grille->longueur-1, nbCol, grille, piece, joueur);
-                    return 1;
-                }else{*/
                     
                     for( i = 0; i < grille->longueur; i++){
-                        /*if(grille->laGrille[i][nbCol]->slot1 == NULL){
-
-                        }// la case est vide
-                        else */
                         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
                         grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
                         if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i][nbCol]->slot1->piece == PLEINE)){// la case est bloquante
-                                //ajouter_piece(i, nbCol, grille, piece, joueur);
-                                // la case est bloquante, il faut arreter de chercher dans cette colonne
                                 break;
                                 
                         }
-                         /*   // la case contient une piece mais qui ne gene pas la descente de la piece pleine
-                        else if((grille->laGrille[i][nbCol]->slot1->piece == CREUSE) && (grille->laGrille[i][nbCol]->slot2 == NULL)){ 
-                                //ajouter_piece(i, nbCol, grille, piece, joueur);
-                                
-                            }
-                        }
-                        else if((grille->laGrille[i][nbCol]->slot1->piece == CREUSE) && (grille->laGrille[i][nbCol]->slot2 == NULL)){
-                            
-                            
-                        }*/
                     }
                     if(i==0) {
                          fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
@@ -105,41 +85,44 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                     fprintf(stderr, "AJOUT PIECE PLEINE en (%d,%d)\n", i-1, nbCol);
                     ajouter_piece(i-1, nbCol, grille, piece, joueur);
                     return 1;
-                //}
+                
                 break;
         case CREUSE :
                 fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
-                if((grille->laGrille[grille->longueur-1][nbCol]->slot1 == NULL) || ((grille->laGrille[grille->longueur-1][nbCol]->slot1->piece == PLEINE) && (grille->laGrille[grille->longueur-1][nbCol]->slot2 == NULL))){
-                    ajouter_piece(grille->longueur-1, nbCol, grille, piece, joueur);
-                    return 1;
-                }else{
-                    for( i = 1; i < grille->longueur; i++){
-                        if(grille->laGrille[i][nbCol]->slot1 == NULL){
-                            if((grille->laGrille[i + 1][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i + 1][nbCol]->slot1->piece == CREUSE)){
-                                ajouter_piece(i, nbCol, grille, piece, joueur);
-                                return 1;
-                            }
-                            else if((grille->laGrille[i+1][nbCol]->slot1->piece == PLEINE) && (grille->laGrille[i+1][nbCol]->slot2 == NULL)){
-                                ajouter_piece(i, nbCol, grille, piece, joueur);
-                                return 1;
-                            }
-                        }
-                        else if((grille->laGrille[i][nbCol]->slot1->piece == PLEINE) && (grille->laGrille[i][nbCol]->slot2 == NULL)){
-                            ajouter_piece(i, nbCol, grille, piece, joueur);
-                            return 1;
+                    for( i = 0; i < grille->longueur; i++){
+                        fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
+                        grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
+                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i][nbCol]->slot1->piece == CREUSE)){// la case est bloquante
+                                break;
+                                
                         }
                     }
-                }
+                    if(i==0) {
+                         fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
+                         return 0;
+                    }
+                    fprintf(stderr, "AJOUT PIECE CREUSE en (%d,%d)\n", i-1, nbCol);
+                    ajouter_piece(i-1, nbCol, grille, piece, joueur);
+                    return 1;
                 break;
         /* Cas 3 : BLOQUANTES OK */
         case BLOQUANTE : 
                 fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
-                for( i = grille->longueur-1; i > 0; i--){
-                    if(grille->laGrille[i][nbCol]->slot1 == NULL){
-                        ajouter_piece(i, nbCol, grille, piece, joueur);
-                        return 1;
+                    for( i = 0; i < grille->longueur; i++){
+                        fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
+                        grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
+                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i][nbCol]->slot1->piece == PLEINE) || (grille->laGrille[i][nbCol]->slot1->piece == CREUSE)){// la case est bloquante
+                                break;
+                                
+                        }
                     }
-                }
+                    if(i==0) {
+                         fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
+                         return 0;
+                    }
+                    fprintf(stderr, "AJOUT PIECE BLOQUANTE en (%d,%d)\n", i-1, nbCol);
+                    ajouter_piece(i-1, nbCol, grille, piece, joueur);
+                    return 1;
                 break;
         default :   printf("Erreur\n");
                     char c;
@@ -174,9 +157,9 @@ void tour_joueur(t_joueur* joueur, t_grille * grille){
         scanf("%d", &type);
         //saisir_type(&type)
 
-        if(!joueur.piece[type-1])
+        if(!joueur->piece[type-1])
             printf("Plus de pieces de ce type disponible !\n");
-    }while((type <= 0 && type >= 4) || !joueur.piece[type-1]);
+    }while((type <= 0 && type >= 4) || !joueur->piece[type-1]);
     
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{

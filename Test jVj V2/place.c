@@ -26,6 +26,7 @@ void afficher_place(t_place * espace){
                 break;
     }
     printf("%d", espace->piece);
+    printf("\033[0m"); // Reset de la couleur par defaut
 }
 
 /* Fonction qui crée(alloue la mémoire) un slot dans une case de la grille de jeu 

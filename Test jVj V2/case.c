@@ -4,20 +4,11 @@
 
 static
 void afficher_case(t_case * laCase){
-<<<<<<< HEAD
     if(laCase->slot1->joueur != NULL){
 
         laCase->slot1->p_affiche((t_objet *)laCase->slot1);
 
     } //else { printf("SLOT1 VIDE");}
-=======
-    printf("ICI\n");
-    if(laCase->slot1->joueur != NULL){
-        printf("LA\n");
-        laCase->slot1->p_affiche((t_objet *)laCase->slot1);
-        printf("ICI\n");
-    }
->>>>>>> f7f17ebe0b0871578498c10f70e02666f47ca9d0
     if(laCase->slot2->joueur != NULL)
         laCase->slot2->p_affiche((t_objet *)laCase->slot2);
     //else {        printf("SLOT2 VIDE");    }

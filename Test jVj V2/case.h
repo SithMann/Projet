@@ -16,6 +16,6 @@ typedef struct s_case{
 }t_case;
 
 t_case * creer_case();
-
+void 
 
 #endif

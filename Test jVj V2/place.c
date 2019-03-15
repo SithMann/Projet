@@ -8,7 +8,6 @@
 */
 static
 void afficher_place(t_place * espace){
-    printf("ici\n");
     switch(espace->joueur->couleur){
         case RED: printf("\033[41m");
                  break;
@@ -22,6 +21,9 @@ void afficher_place(t_place * espace){
                  break;
         case PINK: printf("\033[45m");
                  break;
+        default:
+                printf("\033[40m"); 
+                break;
     }
     printf("%d", espace->piece);
 }
@@ -33,7 +35,7 @@ extern
 t_place * creer_place(){
     t_place * place = malloc(sizeof(t_place));
     place->joueur = NULL;
-    place->piece = 0; // peut être à changer
+    place->piece = VIDE;
 
     place->p_affiche = (void (*) (t_objet *))afficher_place;
 

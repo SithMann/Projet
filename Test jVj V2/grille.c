@@ -11,10 +11,10 @@ void afficher_grille(t_grille * grille){
     for(i=0; i< grille->longueur; i++){
         for(j=0; j< grille->largeur; j++){
             printf("|");
-            //if(grille->laGrille[i][j]->slot1->joueur != NULL){
-                printf("ICI");
+            if(grille->laGrille[i][j]->slot1->joueur != NULL){
+                
                 grille->laGrille[i][j]->p_affiche((t_objet *)(grille->laGrille[i][j]));
-           // }
+            }
             printf("\t");
         }
         printf("\n");
@@ -22,15 +22,25 @@ void afficher_grille(t_grille * grille){
 }
 
 extern
-void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur joueur){
+void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* pjoueur){
+    char c;
     if(grille->laGrille[x][y]->slot1->joueur == NULL){
         grille->laGrille[x][y]->slot1->piece = piece;
-        grille->laGrille[x][y]->slot1->joueur = &joueur;
+        grille->laGrille[x][y]->slot1->joueur = pjoueur;
+        fprintf(stderr, "Pièce ajoutée en slot1\n");
     }
     else{
         grille->laGrille[x][y]->slot2->piece = piece;
-        grille->laGrille[x][y]->slot2->joueur = &joueur;
+        grille->laGrille[x][y]->slot2->joueur = pjoueur;
+        printf("Pièce ajoutée en slot2\n");
+        do{
+            scanf("%c", &c);
+        }while(c != 'a');
     }
+        printf("Pièce peut être ajoutée quelque part\n");
+        do{
+            scanf("%c", &c);
+        }while(c != 'a');
 }
 
 /* Fonction qui crée une matrice qui sera la grille de jeu (alloue la mémoire)

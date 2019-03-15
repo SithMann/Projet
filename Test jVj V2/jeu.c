@@ -137,27 +137,48 @@ void tour_joueur(t_joueur joueur, t_grille * grille){
 void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){ 
     int i;
     char color;
+    int test_color;
+    char *couleur = malloc(sizeof(char)*nb_joueur);
+
+    for(int i = 0; couleur[i]; i++) couleur[i] = 0;
 
     /*Saisie des pseudos en fonctions du nombre de joueurs*/
     for(i = 0; i < nb_joueur; i++){
+        test_color = 0;
         printf("Pseudo joueur %d : ", i+1);
         scanf("%s", joueur[i].pseudo);
         joueur[i].nJoueur = i+1;
-        printf("Choisis ta couleur parmi celles disponibles : Rouge (R), Vert (G), Bleue (B), Jaune (Y), Blanc (W), Rose (P)) : ");
-        scanf(" %c", &color);
+        do{
+            printf("\n Choisis ta couleur parmi celles disponibles : Red (R), Green (G), Blue (B), Yellow (Y), White (W), Pink (P)) : ");
+            scanf(" %c", &color);
+            if(color != 'R' && color != 'G' && color != 'B' && color != 'Y' && color != 'W' && color != 'P')
+                printf("\nVeuillez choisir l'initiale des couleurs proposées.");
+            for(int j = 0; couleur[j]; j++){
+                if(couleur[j] == color)
+                    test_color = 1;
+            }
+            
+        }while(color != 'R' && color != 'G' && color != 'B' && color != 'Y' && color != 'W' && color != 'P' && test_color == 1);
+        
 
         switch(color){
             case 'R' : joueur[i].couleur = RED;
+                       couleur[i] = 'R';
                        break;
             case 'G' : joueur[i].couleur = GREEN;
+                       couleur[i] = 'G';
                        break;
             case 'Y' : joueur[i].couleur = YELLOW;
+                       couleur[i] = 'Y';
                        break;
             case 'B' : joueur[i].couleur = BLUE;
+                       couleur[i] = 'B';
                        break;
             case 'W' : joueur[i].couleur = WHITE;
+                       couleur[i] = 'W';
                        break;
             case 'P' : joueur[i].couleur = PINK;
+                       couleur[i] = 'P';
                        break;
         }
     }

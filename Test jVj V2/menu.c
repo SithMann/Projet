@@ -80,13 +80,9 @@ printf("ICI\n");
         nb_piece_b++;
 printf("ICI\n");
 
-    int *nb_piece_b_f = (int)nb_piece_b; // Pièces bloquantes
-    int *nb_piece_p_f = (int)nb_piece_p; // Pièces pleines
-    int *nb_piece_c_f = (int)nb_piece_c; // Pièces creuses
-
     /*Comme c'est un calcul de float, j'ajoute un si c'est arrondi en dessous*/
-    //if((*nb_piece_b_f + *nb_piece_c_f + *nb_piece_p_f) != (int)nb_case)
-      //  (*nb_piece_b_f)++;
+    if((nb_piece_b + nb_piece_c + nb_piece_p) != (int)nb_case)
+        nb_piece_b++;
 
 
 

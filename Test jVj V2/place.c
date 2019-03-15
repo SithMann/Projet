@@ -8,6 +8,7 @@
 */
 static
 void afficher_place(t_place * espace){
+    printf("ici\n");
     switch(espace->joueur->couleur){
         case RED: printf("\033[41m");
                  break;

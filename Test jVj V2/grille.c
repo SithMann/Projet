@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "grille.h"
 
+t_piece lire_piece_slot(int x, int y, int nSlot, t_grille * grille){
+    if(nSlot == 1)
+    return (grille->laGrille[x][y]->slot1->piece);
+    if(nSlot == 2)
+    return (grille->laGrille[x][y]->slot2->piece);
+}
+
 /* Fonction d'affichage de la grille de jeu
  * parcours les cases et appelle la fonction d'affichage des cases
  */

@@ -77,7 +77,8 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                     
                     for( i = 0; i < grille->longueur; i++){
                         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
-                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || ((grille->laGrille[i][nbCol]->slot1->piece == PLEINE)||(grille->laGrille[i][nbCol]->slot2->piece != VIDE))){// la case est bloquante
+                        //grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
+                        if((lire_piece_slot(i,nbCol,1,grille) == BLOQUANTE) || ((lire_piece_slot(i,nbCol,1,grille) == PLEINE)||(lire_piece_slot(i,nbCol,2,grille) != VIDE))){// la case est bloquante
                                 break;
                                 
                         }
@@ -95,7 +96,8 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                 fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
                     for( i = 0; i < grille->longueur; i++){
                         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
-                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || ((grille->laGrille[i][nbCol]->slot1->piece == CREUSE)||(grille->laGrille[i][nbCol]->slot2->piece != VIDE))){// la case est bloquante
+                        //grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
+                        if((lire_piece_slot(i,nbCol,1,grille) == BLOQUANTE) || ((lire_piece_slot(i,nbCol,1,grille) == CREUSE)||(lire_piece_slot(i,nbCol,2,grille) != VIDE))){// la case est bloquante
                                 break;
                                 
                         }
@@ -113,7 +115,7 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                 fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
                     for( i = 0; i < grille->longueur; i++){
                         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
-                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i][nbCol]->slot1->piece == PLEINE) || (grille->laGrille[i][nbCol]->slot1->piece == CREUSE)){// la case est bloquante
+                        if((lire_piece_slot(i,nbCol,1,grille) == BLOQUANTE) || (lire_piece_slot(i,nbCol,1,grille) == PLEINE) || (lire_piece_slot(i,nbCol,1,grille) == CREUSE)){// la case est bloquante
                                 break;
                                 
                         }
@@ -153,8 +155,9 @@ void tour_ordi(t_joueur* joueur, t_grille * grille){
    type = rand()%3+1;
     
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
-    col = rand()%grille->largeur+1;
-    nonPleine(type-1, col-1, grille, joueur);
+    do{
+        col = rand()%grille->largeur+1;
+    }while(!nonPleine(type-1, col-1, grille, joueur));
 }
 
 int main(){

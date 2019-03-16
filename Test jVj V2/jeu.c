@@ -145,27 +145,9 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
  * Met à jour la grille et ne renvoie rien.
 */
 void tour_joueur(t_joueur* joueur, t_grille * grille){
-    int type = 0;
+    int type = saisir_type(joueur);
     int col;
     
-    /* Demande de saisie de la piece.
-     * plus la vérif entier 
-     * Il faudrat aussi prendre en compte le nombre disponible de chaque piece pour la suite.
-    */
-    
-
-    printf("Choix du type de pièce à jouer : \n");
-    printf("1- Pleine \n");
-    printf("2- Creuse \n");
-    printf("3- Bloquante \n");
-    do{
-        printf("Choix : ");
-        scanf("%d", &type);
-        //saisir_type(&type)
-
-        if(!joueur->piece[type-1])
-            printf("Plus de pieces de ce type disponible !\n");
-    }while((type <= 0 && type >= 4) || !joueur->piece[type-1]);
     
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
     do{

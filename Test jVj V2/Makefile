@@ -23,3 +23,5 @@ clean :
 	rm -rf *.o
 	rm -rf *.h.gch
 	rm -rf $(PROG)
+	rm -rf $(PROG2)
+	rm -rf $(PROG3)

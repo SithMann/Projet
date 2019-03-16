@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 #include "objet.h"
 #include "grille.h"
 
@@ -139,7 +140,7 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
-void tour_joueur(t_joueur* joueur, t_grille * grille){
+void tour_ordi(t_joueur* joueur, t_grille * grille){
     int type = 0;
     int col;
     
@@ -149,27 +150,16 @@ void tour_joueur(t_joueur* joueur, t_grille * grille){
     */
     
 
-    printf("Choix du type de pièce à jouer : \n");
-    printf("1- Pleine \n");
-    printf("2- Creuse \n");
-    printf("3- Bloquante \n");
-    do{
-        printf("Choix : ");
-        scanf("%d", &type);
-        //saisir_type(&type)
-
-        if(!joueur->piece[type-1])
-            printf("Plus de pieces de ce type disponible !\n");
-    }while((type <= 0 || type >= 4) || !joueur->piece[type-1]);
+   type = rand()%3+1;
     
     /* Demande de saisie de la colonne. Penser à vérifier que col est un entier plus tard. */
-    do{
-        printf("Veuillez hoisir le numéro de la colonne pour jouer (entier entre 1 et %d): ", grille->largeur);
-        scanf("%d", &col);
-    }while((col <= 0 || col >= grille->largeur) || !nonPleine(type-1, col-1, grille, joueur));
+    col = rand()%grille->largeur+1;
+    nonPleine(type-1, col-1, grille, joueur);
 }
 
 int main(){
+
+    srand(time(NULL));
     int i;
     int nb_joueur = 4;
 
@@ -196,7 +186,7 @@ int main(){
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
-            tour_joueur(joueur+i, grille);
+            tour_ordi(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
             if(/*gagnant(grille)*/fin){

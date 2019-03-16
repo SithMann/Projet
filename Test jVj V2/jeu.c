@@ -7,13 +7,13 @@ int est_valide(int ligne, int colonne, t_grille * grille){
     return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
 }
 
-int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
+int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
     int count = 0;
     // Test victoire vertical
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
             if(est_valide(i,j,grille)){
-                if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur.nJoueur)
+                if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur->nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur->nJoueur)
                     count++;
                 else count = 0;
                 if(count == nbJetons) return 1;
@@ -25,7 +25,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
             if(est_valide(i,j,grille)){
-                if(grille->laGrille[j][i]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i]->slot2->joueur->nJoueur == joueur.nJoueur)
+                if(grille->laGrille[j][i]->slot1->joueur->nJoueur == joueur->nJoueur ||  grille->laGrille[j][i]->slot2->joueur->nJoueur == joueur->nJoueur)
                     count++;
                 else count = 0;
                 if(count == nbJetons) return 1;
@@ -37,17 +37,24 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
             if(est_valide(i,j,grille)){
-                if(grille->laGrille[i+1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i+1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
+                if(grille->laGrille[i+1][j+1]->slot1->joueur->nJoueur == joueur->nJoueur ||  grille->laGrille[i+1][j+1]->slot2->joueur->nJoueur == joueur->nJoueur)
                     count++;
                 else count = 0;
                 if(count == nbJetons) return 1;
 
-                if(grille->laGrille[i-1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i-1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
+                if(grille->laGrille[i-1][j+1]->slot1->joueur->nJoueur == joueur->nJoueur ||  grille->laGrille[i-1][j+1]->slot2->joueur->nJoueur == joueur->nJoueur)
                     count++;
                 else count = 0;
                 if(count == nbJetons) return 1;   
             }
         }
+    }
+    return 0;
+}
+
+int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs){
+    for(int i = 0; i < nbJoueurs; i++){
+        if(gagnant(grille, nJetons, joueur+i)) return 1;
     }
     return 0;
 }
@@ -110,7 +117,6 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                 fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
                     for( i = 0; i < grille->longueur; i++){
                         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
-                        grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
                         if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || (grille->laGrille[i][nbCol]->slot1->piece == PLEINE) || (grille->laGrille[i][nbCol]->slot1->piece == CREUSE)){// la case est bloquante
                                 break;
                                 
@@ -219,9 +225,8 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
         }
     }
 
-
-    int fin =0;
-    while(!fin){
+    int fin = 0;
+    while(/*!un_gagnant(grille, 4, joueur, nb_joueur)*/!fin){
         //system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -229,7 +234,7 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
             tour_joueur(joueur+i, grille);
             //system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(/*gagnant(grille)*/fin){
+            if(/*gagnant(grille, 4, joueur+i)*/!fin){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

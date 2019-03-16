@@ -7,6 +7,17 @@ t_piece lire_piece_slot(int x, int y, int nSlot, t_grille * grille){
     return (grille->laGrille[x][y]->slot1->piece);
     if(nSlot == 2)
     return (grille->laGrille[x][y]->slot2->piece);
+
+    return VIDE;
+}
+
+t_couleur lire_couleur_joueur_slot(int x, int y, int nSlot, t_grille * grille){
+    if(nSlot == 1)
+    return (grille->laGrille[x][y]->slot1->joueur->couleur);
+    if(nSlot == 2)
+    return (grille->laGrille[x][y]->slot2->joueur->couleur);
+
+    return NOCOLOR;
 }
 
 /* Fonction d'affichage de la grille de jeu

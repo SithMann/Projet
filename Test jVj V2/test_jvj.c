@@ -3,6 +3,7 @@
 #include "objet.h"
 #include "grille.h"
 
+
 int est_valide(int ligne, int colonne, t_grille * grille){
     return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
 }
@@ -72,8 +73,8 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                     
                     for( i = 0; i < grille->longueur; i++){
                         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
-                        //grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
-                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || ((grille->laGrille[i][nbCol]->slot1->piece == PLEINE)||(grille->laGrille[i][nbCol]->slot2->piece != VIDE))){// la case est bloquante
+                        grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
+                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || ((grille->laGrille[i][nbCol]->slot1->piece == PLEINE)&&(grille->laGrille[i][nbCol]->slot2->piece != VIDE))){// la case est bloquante
                                 break;
                                 
                         }
@@ -91,8 +92,8 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                 fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
                     for( i = 0; i < grille->longueur; i++){
                         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
-                        //grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
-                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || ((grille->laGrille[i][nbCol]->slot1->piece == CREUSE)||(grille->laGrille[i][nbCol]->slot2->piece != VIDE))){// la case est bloquante
+                        grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
+                        if((grille->laGrille[i][nbCol]->slot1->piece == BLOQUANTE) || ((grille->laGrille[i][nbCol]->slot1->piece == CREUSE)&&(grille->laGrille[i][nbCol]->slot2->piece != VIDE))){// la case est bloquante
                                 break;
                                 
                         }
@@ -168,10 +169,8 @@ void tour_joueur(t_joueur* joueur, t_grille * grille){
     }while(!nonPleine(type-1, col-1, grille, joueur) && col <= 0 && col >= grille->largeur);
 }
 
-/* Fonction contenant la boucle principale du mode de jeu jVj.*/
-void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){ 
+int main(){
     int i;
-    char color;
     int test_color;
     char *couleur = malloc(sizeof(char)*nb_joueur);
 
@@ -179,44 +178,11 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
 
     /*Saisie des pseudos en fonctions du nombre de joueurs*/
     for(i = 0; i < nb_joueur; i++){
-        printf("\nPseudo joueur %d : ", i+1);
-        scanf("%s", joueur[i].pseudo);
+        fprintf("Pseudo joueur %d : ", i+1);
+        joueur[i].pseudo = "Bot_test_1";
+        fprintf(stderr," %s \n", joueur[i].pseudo);
         joueur[i].nJoueur = i+1;
-        do{
-            test_color = 0;
-            printf("\n Choisis ta couleur parmi celles disponibles : Red (R), Green (G), Blue (B), Yellow (Y), White (W), Pink (P)) : ");
-            scanf(" %c", &color);
-            if(color != 'R' && color != 'G' && color != 'B' && color != 'Y' && color != 'W' && color != 'P')
-                printf("\nVeuillez choisir l'initiale des couleurs proposées.");
-            for(int j = 0; couleur[j]; j++){
-                if(couleur[j] == color){
-                    printf("\nCette couleur a déjà été sélectionnée par un autre joueur !");
-                    test_color = 1;
-                }
-            }
-        }while((color != 'R' && color != 'G' && color != 'B' && color != 'Y' && color != 'W' && color != 'P') || test_color == 1);
-        
-
-        switch(color){
-            case 'R' : joueur[i].couleur = RED;
-                       couleur[i] = 'R';
-                       break;
-            case 'G' : joueur[i].couleur = GREEN;
-                       couleur[i] = 'G';
-                       break;
-            case 'Y' : joueur[i].couleur = YELLOW;
-                       couleur[i] = 'Y';
-                       break;
-            case 'B' : joueur[i].couleur = BLUE;
-                       couleur[i] = 'B';
-                       break;
-            case 'W' : joueur[i].couleur = WHITE;
-                       couleur[i] = 'W';
-                       break;
-            case 'P' : joueur[i].couleur = PINK;
-                       couleur[i] = 'P';
-                       break;
-        }
+        joueur[i].couleur = RED + i;
     }
 
 

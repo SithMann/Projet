@@ -12,7 +12,6 @@ void afficher_grille(t_grille * grille){
         for(j=0; j< grille->largeur; j++){
             printf("|");
             if(grille->laGrille[i][j]->slot1->joueur != NULL){
-                
                 grille->laGrille[i][j]->p_affiche((t_objet *)(grille->laGrille[i][j]));
             }
             printf("\t");
@@ -32,15 +31,8 @@ void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* pjo
     else{
         grille->laGrille[x][y]->slot2->piece = piece;
         grille->laGrille[x][y]->slot2->joueur = pjoueur;
-        printf("Pièce ajoutée en slot2\n");
-        do{
-            scanf("%c", &c);
-        }while(c != 'a');
+        fprintf(stderr, "Pièce ajoutée en slot2\n");
     }
-        printf("Pièce peut être ajoutée quelque part\n");
-        do{
-            scanf("%c", &c);
-        }while(c != 'a');
 }
 
 /* Fonction qui crée une matrice qui sera la grille de jeu (alloue la mémoire)

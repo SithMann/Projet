@@ -6,6 +6,13 @@
 #include "objet.h"
 #include "place.h"
 
+/**
+* \file case.h
+* \author Mathis Despres et Noemie Farizon
+* \date 15 mars 2019
+* \version 2
+*/
+
 /* Structure représentant une case dans la grille, elle contient deux slots pour des pieces
  * Chaque slot stock un joueur et un type de piece.
  */

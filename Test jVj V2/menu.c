@@ -45,7 +45,7 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
         if(nb_pion < 1 || nb_pion > 3) printf("Le choix doit être compris entre 1 et 3\n");
     }while(nb_pion < 1 || nb_pion > 3);
 
-     /*
+    /*
     *Réattribution des valeurs à nb_pions pour le nb_pions à aligner en vue des calculs 
     *du nombre de lignes et de colonnes
     */
@@ -64,8 +64,18 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
         if(niveau < 1 || niveau > 3) printf("Le choix doit être compris entre 1 et 3\n");
     }while(niveau < 1 || niveau > 3);
 
-    *nb_ligne = nb_joueur + nb_pion * ++niveau;
-    *nb_colonne = nb_joueur + nb_pion * ++niveau;
+    /*
+    *Réattribution des valeurs à niveau en vue des calculs 
+    *du nombre de lignes et de colonnes
+    */
+    if(niveau == 1) niveau = 10; 
+    if(niveau == 2) niveau = 8;
+    if(niveau == 3) niveau = 6;
+
+    *nb_ligne = nb_joueur * (nb_pion / 2) + niveau;
+    *nb_colonne = nb_joueur * (nb_pion / 2) + niveau;
+
+    fprintf(stderr,"nb ligne %d,nb colonne %d", *nb_ligne, *nb_colonne);
 
     nb_case = (*nb_ligne) * (*nb_colonne);
 

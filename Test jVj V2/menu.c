@@ -3,8 +3,19 @@
 #include "jeu.h"
 #include "grille.h"
 
+/**
+* \file menu.c 
+* \author Clement Dubois 
+* \date 5 mars 2019
+* \version 1
+*/
 
-/*Fonction affichant le menu de sélection du début*/
+/**
+* \fn menu_joueur 
+* \param deux pointeurs sur des entiers, pour le nombre de ligne et le nombre de colonnes 
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche le menu de selection du debut du jeu
+*/
 void menu_joueur(int * nb_ligne, int * nb_colonne){
     int niveau;/*Choix du niveau*/
     int nb_pion;/*Nombre de pions à aligner qui influence sur la taille de la grille*/

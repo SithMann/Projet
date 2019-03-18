@@ -1,76 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "jeu.h"
 #include "direction.h"
 
-const int NB_DIRECTION=8;
-
 //modifie les valeurs de l'appelant pour *ni, *nj
-int direction_avancer(int i, int j, t_direction dir, int nb_pas/*, int *ni, int*nj*/, t_grille * grille){
-    int k, l;
-    int count = 0;
-    fprintf(stderr, "test");//n'affiche rien
-    dir = direction_debut();
-    fprintf(stderr, "fonction direction_debut");
-    t_couleur couleur1 = lire_couleur_joueur_slot(i, j, 1, grille);
-    t_couleur couleur2 = lire_couleur_joueur_slot(i, j, 2, grille);
-    fprintf(stderr, "Test après affctation couleur");
-    //traitement si même couleur et pas hors matrice on continue
-    for(k = 0; k < NB_DIRECTION; k++){
-        for(l = 1; l <= nb_pas; l++){
-            switch(k){
-                case 0 : if(est_valide(i-l,j,grille) && (couleur1 == lire_couleur_joueur_slot(i-l, j, 1, grille) || couleur2 == lire_couleur_joueur_slot(i-l, j, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                         }
-                         break;
-                case 1 : if(est_valide(i-l,j+l,grille) && (couleur1 == lire_couleur_joueur_slot(i-l, j+l, 1, grille) || couleur2 == lire_couleur_joueur_slot(i-l, j+l, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                         }
-                         break;
-                case 2 : if(est_valide(i,j,grille) && (couleur1 == lire_couleur_joueur_slot(i, j, 1, grille) || couleur2 == lire_couleur_joueur_slot(i, j, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                        }
-                         break;
-                case 3 : if(est_valide(i+l,j-l,grille) && (couleur1 == lire_couleur_joueur_slot(i+l, j-l, 1, grille) || couleur2 == lire_couleur_joueur_slot(i+l, j, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                         }
-                         break;
-                case 4 : if(est_valide(i+l,j,grille) && (couleur1 == lire_couleur_joueur_slot(i+l, j, 1, grille) || couleur2 == lire_couleur_joueur_slot(i+l, j, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                         }
-                         break;
-                case 5 : if(est_valide(i+l,j-l,grille) && (couleur1 == lire_couleur_joueur_slot(i+l, j-l, 1, grille) || couleur2 == lire_couleur_joueur_slot(i+l, j, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                         }
-                         break;
-                case 6 : if(est_valide(i,j-l,grille) && (couleur1 == lire_couleur_joueur_slot(i, j-l, 1, grille) || couleur2 == lire_couleur_joueur_slot(i, j-l, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                         }
-                         break;
-                case 7 : if(est_valide(i-l,j-l,grille) && (couleur1 == lire_couleur_joueur_slot(i-l, j-l, 1, grille) || couleur2 == lire_couleur_joueur_slot(i-l, j, 2, grille))){
-                            count++;
-                            if(count == nb_pas) return 1;
-                         }
-                         break;
-                default : 
-                    fprintf(stderr, "Erreur");
+int direction_avancer(int i, int j, t_direction dir, int *ni, int*nj, t_grille * grille){ // enlever grille useless
+    //Déplacement des coords de la case
+    switch(dir){
+        case NORD : *ni = i - 1;
+                    *nj = j;
                     break;
-            }
-        }
-        dir = direction_suivante(dir);
+        case NORDEST : *ni = i - 1;
+                        *nj = j + 1;
+                    break;
+        case EST : *ni  = i;
+                    *nj = j + 1;
+                    break;
+        case SUDEST : *ni = i + 1;
+                        *nj = j + 1;
+                    break;
+        case SUD : *ni = i + 1;
+                    *nj = j;
+                    break;
+        case SUDOUEST : *ni = i + 1;
+                        *nj = j + 1;
+                    break;
+        case OUEST : *ni = i;
+                        *nj = j - 1;
+                    break;
+        case NORDOUEST : *ni = i - 1;
+                            *nj = j - 1;
+                    break;
+        default : 
+            fprintf(stderr, "Erreur");
+            break;
     }
+
     return 0;
 }
 
 t_direction direction_suivante(t_direction dir){
-    return dir + 1;
+    return (dir + 1) % NB_DIRECTION;
 }
 
 t_direction direction_debut(){

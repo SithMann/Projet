@@ -8,53 +8,28 @@
 #include "direction.h"
 
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
-    /*int count = 0;
-    // Test victoire vertical
-    for(int i = 0; i < grille->longueur; i++){
-        for(int j = 0; j< grille->largeur; j++){
-            if(est_valide(i,j,grille)){
-                if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;
+   int i, j, k, count = 0;
+    int ni, nj; //nouveau i et j
+    
+    for(i = 0; i < grille->longueur; i++){
+        for(j = 0; j < grille->largeur; j++){
+            t_direction direc = direction_debut();
+            fprintf(stderr, "Direction : %d\n", direc);
+            for(int m=0; m < NB_DIRECTION;m++){
+                count = 0;
+                ni = i;
+                nj = j;
+                for(k = 0; k < nbJetons && est_valide(ni,nj,grille) ; k++){
+                    
+                    if(est_valide(ni,nj,grille) && ((joueur->couleur == lire_couleur_joueur_slot(ni, nj, 1, grille)) || (joueur->couleur == lire_couleur_joueur_slot(ni, nj, 2, grille)))){
+                        count++;
+                    }
+                    if(count >= nbJetons) return 1;
+                    direction_avancer( ni, nj, direc, &ni, &nj, grille);
+                }
+                direc = direction_suivante(direc);
             }
         }
-    }
-
-    // Test victoire horizontal
-    for(int i = 0; i < grille->longueur; i++){
-        for(int j = 0; j< grille->largeur; j++){
-            if(est_valide(i,j,grille)){
-                if(grille->laGrille[j][i]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;
-            }
-        }
-    }
-
-    // Test diagonale gauche
-    for(int i = 0; i < grille->longueur; i++){
-        for(int j = 0; j< grille->largeur; j++){
-            if(est_valide(i,j,grille)){
-                if(grille->laGrille[i+1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i+1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;
-
-                if(grille->laGrille[i-1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i-1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;   
-            }
-        }
-    }*/
-    printf("Test direction debut\n");
-    t_direction direc = direction_debut();
-    fprintf(stderr, "Test appel de la fonction\n");
-    if(direction_avancer(grille->longueur, grille->largeur, direc, nbJetons, grille)){
-        fprintf(stderr, "Test après appel de la fonction\n");
-        return 1;
     }
     return 0;
 }

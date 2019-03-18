@@ -17,7 +17,7 @@ t_piece lire_piece_slot(int x, int y, int nSlot, t_grille * grille){
 
 t_couleur lire_couleur_joueur_slot(int x, int y, int nSlot, t_grille * grille){
 
-    fprintf(stderr, "couleur 1 premier: \n");
+    fprintf(stderr, "cPremier : \n");
 
     if(nSlot == 1 && grille->laGrille[x][y]->slot1->joueur != NULL){
         fprintf(stderr, "couleur 1 : ");

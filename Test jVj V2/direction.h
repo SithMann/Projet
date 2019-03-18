@@ -5,9 +5,11 @@
 #include <stdlib.h>
 #include "grille.h"
 
-typedef enum { NORD, NORDEST, EST, SUDEST, SUD, SUDOUEST, OUEST, NORDOUEST } t_direction;
+#define NB_DIRECTION 8
 
-int direction_avancer(int i, int j, t_direction dir, int nb_pas/*, int *ni, int*nj*/, t_grille * grille);
+typedef enum { NORD=0, NORDEST, EST, SUDEST, SUD, SUDOUEST, OUEST, NORDOUEST } t_direction;
+
+int direction_avancer(int i, int j, t_direction dir, int *ni, int*nj, t_grille * grille);
 t_direction direction_suivante(t_direction dir);
 t_direction direction_debut();
 

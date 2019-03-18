@@ -11,13 +11,13 @@ all : $(PROG) $(PROG2) $(PROG3) $(PROG4)
 $(PROG) : menu.o case.o jeu.o place.o grille.o direction.o joueur.o main.o
 	$(CC) $^ -o $@ $(CFLAGS) 
 
-$(PROG2) : case.o place.o grille.o joueur.o test_jvj.o
+$(PROG2) : case.o place.o grille.o joueur.o test_jvj.o direction.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-$(PROG3) : case.o place.o grille.o joueur.o test_Ordi.o
+$(PROG3) : case.o place.o grille.o joueur.o test_Ordi.o direction.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-$(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o
+$(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o direction.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
 %.o:%.c %.h

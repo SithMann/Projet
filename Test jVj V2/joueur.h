@@ -16,6 +16,7 @@ typedef struct s_joueur{
     int * piece;
 }t_joueur;
 
+int saisir_type(t_joueur * joueur);
 t_joueur creer_joueur(int nbJ, int nb_piece_b, int nb_piece_p, int nb_piece_c);
 
 #endif

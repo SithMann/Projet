@@ -3,6 +3,23 @@
 #include "joueur.h"
 
 
+/* Demande de saisie de la piece.
+ * plus la vérif entier 
+*/
+int saisir_type(t_joueur * joueur){
+    int type = -1;
+    do{
+        printf("Choix du type de pièce à jouer : \n");
+        printf("1- Pleine \n");
+        printf("2- Creuse \n");
+        printf("3- Bloquante \n");
+        printf("Choix : ");
+        scanf("%d", &type);
+        if(!joueur->piece[type-1])
+            printf("Plus de pieces de ce type disponible !\n");
+    }while((type <= 0 && type >= 4) || !joueur->piece[type-1]);
+    return type-1;
+}
 
 t_joueur creer_joueur(int nJoueur, int nb_piece_b_f, int nb_piece_p_f, int nb_piece_c_f){
     t_joueur joueur;

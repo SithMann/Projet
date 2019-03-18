@@ -5,10 +5,21 @@
 #include <time.h>
 #include "objet.h"
 #include "grille.h"
-#include "direction.h"
 
-int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
-    /*int count = 0;
+/**
+* \file test_Ordi.c
+* \author Mathis Despres et Clement Dubois 
+* \date 15 mars 2019
+* \version 1
+* \brief fichier de teste pas a pas pour la simulation
+*/
+
+int est_valide(int ligne, int colonne, t_grille * grille){
+    return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
+}
+
+int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
+    int count = 0;
     // Test victoire vertical
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
@@ -48,21 +59,6 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
                 if(count == nbJetons) return 1;   
             }
         }
-    }*/
-    printf("Test direction debut\n");
-    t_direction direc = direction_debut();
-    fprintf(stderr, "Test appel de la fonction\n");
-    if(direction_avancer(grille->longueur, grille->largeur, direc, nbJetons, grille)){
-        fprintf(stderr, "Test après appel de la fonction\n");
-        return 1;
-    }
-    return 0;
-}
-
-int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs){
-    for(int i = 0; i < nbJoueurs; i++){
-        fprintf(stderr, "Test boucle for un_gagnant\n");
-        if(gagnant(grille, nJetons, joueur+i)) return 1;
     }
     return 0;
 }
@@ -147,6 +143,8 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     return 0;
 }
 
+
+
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
@@ -191,8 +189,8 @@ int main(){
     }
 
 
-    
-    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
+    int fin =0;
+    while(!fin){
         system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -200,7 +198,7 @@ int main(){
             tour_ordi(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(gagnant(grille, 4, joueur+i)/*fin*/){
+            if(/*gagnant(grille)*/fin){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

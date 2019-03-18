@@ -3,6 +3,7 @@
 #include "jeu.h"
 #include "direction.h"
 
+const int NB_DIRECTION=8;
 //modifie les valeurs de l'appelant pour *ni, *nj
 int direction_avancer(int i, int j, t_direction dir, int nb_pas/*, int *ni, int*nj*/, t_grille * grille){
     int k, l;
@@ -58,6 +59,7 @@ int direction_avancer(int i, int j, t_direction dir, int nb_pas/*, int *ni, int*
         }
         dir = direction_suivante(dir);
     }
+    return 0;
 }
 
 t_direction direction_suivante(t_direction dir){

@@ -6,12 +6,6 @@
 #include "objet.h"
 #include "grille.h"
 
-
-
-int est_valide(int ligne, int colonne, t_grille * grille){
-    return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
-}
-
 int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
     int count = 0;
     // Test victoire vertical

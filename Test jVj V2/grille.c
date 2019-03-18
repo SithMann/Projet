@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "grille.h"
 
+int est_valide(int ligne, int colonne, t_grille * grille){
+    return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
+}
+
 t_piece lire_piece_slot(int x, int y, int nSlot, t_grille * grille){
     if(nSlot == 1)
     return (grille->laGrille[x][y]->slot1->piece);

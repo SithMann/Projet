@@ -1,10 +1,18 @@
 #ifndef _OBJET_H_
 #define _OBJET_H_
 
-/*
- * DEFINITION OBJET  
- */
+/**
+* \file objet.h
+* \author Mathis Despres
+* \date 9 mars 2019
+* \version 1
+*/
 
+/**
+* \typedef structure
+* \struct t_objet
+* \brief reunie l'ensemble des objets qui sont utilises dans le programme
+*/
 typedef struct s_objet t_objet ;
 
 struct s_objet

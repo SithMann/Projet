@@ -3,8 +3,18 @@
 #include <unistd.h>
 #include "place.h"
 
+/**
+* \file place.c
+* \author Mathis Despres
+* \date 9 mars 2019
+* \version 2
+*/
 
-/* Fonction qui affiche la couleur et le type de pièce d'un joueur
+/**
+* \fn afficher_place 
+* \param un pointeur sur une place 
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche la couleur et le type de piece d'un joueur 
 */
 static
 void afficher_place(t_place * espace){
@@ -29,9 +39,12 @@ void afficher_place(t_place * espace){
     printf("\033[0m"); // Reset de la couleur par defaut
 }
 
-/* Fonction qui crée(alloue la mémoire) un slot dans une case de la grille de jeu 
- * Renvoie un pointeur sur un slot
- */
+/**
+* \fn creer_place 
+* \param la focntion ne prend rien en parametres
+* \return la fonction retourne un pointeur sur un slot
+* \brief cette fonction alloue de la memoire pour un slot dans une case de la grille de jeu.
+*/
 extern
 t_place * creer_place(){
     t_place * place = malloc(sizeof(t_place));

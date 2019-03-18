@@ -3,9 +3,21 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "grille.h"
+#include "jeu.h"
 
-#define NB_DIRECTION 8
+/**
+* \file direction.h
+* \author Clement Dubois
+* \date 16 mars 2019
+* \version 1
+*/
+
+/**
+* \typedef enumeration
+* \enum t_direction
+* \brief contient l'ensemble des directions possibles 
+*/
+#define NB_DIRECTION 8s
 
 typedef enum { NORD=0, NORDEST, EST, SUDEST, SUD, SUDOUEST, OUEST, NORDOUEST } t_direction;
 

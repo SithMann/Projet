@@ -5,7 +5,14 @@
 #include <time.h>
 #include "objet.h"
 #include "grille.h"
-#include "direction.h"
+
+/**
+* \file test_Ordi.c
+* \author Mathis Despres et Clement Dubois 
+* \date 15 mars 2019
+* \version 1
+* \brief fichier de teste pas a pas pour la simulation
+*/
 
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
    int i, j, k, count = 0;
@@ -122,6 +129,8 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     return 0;
 }
 
+
+
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
@@ -166,8 +175,8 @@ int main(){
     }
 
 
-    
-    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
+    int fin =0;
+    while(!fin){
         system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -175,7 +184,7 @@ int main(){
             tour_ordi(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(gagnant(grille, 4, joueur+i)/*fin*/){
+            if(/*gagnant(grille)*/fin){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

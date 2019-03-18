@@ -4,6 +4,27 @@
 #include "grille.h"
 #include "direction.h"
 
+/**
+* \file jeu.c
+* \author Mathis Despres et Clement Dubois 
+* \date 15 mars 2019
+* \version 3
+*/
+
+/**
+* \fn est_valide 
+* \param deux entiers pour les lignes et les colonnes, un pointeur sur une grille 
+* \return la fonction retourne un entier 
+*/
+int est_valide(int ligne, int colonne, t_grille * grille){
+    return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
+}
+
+/**
+* \fn gagnant
+* \param un pointeur sur grille, un entier pour le nombre de jetons, un pointeur sur un joueur 
+* \return la fonction retourn eun entier 
+*/
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
     int i, j, k, count = 0;
     int ni, nj; //nouveau i et j
@@ -36,11 +57,12 @@ int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs)
     return 0;
 }
 
-/* Fonction pour tester qu'il reste de la place dans une colonne
- * Renvoie 1 s'il y a de la place, 0 sinon. Affecte par pointeur la position de la première case vide de la colonne
- * Attention, à reprendre avec les différents types de pieces.
- */
-
+/**
+* \fn nonPleine
+* \param une piece, uhn entier pour le nombre de colonnes,un pointeur sur une grille, un pointeur sur un joueur
+* \return la fonction retourne un entier
+* \brief cette fonction teste si il reste de la place dans une colonne donnee, si il en reste elle renvoie 1 sinon 0. elle affecte grace a un pointeur la position de la premiere case vide de la colonne
+*/
 int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     int i;
     fprintf(stderr, "NON PLEINE colonne=%d\n", nbCol);
@@ -117,9 +139,11 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
 }
 
 
-
-/* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
- * Met à jour la grille et ne renvoie rien.
+/**
+* \fn tour_joueur
+* \param un pointeur sur un joueur,un pointeur sur une grille
+* \return la fonction ne retourne rien 
+* \brief cette fonction fait jouer un joueur. elle demande de saisir la colonne et la piece. elle met a jour la grille.
 */
 void tour_joueur(t_joueur* joueur, t_grille * grille){
     int type = saisir_type(joueur);
@@ -133,7 +157,12 @@ void tour_joueur(t_joueur* joueur, t_grille * grille){
     }while(!nonPleine(type-1, col-1, grille, joueur) && col <= 0 && col >= grille->largeur);
 }
 
-/* Fonction contenant la boucle principale du mode de jeu jVj.*/
+/**
+* \fn joueurVsjoueur 
+* \param un pointeur sur une grille, un pointeur sur un joueur, un entier pour le nombre de joueur
+* \return la fonction ne retourne rien 
+* \brief cette fonction contient la boucle principale du mode de jeu joueur contre joueur
+*/
 void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){ 
     int i;
     char color;
@@ -184,8 +213,8 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
         }
     }
 
-    //int fin = 0;
-    while(!un_gagnant(grille, 4, joueur, nb_joueur)/*!fin*/){
+    int fin = 0;
+    while(/*!un_gagnant(grille, 4, joueur, nb_joueur)*/!fin){
         //system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -193,7 +222,7 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
             tour_joueur(joueur+i, grille);
             //system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(gagnant(grille, 4, joueur+i)/*!fin*/){
+            if(/*gagnant(grille, 4, joueur+i)*/!fin){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

@@ -6,6 +6,14 @@
 #include "grille.h"
 #include "direction.h"
 
+/**
+* \file test_jvj.c
+* \author Mathis Despres et Clement Dubois
+* \date 15 mars 2019
+* \version 1
+* \brief fichier de teste pas a pas pour la simulation
+*/
+
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
     int i, j, k, count = 0;
     int ni, nj; //nouveau i et j
@@ -34,7 +42,6 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
  * Renvoie 1 s'il y a de la place, 0 sinon. Affecte par pointeur la position de la première case vide de la colonne
  * Attention, à reprendre avec les différents types de pieces.
  */
-
 int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     int i;
     fprintf(stderr, "NON PLEINE colonne=%d\n", nbCol);

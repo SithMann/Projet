@@ -2,6 +2,19 @@
 #include <stdlib.h>
 #include "direction.h"
 
+/**
+* \file direction.c
+* \author Clement Dubois
+* \date 16 mars 2019
+* \version 1
+*/
+
+/**
+* \fn direction_avancer
+* \param deux entiers i et j (indicage), une direction dir, un entier pour le nombre de pas, un pointeur sur une grille
+* \return la fonction retourne un entier  
+*/
+
 //modifie les valeurs de l'appelant pour *ni, *nj
 int direction_avancer(int i, int j, t_direction dir, int *ni, int*nj, t_grille * grille){ // enlever grille useless
     //Déplacement des coords de la case
@@ -38,10 +51,20 @@ int direction_avancer(int i, int j, t_direction dir, int *ni, int*nj, t_grille *
     return 0;
 }
 
+/**
+* \fn direction_suivante
+* \param une direction dir 
+* \return la fonction retourne une direction
+*/
 t_direction direction_suivante(t_direction dir){
     return (dir + 1) % NB_DIRECTION;
 }
 
+/**
+* \fn direction_debut
+* \param la fonction ne prend pas de parametres
+* \return la fonction retourne une direction 
+*/
 t_direction direction_debut(){
     return NORD;
 }

@@ -4,13 +4,17 @@
 #include "direction.h"
 
 const int NB_DIRECTION=8;
+
 //modifie les valeurs de l'appelant pour *ni, *nj
 int direction_avancer(int i, int j, t_direction dir, int nb_pas/*, int *ni, int*nj*/, t_grille * grille){
     int k, l;
     int count = 0;
+    fprintf(stderr, "test");//n'affiche rien
     dir = direction_debut();
+    fprintf(stderr, "fonction direction_debut");
     t_couleur couleur1 = lire_couleur_joueur_slot(i, j, 1, grille);
     t_couleur couleur2 = lire_couleur_joueur_slot(i, j, 2, grille);
+    fprintf(stderr, "Test après affctation couleur");
     //traitement si même couleur et pas hors matrice on continue
     for(k = 0; k < NB_DIRECTION; k++){
         for(l = 1; l <= nb_pas; l++){
@@ -55,6 +59,9 @@ int direction_avancer(int i, int j, t_direction dir, int nb_pas/*, int *ni, int*
                             if(count == nb_pas) return 1;
                          }
                          break;
+                default : 
+                    fprintf(stderr, "Erreur");
+                    break;
             }
         }
         dir = direction_suivante(dir);

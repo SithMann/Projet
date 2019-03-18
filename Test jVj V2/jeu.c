@@ -206,8 +206,8 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
         }
     }
 
-    int fin = 0;
-    while(/*!un_gagnant(grille, 4, joueur, nb_joueur)*/!fin){
+    //int fin = 0;
+    while(!un_gagnant(grille, 4, joueur, nb_joueur)/*!fin*/){
         //system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -215,7 +215,7 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
             tour_joueur(joueur+i, grille);
             //system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(/*gagnant(grille, 4, joueur+i)*/!fin){
+            if(gagnant(grille, 4, joueur+i)/*!fin*/){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

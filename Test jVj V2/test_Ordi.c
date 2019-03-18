@@ -5,9 +5,10 @@
 #include <time.h>
 #include "objet.h"
 #include "grille.h"
+#include "direction.h"
 
-int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
-    int count = 0;
+int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
+    /*int count = 0;
     // Test victoire vertical
     for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
@@ -47,6 +48,15 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
                 if(count == nbJetons) return 1;   
             }
         }
+    }*/
+    t_direction direc = direction_debut();
+    if(direction_avancer(grille->longueur, grille->largeur, direc, nbJetons, grille)) return 1;
+    return 0;
+}
+
+int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs){
+    for(int i = 0; i < nbJoueurs; i++){
+        if(gagnant(grille, nJetons, joueur+i)) return 1;
     }
     return 0;
 }
@@ -131,8 +141,6 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     return 0;
 }
 
-
-
 /* Fonction qui fait jouer un joueur. Demande la saisie de la colonne et de la piece.
  * Met à jour la grille et ne renvoie rien.
 */
@@ -177,8 +185,8 @@ int main(){
     }
 
 
-    int fin =0;
-    while(!fin){
+    
+    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
         system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -186,7 +194,7 @@ int main(){
             tour_ordi(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(/*gagnant(grille)*/fin){
+            if(gagnant(grille, 4, joueur+i)/*fin*/){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

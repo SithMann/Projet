@@ -23,7 +23,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
         for(j = 0; j < grille->largeur; j++){
             direc = direction_debut();
             fprintf(stderr, "Direction : %d\n", direc);
-            for(int m=0; m < NB_DIRECTION;m++){
+            for(int m=0; m < NB_DIRECTION; m++){
                 count = 0;
                 ni = i;
                 nj = j;
@@ -176,8 +176,8 @@ int main(){
     }
 
 
-    int fin =0;
-    while(!fin){
+    //int fin =0;
+    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
         system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -185,7 +185,7 @@ int main(){
             tour_ordi(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(/*gagnant(grille)*/fin){
+            if(gagnant(grille, 4, joueur)/*fin*/){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "menu.h"
 
+/**
+* \file main.c 
+* \author Clement Dubois 
+* \date 5 mars 2019
+* \version 1
+*/
+
 int main(){
 
     int choix; /*Choix du joueur pour le début du jeu*/

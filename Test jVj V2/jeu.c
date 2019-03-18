@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "objet.h"
 #include "grille.h"
+#include "direction.h"
 
 int est_valide(int ligne, int colonne, t_grille * grille){
     return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
@@ -9,8 +10,9 @@ int est_valide(int ligne, int colonne, t_grille * grille){
 
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
     int count = 0;
+    t_direction direc = direction_debut();
     // Test victoire vertical
-    for(int i = 0; i < grille->longueur; i++){
+   /* for(int i = 0; i < grille->longueur; i++){
         for(int j = 0; j< grille->largeur; j++){
             if(est_valide(i,j,grille)){
                 if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur->nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur->nJoueur)
@@ -48,7 +50,8 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
                 if(count == nbJetons) return 1;   
             }
         }
-    }
+    }*/
+    direction_avancer(grille->longueur, grille->largeur, direc, nbJetons, grille);
     return 0;
 }
 

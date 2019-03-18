@@ -10,6 +10,15 @@
 */
 
 /**
+* \fn est_valide 
+* \param deux entiers pour les lignes et les colonnes, un pointeur sur une grille 
+* \return la fonction retourne un entier 
+*/
+int est_valide(int ligne, int colonne, t_grille * grille){
+    return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
+}
+
+/**
 * \fn lire_piece_slot
 * \param trois entiers x, y (indicage) et le numero du slot, un pointeur sur grille
 * \return la fonction retourne une piece
@@ -36,6 +45,7 @@ t_couleur lire_couleur_joueur_slot(int x, int y, int nSlot, t_grille * grille){
         fprintf(stderr, "couleur 1 : ");
         fprintf(stderr, "%d \n", grille->laGrille[x][y]->slot1->joueur->couleur);
         return (grille->laGrille[x][y]->slot1->joueur->couleur);
+    }
     if(nSlot == 2)
         return (grille->laGrille[x][y]->slot2->joueur->couleur);
 

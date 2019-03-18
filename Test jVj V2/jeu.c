@@ -12,15 +12,6 @@
 */
 
 /**
-* \fn est_valide 
-* \param deux entiers pour les lignes et les colonnes, un pointeur sur une grille 
-* \return la fonction retourne un entier 
-*/
-int est_valide(int ligne, int colonne, t_grille * grille){
-    return ((ligne >= 0 && ligne <= grille->longueur - 1) && (colonne >= 0 && colonne <= grille->largeur - 1));
-}
-
-/**
 * \fn gagnant
 * \param un pointeur sur grille, un entier pour le nombre de jetons, un pointeur sur un joueur 
 * \return la fonction retourn eun entier 

@@ -5,6 +5,7 @@
 #include <time.h>
 #include "objet.h"
 #include "grille.h"
+#include "direction.h"
 
 /**
 * \file test_Ordi.c
@@ -17,10 +18,10 @@
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
    int i, j, k, count = 0;
     int ni, nj; //nouveau i et j
-    
+    t_direction direc;
     for(i = 0; i < grille->longueur; i++){
         for(j = 0; j < grille->largeur; j++){
-            t_direction direc = direction_debut();
+            direc = direction_debut();
             fprintf(stderr, "Direction : %d\n", direc);
             for(int m=0; m < NB_DIRECTION;m++){
                 count = 0;

@@ -17,7 +17,7 @@
 * \enum t_direction
 * \brief contient l'ensemble des directions possibles 
 */
-#define NB_DIRECTION 8s
+#define NB_DIRECTION 8
 
 typedef enum { NORD=0, NORDEST, EST, SUDEST, SUD, SUDOUEST, OUEST, NORDOUEST } t_direction;
 

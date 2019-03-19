@@ -13,15 +13,14 @@
 * \version 1
 * \brief fichier de teste pas a pas pour la simulation
 */
-
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
-     int i, j, k, count = 0;
+   int i, j, k, count = 0;
     int ni, nj; //nouveau i et j
     t_direction direc;
     for(i = 0; i < grille->longueur; i++){
         for(j = 0; j < grille->largeur; j++){
             direc = direction_debut();
-            fprintf(stderr, "Direction : %d\n", direc);
+            //fprintf(stderr, "Direction : %d\n", direc);
             for(int m=0; m < NB_DIRECTION; m++){
                 count = 0;
                 ni = i;
@@ -37,6 +36,14 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
                 direc = direction_suivante(direc);
             }
         }
+    }
+    return 0;
+}
+
+int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs){
+    for(int i = 0; i < nbJoueurs; i++){
+        //fprintf(stderr, "Test boucle for un_gagnant\n");
+        if(gagnant(grille, nJetons, joueur+i)) return 1;
     }
     return 0;
 }
@@ -176,8 +183,7 @@ int main(){
     }
 
 
-    int fin =0;
-    while(!fin){
+    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
         system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -185,7 +191,7 @@ int main(){
             tour_joueur(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(/*gagnant(grille)*/fin){
+            if(gagnant(grille, 4, joueur)){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

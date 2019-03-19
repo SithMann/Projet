@@ -22,7 +22,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
     for(i = 0; i < grille->longueur; i++){
         for(j = 0; j < grille->largeur; j++){
             direc = direction_debut();
-            fprintf(stderr, "Direction : %d\n", direc);
+            //fprintf(stderr, "Direction : %d\n", direc);
             for(int m=0; m < NB_DIRECTION; m++){
                 count = 0;
                 ni = i;
@@ -44,7 +44,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
 
 int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs){
     for(int i = 0; i < nbJoueurs; i++){
-        fprintf(stderr, "Test boucle for un_gagnant\n");
+        //fprintf(stderr, "Test boucle for un_gagnant\n");
         if(gagnant(grille, nJetons, joueur+i)) return 1;
     }
     return 0;

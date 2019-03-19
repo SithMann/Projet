@@ -39,14 +39,14 @@ t_piece lire_piece_slot(int x, int y, int nSlot, t_grille * grille){
 */
 t_couleur lire_couleur_joueur_slot(int x, int y, int nSlot, t_grille * grille){
 
-    fprintf(stderr, "cPremier : \n");
+    //fprintf(stderr, "cPremier : \n");
 
-    if(nSlot == 1 && grille->laGrille[x][y]->slot1->joueur != NULL){
-        fprintf(stderr, "couleur 1 : ");
-        fprintf(stderr, "%d \n", grille->laGrille[x][y]->slot1->joueur->couleur);
+    if(nSlot == 1 && grille->laGrille[x][y]->slot1->piece != VIDE){
+        //fprintf(stderr, "couleur 1 : ");
+        //fprintf(stderr, "%d \n", grille->laGrille[x][y]->slot1->joueur->couleur);
         return (grille->laGrille[x][y]->slot1->joueur->couleur);
     }
-    if(nSlot == 2)
+    if(nSlot == 2 && grille->laGrille[x][y]->slot2->piece != VIDE)
         return (grille->laGrille[x][y]->slot2->joueur->couleur);
 
     return NOCOLOR;

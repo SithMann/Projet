@@ -32,6 +32,7 @@ typedef enum {PLEINE, CREUSE, BLOQUANTE, VIDE } t_piece;
 typedef struct s_joueur{
     char pseudo[15];//temporaire
     //int nbWin;
+    int estHumain;
     int nJoueur;
     t_couleur couleur;
     int * piece;

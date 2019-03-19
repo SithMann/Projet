@@ -25,8 +25,7 @@ int main(){
         scanf("%d", &choix);
 
         switch(choix){
-            case 1 : /*joueurVSia(grille);*/
-                    printf("En dev !");
+            case 1 : menu_joueur_ia(&nb_ligne, &nb_colonne);
                     break;
             case 2 : menu_joueur(&nb_ligne, &nb_colonne);
                     break;

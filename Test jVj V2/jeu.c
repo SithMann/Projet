@@ -17,24 +17,26 @@
 * \return la fonction retourn eun entier 
 */
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
-    int i, j, k, count = 0;
+     int i, j, k, count = 0;
     int ni, nj; //nouveau i et j
-    t_direction direc = direction_debut();
+    t_direction direc;
     for(i = 0; i < grille->longueur; i++){
         for(j = 0; j < grille->largeur; j++){
-            while(direc < NB_DIRECTION){
+            direc = direction_debut();
+            fprintf(stderr, "Direction : %d\n", direc);
+            for(int m=0; m < NB_DIRECTION; m++){
                 count = 0;
                 ni = i;
                 nj = j;
-                for(k = 0; k < nbJetons; k++){
-                    fprintf(stderr, "Direction : %d\n", direc);
+                for(k = 0; k < nbJetons && est_valide(ni,nj,grille) ; k++){
+                    
                     if(est_valide(ni,nj,grille) && ((joueur->couleur == lire_couleur_joueur_slot(ni, nj, 1, grille)) || (joueur->couleur == lire_couleur_joueur_slot(ni, nj, 2, grille)))){
                         count++;
                     }
                     if(count >= nbJetons) return 1;
-                    direction_avancer( i, j, direc, &ni, &nj, grille);
+                    direction_avancer( ni, nj, direc, &ni, &nj, grille);
                 }
-                direction_suivante(direc);
+                direc = direction_suivante(direc);
             }
         }
     }

@@ -31,4 +31,7 @@ void detruire_grille(t_grille * grille);
 void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* joueur);
 int est_valide(int ligne, int colonne, t_grille * grille);
 
+t_couleur lire_couleur_joueur_slot(int x, int y, int nSlot, t_grille * grille);
+t_piece lire_piece_slot(int x, int y, int nSlot, t_grille * grille);
+
 #endif 

@@ -80,7 +80,6 @@ void afficher_grille(t_grille * grille){
 */
 extern
 void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* pjoueur){
-    char c;
     if(grille->laGrille[x][y]->slot1->joueur == NULL){
         grille->laGrille[x][y]->slot1->piece = piece;
         grille->laGrille[x][y]->slot1->joueur = pjoueur;

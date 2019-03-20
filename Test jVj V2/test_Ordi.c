@@ -178,9 +178,9 @@ int main(){
 
     //int fin =0;
     while(!un_gagnant(grille, 4, joueur, nb_joueur)){
-        system("clear");
+        //system("clear");
         grille->p_affiche((t_objet * )grille);
-        for( i = 0; i < nb_joueur; i++){
+        for( i = 0; i < nb_joueur && !gagnant(grille,4,joueur-1); i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_ordi(joueur+i, grille);
             system("clear");

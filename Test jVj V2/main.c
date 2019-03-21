@@ -15,7 +15,8 @@ int main(){
     int nb_ligne = 0;
     int nb_colonne = 0;
 
-    while(1){
+    while(choix != 3){
+        printf("\n\n");
         printf("Selectionnez le mode de jeu : \n");
         printf("1- Joueur vs IA \n");
         printf("2- Joueur vs Joueur \n");
@@ -29,7 +30,7 @@ int main(){
                     break;
             case 2 : menu_joueur(&nb_ligne, &nb_colonne);
                     break;
-            case 3 : exit(1);
+            default : printf("Aurevoir ! \n");
                     break;
         }
     }

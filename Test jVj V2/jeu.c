@@ -238,7 +238,7 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
                        break;
         }
     }
-
+    i=nb_joueur-1;
     while(i == nb_joueur-1){
         system("clear");
         grille->p_affiche((t_objet * )grille);
@@ -253,12 +253,12 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
 }
 
 /**
-* \fn joueurVsjoueur 
+* \fn joueurVsia 
 * \param un pointeur sur une grille, un pointeur sur un joueur, un entier pour le nombre de joueur
 * \return la fonction ne retourne rien 
 * \brief cette fonction contient la boucle principale du mode de jeu joueur contre joueur
 */
-void joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots){ 
+int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots){ 
     fprintf(stderr,"ICI\n");
     int i;
     char color;
@@ -313,13 +313,27 @@ void joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots
             strcpy(joueur[i].pseudo , "Bot");
             fprintf(stderr," %s \n", joueur[i].pseudo);
             joueur[i].nJoueur = i+1;
-            joueur[i].couleur = RED + i;
+            joueur[i].couleur = RED+i;
+            switch(RED+i){
+                case RED : couleur[i] = 'R';
+                            break;
+                case GREEN : couleur[i] = 'G';
+                            break;
+                case YELLOW : couleur[i] = 'Y';
+                            break;
+                case BLUE : couleur[i] = 'B';
+                            break;
+                case WHITE : couleur[i] = 'W';
+                            break;
+                case PINK : couleur[i] = 'P';
+                            break;
+
+            }
         }
     }
 
     while(!un_gagnant(grille, 4, joueur, nb_joueur+nb_bots)){
-        sleep(1);
-        system("clear");
+        //system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_bots+nb_joueur; i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
@@ -328,9 +342,11 @@ void joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots
             system("clear");
             grille->p_affiche((t_objet * )grille);
             if(gagnant(grille, 4, joueur+i)){
-                printf("%s a gagné !! \n", joueur[i].pseudo);
+                // printf("%s a gagné !! \n", joueur[i].pseudo);
+                return 1;
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }
         }
     }
+    return 0;
 }

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include "objet.h"
 #include "grille.h"
 #include "direction.h"
@@ -34,7 +35,11 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
                     if(est_valide(ni,nj,grille) && ((joueur->couleur == lire_couleur_joueur_slot(ni, nj, 1, grille)) || (joueur->couleur == lire_couleur_joueur_slot(ni, nj, 2, grille)))){
                         count++;
                     }
-                    if(count >= nbJetons) return 1;
+                    if(count >= nbJetons){
+                        printf("%s a gagné !! \n", joueur->pseudo);
+                        //Save win 
+                        return 1;
+                    } 
                     direction_avancer( ni, nj, direc, &ni, &nj, grille);
                 }
                 direc = direction_suivante(direc);
@@ -61,7 +66,7 @@ int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs)
 
 int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     int i;
-    fprintf(stderr, "NON PLEINE colonne=%d\n", nbCol);
+    //fprintf(stderr, "NON PLEINE colonne=%d\n", nbCol);
     switch(piece){
         /* Cas 1 et 2 à ajuster en fonctions des règles 
         * Cas 1 : Creuses : Si il y a une pleine la creuse va directement dans la pleine
@@ -70,10 +75,10 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
         * Elle descend le plus bas si il n'y a que des creuses jusqu'à une bloquante ou une pleine
         */
         case PLEINE :
-                fprintf(stderr, "PIECE PLEINE colonne=%d\n", nbCol);
+                //fprintf(stderr, "PIECE PLEINE colonne=%d\n", nbCol);
                     
                     for( i = 0; i < grille->longueur; i++){
-                        fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
+                        //fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
                         //grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
                         if((lire_piece_slot(i,nbCol,1,grille) == BLOQUANTE) || ((lire_piece_slot(i,nbCol,1,grille) == PLEINE)||(lire_piece_slot(i,nbCol,2,grille) != VIDE))){// la case est bloquante
                                 break;
@@ -81,18 +86,18 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                         }
                     }
                     if(i==0) {
-                         fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
+                         //fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
                          return 0;
                     }
-                    fprintf(stderr, "AJOUT PIECE PLEINE en (%d,%d)\n", i-1, nbCol);
+                    //fprintf(stderr, "AJOUT PIECE PLEINE en (%d,%d)\n", i-1, nbCol);
                     ajouter_piece(i-1, nbCol, grille, piece, joueur);
                     return 1;
                 
                 break;
         case CREUSE :
-                fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
+                //fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
                     for( i = 0; i < grille->longueur; i++){
-                        fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
+                        //fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
                         //grille->laGrille[i][nbCol]->p_affiche((t_objet*)grille->laGrille[i][nbCol]);
                         if((lire_piece_slot(i,nbCol,1,grille) == BLOQUANTE) || ((lire_piece_slot(i,nbCol,1,grille) == CREUSE)||(lire_piece_slot(i,nbCol,2,grille) != VIDE))){// la case est bloquante
                                 break;
@@ -100,28 +105,28 @@ int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
                         }
                     }
                     if(i==0) {
-                         fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
+                         //fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
                          return 0;
                     }
-                    fprintf(stderr, "AJOUT PIECE CREUSE en (%d,%d)\n", i-1, nbCol);
+                    //fprintf(stderr, "AJOUT PIECE CREUSE en (%d,%d)\n", i-1, nbCol);
                     ajouter_piece(i-1, nbCol, grille, piece, joueur);
                     return 1;
                 break;
         /* Cas 3 : BLOQUANTES OK */
         case BLOQUANTE : 
-                fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
+                //fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
                     for( i = 0; i < grille->longueur; i++){
-                        fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
+                        //fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);
                         if((lire_piece_slot(i,nbCol,1,grille) == BLOQUANTE) || (lire_piece_slot(i,nbCol,1,grille) == PLEINE) || (lire_piece_slot(i,nbCol,1,grille) == CREUSE)){// la case est bloquante
                                 break;
                                 
                         }
                     }
                     if(i==0) {
-                         fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
+                         //fprintf(stderr, "LA COLONNE EST PLEINE colonne=%d\n", nbCol);
                          return 0;
                     }
-                    fprintf(stderr, "AJOUT PIECE BLOQUANTE en (%d,%d)\n", i-1, nbCol);
+                    //fprintf(stderr, "AJOUT PIECE BLOQUANTE en (%d,%d)\n", i-1, nbCol);
                     ajouter_piece(i-1, nbCol, grille, piece, joueur);
                     return 1;
                 break;
@@ -233,30 +238,27 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
                        break;
         }
     }
-
-    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
+    i=nb_joueur-1;
+    while(i == nb_joueur-1){
         system("clear");
         grille->p_affiche((t_objet * )grille);
-        for( i = 0; i < nb_joueur; i++){
+        for( i = 0; i < nb_joueur && !un_gagnant(grille, 4, joueur, nb_joueur); i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(gagnant(grille, 4, joueur+i)){
-                printf("%s a gagné !! \n", joueur[i].pseudo);
-                /*Appel de la save des scores à faire quand la fonction sera fini*/
-            }
+
         }
     }
 }
 
 /**
-* \fn joueurVsjoueur 
+* \fn joueurVsia 
 * \param un pointeur sur une grille, un pointeur sur un joueur, un entier pour le nombre de joueur
 * \return la fonction ne retourne rien 
 * \brief cette fonction contient la boucle principale du mode de jeu joueur contre joueur
 */
-void joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots){ 
+int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots){ 
     fprintf(stderr,"ICI\n");
     int i;
     char color;
@@ -311,22 +313,40 @@ void joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots
             strcpy(joueur[i].pseudo , "Bot");
             fprintf(stderr," %s \n", joueur[i].pseudo);
             joueur[i].nJoueur = i+1;
-            joueur[i].couleur = RED + i;
+            joueur[i].couleur = RED+i;
+            switch(RED+i){
+                case RED : couleur[i] = 'R';
+                            break;
+                case GREEN : couleur[i] = 'G';
+                            break;
+                case YELLOW : couleur[i] = 'Y';
+                            break;
+                case BLUE : couleur[i] = 'B';
+                            break;
+                case WHITE : couleur[i] = 'W';
+                            break;
+                case PINK : couleur[i] = 'P';
+                            break;
+
+            }
         }
     }
 
     while(!un_gagnant(grille, 4, joueur, nb_joueur+nb_bots)){
-        system("clear");
+        //system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_bots+nb_joueur; i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur+i, grille);
+            sleep(1);
             system("clear");
             grille->p_affiche((t_objet * )grille);
             if(gagnant(grille, 4, joueur+i)){
-                printf("%s a gagné !! \n", joueur[i].pseudo);
+                // printf("%s a gagné !! \n", joueur[i].pseudo);
+                return 1;
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }
         }
     }
+    return 0;
 }

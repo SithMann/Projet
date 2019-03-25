@@ -1,5 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+<<<<<<< HEAD
+=======
+#include <string.h>
+>>>>>>> c7fef9e62b03e8bc69c41e951b07181b3d08bd61
 #include "objet.h"
 #include "grille.h"
 
@@ -84,4 +88,8 @@ int main(){
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c7fef9e62b03e8bc69c41e951b07181b3d08bd61

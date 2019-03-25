@@ -2,9 +2,18 @@
 #include <stdio.h> 
 #include "joueur.h"
 
+/**
+* \file joueur.c 
+* \author Mathis Despres
+* \date 6 mars 2019
+* \version 2
+*/
 
-/* Demande de saisie de la piece.
- * plus la vérif entier 
+/**
+* \fn saisir_type 
+* \param un pointeur sur un joueur 
+* \return la focntion retourn un entier
+* \brief cette fonction demande de saisir une piece et elle verrifie qu'on lui rentre bien un entier et pas autre chose 
 */
 int saisir_type(t_joueur * joueur){
     int type = -1;
@@ -21,6 +30,11 @@ int saisir_type(t_joueur * joueur){
     return type-1;
 }
 
+/**
+* \fn creer_joueur 
+* \param quatre entiers pour le nombre de joueurs, le nombre de pieces bloquantes finales, le nombre de pieces pleines finales et le nombre de pieces creuses finales
+* \return la fonction retourn un joueur 
+*/
 t_joueur creer_joueur(int nJoueur, int nb_piece_b_f, int nb_piece_p_f, int nb_piece_c_f){
     t_joueur joueur;
 
@@ -29,7 +43,7 @@ t_joueur creer_joueur(int nJoueur, int nb_piece_b_f, int nb_piece_p_f, int nb_pi
     joueur.piece[CREUSE] = nb_piece_c_f;
     joueur.piece[BLOQUANTE] = nb_piece_b_f;
 
-
+    joueur.estHumain = 1;
     joueur.nJoueur = nJoueur;
     joueur.couleur = NOCOLOR; // TODO peut être à changer
     

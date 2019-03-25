@@ -1,0 +1,50 @@
+\hypertarget{main_8c}{}\section{main.\+c File Reference}
+\label{main_8c}\index{main.\+c@{main.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}piece.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}joueur.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}grille.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8c_a52037c938e3c1b126c6277da5ca689d0}\label{main_8c_a52037c938e3c1b126c6277da5ca689d0}} 
+\#define {\bfseries M}~20 /$\ast$ Taille max pour le pseudo $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8c_a9b89a774cd1748659aabb45404f1e5fc}\label{main_8c_a9b89a774cd1748659aabb45404f1e5fc}} 
+void {\bfseries creer\+\_\+joueur} (t\+\_\+joueur $\ast$joueur, int n)
+\item 
+\mbox{\Hypertarget{main_8c_ae8a67852f53c12b5ede38bdc81f45eec}\label{main_8c_ae8a67852f53c12b5ede38bdc81f45eec}} 
+void {\bfseries creer\+\_\+piece} (t\+\_\+piece $\ast$piece, int n)
+\item 
+\mbox{\Hypertarget{main_8c_ad567fadb5be9de08100d54024c471973}\label{main_8c_ad567fadb5be9de08100d54024c471973}} 
+int {\bfseries gagnant} (\mbox{\hyperlink{structs__case}{t\+\_\+case}} $\ast$$\ast$grille)
+\item 
+\mbox{\Hypertarget{main_8c_a1ff293743fb9d439759500473eafd76e}\label{main_8c_a1ff293743fb9d439759500473eafd76e}} 
+int {\bfseries non\+Pleine} (t\+\_\+piece piece, int nb\+Col, int $\ast$pos, \mbox{\hyperlink{structs__case}{t\+\_\+case}} $\ast$$\ast$grille)
+\item 
+\mbox{\Hypertarget{main_8c_a162784a26c1a8e5a5a801a4276b9afd8}\label{main_8c_a162784a26c1a8e5a5a801a4276b9afd8}} 
+int {\bfseries tour\+\_\+joueur} (int num\+Joueur, \mbox{\hyperlink{structs__case}{t\+\_\+case}} $\ast$$\ast$grille, char color)
+\item 
+\mbox{\Hypertarget{main_8c_a957a37df29ee31018c36ef4b294bf56b}\label{main_8c_a957a37df29ee31018c36ef4b294bf56b}} 
+void {\bfseries save} (t\+\_\+joueur winner)
+\item 
+\mbox{\Hypertarget{main_8c_ac2d5822daaed9adf11724e7e611fd752}\label{main_8c_ac2d5822daaed9adf11724e7e611fd752}} 
+void {\bfseries joueur\+V\+Sjoueur} (char $\ast$grille, t\+\_\+joueur $\ast$joueur, int nb\+\_\+joueur)
+\item 
+\mbox{\Hypertarget{main_8c_af7e2d75039e3054666621757bfe30b38}\label{main_8c_af7e2d75039e3054666621757bfe30b38}} 
+void {\bfseries menu\+\_\+joueur} (int $\ast$nb\+\_\+ligne, int $\ast$nb\+\_\+colonne)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Clement Dubois 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+7 mars 2019 
+\end{DoxyDate}

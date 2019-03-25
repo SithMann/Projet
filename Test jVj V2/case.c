@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include "case.h"
 
+/**
+* \file case.c
+* \author Mathis Despres et Noémie Farizon
+* \date 15 mars 2019
+* \version 2
+*/
+
+/**
+* \fn afficher_case
+* \param case de type t_case
+* \return la fonction ne retourne rien
+*/
 static
 void afficher_case(t_case * laCase){
     if(laCase->slot1->joueur != NULL){
@@ -15,6 +27,11 @@ void afficher_case(t_case * laCase){
     //printf("\n");
 }
 
+/**
+* \fn creer_case
+* \param la fonction ne prend pas de parametres
+* \return la fonction retourne un pointeur sur un type t_case
+*/
 extern
 t_case * creer_case(){
     t_case * lacase = malloc(sizeof(t_case));

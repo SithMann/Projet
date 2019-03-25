@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include "menu.h"
 
+/**
+* \file main.c 
+* \author Clement Dubois 
+* \date 5 mars 2019
+* \version 1
+*/
+
 int main(){
 
     int choix; /*Choix du joueur pour le début du jeu*/
@@ -18,8 +25,7 @@ int main(){
         scanf("%d", &choix);
 
         switch(choix){
-            case 1 : /*joueurVSia(grille);*/
-                    printf("En dev !");
+            case 1 : menu_joueur_ia(&nb_ligne, &nb_colonne);
                     break;
             case 2 : menu_joueur(&nb_ligne, &nb_colonne);
                     break;

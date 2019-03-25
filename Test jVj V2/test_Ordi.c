@@ -5,48 +5,47 @@
 #include <time.h>
 #include "objet.h"
 #include "grille.h"
+#include "direction.h"
 
-int gagnant(t_grille * grille, int nbJetons, t_joueur joueur){
-    int count = 0;
-    // Test victoire vertical
-    for(int i = 0; i < grille->longueur; i++){
-        for(int j = 0; j< grille->largeur; j++){
-            if(est_valide(i,j,grille)){
-                if(grille->laGrille[i][j]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i][j]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;
+/**
+* \file test_Ordi.c
+* \author Mathis Despres et Clement Dubois 
+* \date 15 mars 2019
+* \version 1
+* \brief fichier de teste pas a pas pour la simulation
+*/
+
+int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
+   int i, j, k, count = 0;
+    int ni, nj; //nouveau i et j
+    t_direction direc;
+    for(i = 0; i < grille->longueur; i++){
+        for(j = 0; j < grille->largeur; j++){
+            direc = direction_debut();
+            //fprintf(stderr, "Direction : %d\n", direc);
+            for(int m=0; m < NB_DIRECTION; m++){
+                count = 0;
+                ni = i;
+                nj = j;
+                for(k = 0; k < nbJetons && est_valide(ni,nj,grille) ; k++){
+                    
+                    if(est_valide(ni,nj,grille) && ((joueur->couleur == lire_couleur_joueur_slot(ni, nj, 1, grille)) || (joueur->couleur == lire_couleur_joueur_slot(ni, nj, 2, grille)))){
+                        count++;
+                    }
+                    if(count >= nbJetons) return 1;
+                    direction_avancer( ni, nj, direc, &ni, &nj, grille);
+                }
+                direc = direction_suivante(direc);
             }
         }
     }
+    return 0;
+}
 
-    // Test victoire horizontal
-    for(int i = 0; i < grille->longueur; i++){
-        for(int j = 0; j< grille->largeur; j++){
-            if(est_valide(i,j,grille)){
-                if(grille->laGrille[j][i]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[j][i]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;
-            }
-        }
-    }
-
-    // Test diagonale gauche
-    for(int i = 0; i < grille->longueur; i++){
-        for(int j = 0; j< grille->largeur; j++){
-            if(est_valide(i,j,grille)){
-                if(grille->laGrille[i+1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i+1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;
-
-                if(grille->laGrille[i-1][j+1]->slot1->joueur->nJoueur == joueur.nJoueur ||  grille->laGrille[i-1][j+1]->slot2->joueur->nJoueur == joueur.nJoueur)
-                    count++;
-                else count = 0;
-                if(count == nbJetons) return 1;   
-            }
-        }
+int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs){
+    for(int i = 0; i < nbJoueurs; i++){
+        //fprintf(stderr, "Test boucle for un_gagnant\n");
+        if(gagnant(grille, nJetons, joueur+i)) return 1;
     }
     return 0;
 }
@@ -177,8 +176,8 @@ int main(){
     }
 
 
-    int fin =0;
-    while(!fin){
+    //int fin =0;
+    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
         system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur; i++){
@@ -186,7 +185,7 @@ int main(){
             tour_ordi(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(/*gagnant(grille)*/fin){
+            if(gagnant(grille, 4, joueur)/*fin*/){
                 printf("%s a gagné !! \n", joueur[i].pseudo);
                 /*Appel de la save des scores à faire quand la fonction sera fini*/
             }

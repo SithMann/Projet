@@ -16,7 +16,7 @@
 * \fn choix_piece
 * \param un joueur 
 * \return la fonction revoie la piece que l'on veut jouer
-* \brief cette focntion sera utilisee dans coup_possible
+* \brief cette fonction sera utilisee dans coup_possible, il faut tenir compte du nombre de type de pieces et du nombre de pieces dispo pour chaque type (etat qui change au cours du jeu).
 */
 t_piece choix_piece(t_piece piece_prec){
     return (piece_prec + 1) % NB_TYPE;

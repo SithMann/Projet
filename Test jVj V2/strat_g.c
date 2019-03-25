@@ -51,7 +51,7 @@ int evaluation(){
 * \fn adversaire
 * \param un pointeur sur la grille de jeu
 * \return la fonction renvoie le min des scores pour savoir si on va plutot gagner ou plutot perdre
-* \brief 
+* \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
 int adversaire(t_grille * grille, ){
     if(coup_gagnant)
@@ -70,13 +70,16 @@ int adversaire(t_grille * grille, ){
 * \return la fonction renvoie le max des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int ordi(t_grille * grille, ){
+int ordi(t_grille * grille, ){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
     if(coup_gagnant)
         return max_score;
     else{
         int nb_piece_uti=0;
         do{
-            grille//nouvel etat = jouer le coup 
+            // for(int i = 0; i < nb_pieces_dispo //24//; i++)
+            // si type de piece = bloquante : si le nombre de pieces dispo > 0, jouer le coup
+            // sinon juste jouer le coup
+            // grille[i][j] = coup (1,2 ou 3) -> lien avec la table joueur pour avoir la couleur ?//nouvel etat = jouer le coup 
             //C[i] = adversaire(nouvel etat)
             nb_piece_uti++;
         }while(coup_possible(grille, nb_piece_dispo, nb_piece_uti, nb_colonne));
@@ -105,3 +108,7 @@ void tour_ordi(int prof_max, int nb_joueur){
             // coup au hasard
     }
 }
+
+
+// pb : comment faire pour retirer le coup qui vient d'être joueur pour continuer a faire la recurtion ?
+// a quel moment on le retire ?

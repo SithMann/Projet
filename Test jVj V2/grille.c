@@ -41,12 +41,12 @@ t_couleur lire_couleur_joueur_slot(int x, int y, int nSlot, t_grille * grille){
 
     //fprintf(stderr, "cPremier : \n");
 
-    if(nSlot == 1 && grille->laGrille[x][y]->slot1->piece != VIDE){
+    if(nSlot == 1 && grille->laGrille[x][y]->slot1->joueur != NULL){
         //fprintf(stderr, "couleur 1 : ");
         //fprintf(stderr, "%d \n", grille->laGrille[x][y]->slot1->joueur->couleur);
         return (grille->laGrille[x][y]->slot1->joueur->couleur);
     }
-    if(nSlot == 2 && grille->laGrille[x][y]->slot2->piece != VIDE)
+    if(nSlot == 2 && grille->laGrille[x][y]->slot2->joueur != NULL)
         return (grille->laGrille[x][y]->slot2->joueur->couleur);
 
     return NOCOLOR;
@@ -80,6 +80,7 @@ void afficher_grille(t_grille * grille){
 */
 extern
 void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* pjoueur){
+    
     if(grille->laGrille[x][y]->slot1->joueur == NULL){
         grille->laGrille[x][y]->slot1->piece = piece;
         grille->laGrille[x][y]->slot1->joueur = pjoueur;

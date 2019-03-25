@@ -15,7 +15,6 @@
 int nonPleine(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     int i;
 
-
     fprintf(stderr, "PIECE CREUSE colonne=%d\n", nbCol);
     for( i = 0; i < grille->longueur; i++){
         fprintf(stderr, "CASE (%d,%d) \n", i, nbCol);

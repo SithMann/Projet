@@ -7,31 +7,30 @@
 #define NB_JOUEUR 4 //sera mis en parametre car variable (en fonction du niveau)
 /**
 * \file strat_g.c
-* \author Noémie Farizon
+* \author Noémie Farizon et Mathis Despres
 * \date 20 mars 2019
 * \version 1
 */
 
 /**
 * \fn dejouer
-* \param  
-* \return 
+* \param  une piece, un entier pour le nombre de colonnes, une pointeur sur une grille, un pointeur sur joueur
+* \return la fonction ne retourne rien
 * \brief fait l'inverse de jouer_le_coup (retire la piece de la grille)
 */
-truc dejouer(){
-    
-}
-
-/**
-* \fn coup_possible
-* \param un pointeur sur une grille, un entier pour le nombre de colonne de la grille
-* \return la fonction revoie une valeur qui permet de savoir si le coup est realisable (0-1)
-* \brief verifie que la case dans laquelle on veut jouer n'est pas pleine, sinon on test si la piece est bloquante (sinon on augmentera le compteur pour la ligne) et que le type est disponible (...) ?
-*/
-//stocke tous les coup que l'on peut jouer --> pas besoin car juste un if dans adv/ordi qui ne jourra le coup que s'il est possible
-truc coup_possible(t_grille * grille, int nb_piece_dispo, int nb_piece_uti, int nb_colonne){
-    int i;
-    
+void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
+    for( int i = 0; i < grille->longueur; i++){  
+        if((lire_piece_slot(i,nbCol,1,grille) == piece)){
+            grille->laGrille[i][nbCol]->slot1->piece = VIDE;
+            grille->laGrille[i][nbCol]->slot1->joueur = NULL;
+            return;
+        }
+        if((lire_piece_slot(i,nbCol,2,grille) == piece)){
+            grille->laGrille[i][nbCol]->slot2->piece = VIDE;
+            grille->laGrille[i][nbCol]->slot2->joueur = NULL;
+            return;
+        }
+    }
 }
 
 /**
@@ -40,9 +39,9 @@ truc coup_possible(t_grille * grille, int nb_piece_dispo, int nb_piece_uti, int 
 * \return 
 * \brief si le score du min max ne permet pas de determiner une strategie gagant on evalue si c'est plus ou moins en notre faveur de faire un coup en particulier
 */
-int evaluation(){
+// int evaluation(){
 
-}
+// }
 
 /**
 * \fn adversaire
@@ -50,18 +49,20 @@ int evaluation(){
 * \return la fonction renvoie le min des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int adversaire(t_grille * grille, int largeur, int num_joueur, int profondeur){
-    int i, nb_type = 3, score;
+int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){
+    int i, score;
+    if(num_joueur >= nb_joueur)
+        num_joueur = 0;
     
-    if(coup_gagnant || (profondeur == MAX_PROF))
+    if(coup_gagnant || (profondeur == prof_max))
         return - MAX_SCORE;
     else{
-        if((num_joueur % NB_JOUEUR) == 0){
-            for(i = 0; i < largeur; i++){
-                for(type){
-                    if(jouer_le_coup()){
-                        score = ordi(grille, largeur, num_joueur++, profondeur++);
-                        dejouer;
+        if(num_joueur == nb_joueur-1){
+            for(i = 0; i < grille->largeur; i++){
+                for(t_piece type = PLEINE; type != VIDE; type++){
+                    if(nonPleine(type, i, grille, joueur[num_joueur])){
+                        score = ordi(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
+                        dejouer(type, i, grille, joueur);
                         if(score > MAX_SCORE) 
                             MAX_SCORE = score;
                     }
@@ -69,11 +70,11 @@ int adversaire(t_grille * grille, int largeur, int num_joueur, int profondeur){
             }
         }
         else{
-            for(i = 0; i < largeur; i++){
-                for(type){
-                    if(jouer_le_coup()){
-                        score = adversaire(grille, largeur, num_joueur++, profondeur++);
-                        dejouer;
+            for(i = 0; i < grille->largeur; i++){
+                for(t_piece type = PLEINE; type != VIDE; type++){
+                    if(nonPleine(type, i, grille, joueur)){
+                        score = adversaire(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
+                        dejouer(type, i, grille, joueur);
                         if(score > MAX_SCORE) 
                             MAX_SCORE = score;
                     }
@@ -90,17 +91,17 @@ int adversaire(t_grille * grille, int largeur, int num_joueur, int profondeur){
 * \return la fonction renvoie le max des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int ordi(t_grille * grille, int largeur, int num_joueur, int profondeur){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
-    int i, j, nb_type = 3, score;
+int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
+    int i, j, score;
 
-    if(coup_gagnant || (profondeur == MAX_PROF))
+    if(coup_gagnant || (profondeur == prof_max))
         return MAX_SCORE;
     else{
-        for(i = 0; i < largeur; i++){
-            for(type){
-                if(jouer_le_coup()){
-                    score = adversaire(grille, largeur, num_joueur++, profondeur++);
-                    dejouer;
+        for(i = 0; i < grille->largeur; i++){
+            for(t_piece type = PLEINE; type != VIDE; type++){
+                if(nonPleine(type, i, grille, joueur)){
+                    score = adversaire(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
+                    dejouer(type, i, grille, joueur);
                     if(score > MAX_SCORE) 
                         MAX_SCORE = score;
                 }
@@ -116,7 +117,7 @@ int ordi(t_grille * grille, int largeur, int num_joueur, int profondeur){ // lie
 * \return 
 * \brief 
 */
-void tour_ordi(int prof_max, int nb_joueur){
+void tour_ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){
     if(coup_gagnant)
         // jouer coup_gagnant
     else{
@@ -131,7 +132,3 @@ void tour_ordi(int prof_max, int nb_joueur){
             // coup au hasard
     }
 }
-
-
-// pb : comment faire pour retirer le coup qui vient d'être joueur pour continuer a faire la recurtion ?
-// a quel moment on le retire ?

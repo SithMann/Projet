@@ -63,7 +63,7 @@ int adversaire(t_grille * grille, int largeur, int num_joueur){
         if((num_joueur%(NB_JOUEUR-1)) == (NB_JOUEUR-1)){
             if(bloquante == 0)
                 nb_type--;
-            if(pleine == 0)
+            if(pleine == 0) // faire une focntion pour ca ?
                 nb_type--;
             if(creuse == 0)
                 nb_type--;

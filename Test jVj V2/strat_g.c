@@ -4,45 +4,41 @@
 //#include "joueur.h" il est deja include dans grille 
 #define NB_TYPE 3
 #define MAX_SCORE 
-#define NB_JOUEUR 4 //sera mis en parametre car variable
+#define NB_JOUEUR 4 //sera mis en parametre car variable (en fonction du niveau)
 /**
 * \file strat_g.c
 * \author Noémie Farizon
 * \date 20 mars 2019
 * \version 1
-* \brief attention on ne fait pas l'arbre ! il se fait tout seul grace a la recussivite
 */
 
 /**
-* \fn choix_piece
-* \param un joueur 
-* \return la fonction revoie la piece que l'on veut jouer
-* \brief cette fonction sera utilisee dans coup_possible, il faut tenir compte du nombre de type de pieces et du nombre de pieces dispo pour chaque type (etat qui change au cours du jeu).
+* \fn dejouer
+* \param  
+* \return 
+* \brief fait l'inverse de jouer_le_coup (retire la piece de la grille)
 */
-// t_piece choix_piece(t_piece piece){
-//     return (piece + 1) % NB_TYPE;
-// }
+truc dejouer(){
+    
+}
 
 /**
 * \fn coup_possible
 * \param un pointeur sur une grille, un entier pour le nombre de colonne de la grille
-* \return la fonction revoie une valeur qui permet de savoir si le coup est realisable 
-* \brief cherche ou on peut mettre la piece en tennant en compte le nombre de piece disponible pour un type donne et si la colonne est vide (...), que l'on soit bien dans la limite de la grille
+* \return la fonction revoie une valeur qui permet de savoir si le coup est realisable (0-1)
+* \brief verifie que la case dans laquelle on veut jouer n'est pas pleine, sinon on test si la piece est bloquante (sinon on augmentera le compteur pour la ligne) et que le type est disponible (...) ?
 */
-int coup_possible(t_grille * grille, int nb_piece_dispo, int nb_piece_uti, int nb_colonne){
+//stocke tous les coup que l'on peut jouer --> pas besoin car juste un if dans adv/ordi qui ne jourra le coup que s'il est possible
+truc coup_possible(t_grille * grille, int nb_piece_dispo, int nb_piece_uti, int nb_colonne){
     int i;
-    if(nb_piece_uti<nb_piece_dispo){
-        for(i=0; i<nb_colonne; i++){
-
-        }
-    }
+    
 }
 
 /**
 * \fn evaluation
 * \param
 * \return 
-* \brief 
+* \brief si le score du min max ne permet pas de determiner une strategie gagant on evalue si c'est plus ou moins en notre faveur de faire un coup en particulier
 */
 int evaluation(){
 
@@ -54,39 +50,37 @@ int evaluation(){
 * \return la fonction renvoie le min des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int adversaire(t_grille * grille, int largeur, int num_joueur){
-    int i, nb_type = 3;
+int adversaire(t_grille * grille, int largeur, int num_joueur, int profondeur){
+    int i, nb_type = 3, score;
     
-    if(coup_gagnant)
+    if(coup_gagnant || (profondeur == MAX_PROF))
         return - MAX_SCORE;
     else{
-        if((num_joueur%(NB_JOUEUR-1)) == (NB_JOUEUR-1)){
-            if(bloquante == 0)
-                nb_type--;
-            if(pleine == 0) // faire une focntion pour ca ?
-                nb_type--;
-            if(creuse == 0)
-                nb_type--;
-            for(i = 0; i < (nb_type * largeur); i++){ 
-                // jouer le(s) coup(s)
-                adversaire(grille, largeur, num_joueur++);// peut etre en dehors 
+        if((num_joueur % NB_JOUEUR) == 0){
+            for(i = 0; i < largeur; i++){
+                for(type){
+                    if(jouer_le_coup()){
+                        score = ordi(grille, largeur, num_joueur++, profondeur++);
+                        dejouer;
+                        if(score > MAX_SCORE) 
+                            MAX_SCORE = score;
+                    }
+                } 
             }
         }
         else{
-            if(bloquante == 0)
-                nb_type--;
-            if(pleine == 0)
-                nb_type--;
-            if(creuse == 0)
-                nb_type--;
-            for(i = 0; i < (nb_type * largeur)/* faire le bon nombre de noeuds en fonction du nombre de pieces disponibles*/; i++){
-                ordi(grille, largeur, num_joueur++);
+            for(i = 0; i < largeur; i++){
+                for(type){
+                    if(jouer_le_coup()){
+                        score = adversaire(grille, largeur, num_joueur++, profondeur++);
+                        dejouer;
+                        if(score > MAX_SCORE) 
+                            MAX_SCORE = score;
+                    }
+                } 
+            }
         }
-        
-        //pour tous les coups possibles 
-            //nouvel etat = jouer le coup 
-            //C[i] = joueur(nouvel etat)
-        //return min des C[i]
+        return - MAX_SCORE;
     }
 }
 
@@ -96,30 +90,24 @@ int adversaire(t_grille * grille, int largeur, int num_joueur){
 * \return la fonction renvoie le max des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int ordi(t_grille * grille, int largeur, int num_joueur){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
-    int i, j, nb_type = 3;
+int ordi(t_grille * grille, int largeur, int num_joueur, int profondeur){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
+    int i, j, nb_type = 3, score;
 
-    if(coup_gagnant)
+    if(coup_gagnant || (profondeur == MAX_PROF))
         return MAX_SCORE;
     else{
-        if(bloquante == 0)
-            nb_type--;
-        if(pleine == 0)
-            nb_type--;
-        if(creuse == 0)
-            nb_type--;
-        for(i = 0; i < (nb_type * largeur); i++){
-            // jouer le(s) coup(s)
-            adversaire(grille, largeur, num_joueur++);
+        for(i = 0; i < largeur; i++){
+            for(type){
+                if(jouer_le_coup()){
+                    score = adversaire(grille, largeur, num_joueur++, profondeur++);
+                    dejouer;
+                    if(score > MAX_SCORE) 
+                        MAX_SCORE = score;
+                }
+            } 
         }
-            // for(int i = 0; i < nb_pieces_dispo //24//; i++)
-            // si type de piece = bloquante : si le nombre de pieces dispo > 0, jouer le coup
-            // sinon juste jouer le coup
-            // grille[i][j] = coup (1,2 ou 3) -> lien avec la table joueur pour avoir la couleur ?//nouvel etat = jouer le coup 
-            //C[i] = adversaire(nouvel etat)
-        
-        //return max des C[i]
     }
+    return MAX_SCORE;
 }
 
 /**

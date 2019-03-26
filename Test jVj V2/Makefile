@@ -32,8 +32,6 @@ clean :
 	rm -rf $(PROG)
 	rm -rf $(PROG2)
 	rm -rf $(PROG3)
-<<<<<<< HEAD
 	rm -rf $(PROG4)
-=======
 	rm -rf $(PROG4)
->>>>>>> c7fef9e62b03e8bc69c41e951b07181b3d08bd61
+

@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
-<<<<<<< HEAD
-=======
 #include "strat_g.h"
 //#include "joueur.h" il est deja include dans grille 
->>>>>>> e21d74df05bb30b517bfdbc5d34e2655f41c67e1
 
 /**
 * \file strat_g.c
@@ -36,6 +33,20 @@ void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     }
 }
 
+int coup_gagnant(t_grille * grille, t_joueur *joueur){
+    for(int i = 0; i < grille->largeur; i++){
+        for(t_piece type = PLEINE; type != VIDE; type++){
+            if(nonPleine(type, i, grille, joueur)){
+                if(gagnant(grille, nJetons, joueur)){
+                    return 1;
+                }
+                dejouer(type, i, grille, joueur);
+            }
+        }
+    }
+    return 0;
+}
+
 /**
 * \fn evaluation
 * \param
@@ -52,19 +63,17 @@ void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
 * \return la fonction renvoie le min des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){
+int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur, int num_ordi){
     int i, score, max_score;
-    if(num_joueur >= nb_joueur)
-        num_joueur = 0;
     
     if(coup_gagnant || (profondeur == prof_max))
-        return - max_score;
+        return evaluation(grille);
     else{
-        if(num_joueur == nb_joueur-1){
+        if(num_joueur == num_ordi){
             for(i = 0; i < grille->largeur; i++){
                 for(t_piece type = PLEINE; type != VIDE; type++){
                     if(nonPleine(type, i, grille, joueur[num_joueur])){
-                        score = ordi(grille, joueur, num_joueur+1, profondeur++, prof_max, nb_joueur);
+                        score = ordi(grille, joueur, (num_joueur+1)%nb_joueur, ++profondeur, prof_max, nb_joueur, num_ordi);
                         dejouer(type, i, grille, joueur[num_joueur]);
                         if(score > max_score) 
                             max_score = score;
@@ -76,7 +85,7 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
             for(i = 0; i < grille->largeur; i++){
                 for(t_piece type = PLEINE; type != VIDE; type++){
                     if(nonPleine(type, i, grille, joueur[num_joueur])){
-                        score = adversaire(grille, joueur, num_joueur+1, profondeur++, prof_max, nb_joueur);
+                        score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, ++profondeur, prof_max, nb_joueur, num_ordi);
                         dejouer(type, i, grille, joueur[num_joueur]);
                         if(score > max_score) 
                             max_score = score;
@@ -94,17 +103,17 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
 * \return la fonction renvoie le max des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
-    int i, j, score, max_score;
+int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur, int num_ordi){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
+    int i, score, max_score;
 
-    if(coup_gagnant || (profondeur == prof_max))
-        return max_score;
+    if(coup_gagnant() || (profondeur == prof_max))
+        return evaluation(grille);
     else{
         for(i = 0; i < grille->largeur; i++){
             for(t_piece type = PLEINE; type != VIDE; type++){
-                if(nonPleine(type, i, grille, joueur)){
-                    score = adversaire(grille, grille->largeur, num_joueur+1, profondeur++, prof_max, nb_joueur);
-                    dejouer(type, i, grille, joueur);
+                if(nonPleine(type, i, grille, joueur[num_joueur])){
+                    score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, ++profondeur, prof_max, nb_joueur, num_ordi);
+                    dejouer(type, i, grille, joueur[num_joueur]);
                     if(score > max_score) 
                         max_score = score;
                 }
@@ -120,14 +129,23 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
 * \return 
 * \brief 
 */
-void tour_ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){
-    if(coup_gagnant)
-        // jouer coup_gagnant
-    else{
-        // Pour toute colonne
-            // pour tout type
-                // ordi();
+void tour_ordi(t_grille * grille, t_joueur * joueur, int num_ordi, int profondeur, int prof_max, int nb_joueur){
+    int i, score, max_score, save_colonne = 0, num_joueur = num_ordi;
+    t_piece save_piece = VIDE;
+    if(!coup_gagnant()){ // coup_gagnant joue le coup et l'annule si non gagnant
                 // si score de ordi est mieux que score_max, on save score, type, colonne
-        // jouer le coup
+        // jouer le coup    
+        for(i = 0; i < grille->largeur; i++)// Pour toute colonne
+            for(t_piece type = PLEINE; type != VIDE; type++){// pour tout type
+                if(nonPleine(type, i, grille, joueur[num_joueur])){
+                    score = adversaire(grille, joueur, num_joueur+1, ++profondeur, prof_max, nb_joueur, num_ordi);
+                    dejouer(type, i, grille, joueur[num_joueur]);
+                if(score > max_score){
+                    save_piece = type;
+                    save_colonne = i;
+                    max_score = score;
+                }  
+            }
+            nonPleine(save_piece, save_colonne, grille, joueur);
     }
 }

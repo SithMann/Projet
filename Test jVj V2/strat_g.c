@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
-//#include "joueur.h" il est deja include dans grille 
 #define NB_TYPE 3
 #define MAX_SCORE 
 #define NB_JOUEUR 4 //sera mis en parametre car variable (en fonction du niveau)
@@ -121,14 +120,10 @@ void tour_ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
     if(coup_gagnant)
         // jouer coup_gagnant
     else{
-        int nb_piece_uti=0;
-        do{
-            // nouvel_etat =jouer le coup
-            nb_piece_uti++;
-        }while(coup_possible(grille, nb_piece_dispo, nb_piece_uti, nb_colonne));
-        // s'il existe un C[i]=+1 alors
-            // jouer le coup correspondant
-        else   
-            // coup au hasard
+        // Pour toute colonne
+            // pour tout type
+                // ordi();
+                // si score de ordi est mieux que score_max, on save score, type, colonne
+        // jouer le coup
     }
 }

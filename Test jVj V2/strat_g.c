@@ -55,7 +55,7 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
         num_joueur = 0;
     
     if(coup_gagnant || (profondeur == prof_max))
-        return - MAX_SCORE;
+        return - max_score;
     else{
         if(num_joueur == nb_joueur-1){
             for(i = 0; i < grille->largeur; i++){
@@ -63,8 +63,8 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
                     if(nonPleine(type, i, grille, joueur[num_joueur])){
                         score = ordi(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
                         dejouer(type, i, grille, joueur);
-                        if(score > MAX_SCORE) 
-                            MAX_SCORE = score;
+                        if(score > max_score) 
+                            max_score = score;
                     }
                 } 
             }
@@ -75,13 +75,13 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
                     if(nonPleine(type, i, grille, joueur)){
                         score = adversaire(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
                         dejouer(type, i, grille, joueur);
-                        if(score > MAX_SCORE) 
-                            MAX_SCORE = score;
+                        if(score > max_score) 
+                            max_score = score;
                     }
                 } 
             }
         }
-        return - MAX_SCORE;
+        return - max_score;
     }
 }
 
@@ -95,20 +95,20 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
     int i, j, score;
 
     if(coup_gagnant || (profondeur == prof_max))
-        return MAX_SCORE;
+        return max_score;
     else{
         for(i = 0; i < grille->largeur; i++){
             for(t_piece type = PLEINE; type != VIDE; type++){
                 if(nonPleine(type, i, grille, joueur)){
                     score = adversaire(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
                     dejouer(type, i, grille, joueur);
-                    if(score > MAX_SCORE) 
-                        MAX_SCORE = score;
+                    if(score > max_score) 
+                        max_score = score;
                 }
             } 
         }
     }
-    return MAX_SCORE;
+    return max_score;
 }
 
 /**

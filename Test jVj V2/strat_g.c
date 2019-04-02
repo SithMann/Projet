@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
-#define NB_TYPE 3
-#define MAX_SCORE 
-#define NB_JOUEUR 4 //sera mis en parametre car variable (en fonction du niveau)
+
 /**
 * \file strat_g.c
 * \author Noémie Farizon et Mathis Despres
@@ -36,7 +34,7 @@ void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
 * \fn evaluation
 * \param
 * \return 
-* \brief si le score du min max ne permet pas de determiner une strategie gagant on evalue si c'est plus ou moins en notre faveur de faire un coup en particulier
+* \brief si le score du min max ne permet pas de determiner une strategie gagante on evalue si c'est plus ou moins en notre faveur de faire un coup en particulier
 */
 // int evaluation(){
 
@@ -60,8 +58,8 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
             for(i = 0; i < grille->largeur; i++){
                 for(t_piece type = PLEINE; type != VIDE; type++){
                     if(nonPleine(type, i, grille, joueur[num_joueur])){
-                        score = ordi(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
-                        dejouer(type, i, grille, joueur);
+                        score = ordi(grille, joueur, num_joueur+1, profondeur++, prof_max, nb_joueur);
+                        dejouer(type, i, grille, joueur[num_joueur]);
                         if(score > MAX_SCORE) 
                             MAX_SCORE = score;
                     }
@@ -71,9 +69,9 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
         else{
             for(i = 0; i < grille->largeur; i++){
                 for(t_piece type = PLEINE; type != VIDE; type++){
-                    if(nonPleine(type, i, grille, joueur)){
-                        score = adversaire(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
-                        dejouer(type, i, grille, joueur);
+                    if(nonPleine(type, i, grille, joueur[num_joueur])){
+                        score = adversaire(grille, joueur, num_joueur+1, profondeur++, prof_max, nb_joueur);
+                        dejouer(type, i, grille, joueur[num_joueur]);
                         if(score > MAX_SCORE) 
                             MAX_SCORE = score;
                     }
@@ -99,7 +97,7 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
         for(i = 0; i < grille->largeur; i++){
             for(t_piece type = PLEINE; type != VIDE; type++){
                 if(nonPleine(type, i, grille, joueur)){
-                    score = adversaire(grille, grille->largeur, num_joueur++, profondeur++, prof_max, nb_joueur);
+                    score = adversaire(grille, grille->largeur, num_joueur+1, profondeur++, prof_max, nb_joueur);
                     dejouer(type, i, grille, joueur);
                     if(score > MAX_SCORE) 
                         MAX_SCORE = score;

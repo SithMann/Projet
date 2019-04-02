@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
+#include "strat_g.h"
 //#include "joueur.h" il est deja include dans grille 
-#define NB_TYPE 3
-#define MAX_SCORE 
-#define NB_JOUEUR 4 //sera mis en parametre car variable (en fonction du niveau)
+
 /**
 * \file strat_g.c
 * \author Noémie Farizon et Mathis Despres
@@ -19,6 +18,7 @@
 * \brief fait l'inverse de jouer_le_coup (retire la piece de la grille)
 */
 void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
+    int max_score;
     for( int i = 0; i < grille->longueur; i++){  
         if((lire_piece_slot(i,nbCol,1,grille) == piece)){
             grille->laGrille[i][nbCol]->slot1->piece = VIDE;

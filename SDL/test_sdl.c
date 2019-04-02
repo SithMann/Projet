@@ -40,12 +40,26 @@ void creer_bouton_menu_princ(int x, int y, SDL_Surface *bouton, SDL_Renderer *re
 	TTF_CloseFont(police);
 }
 
-void afficher_image(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgDestRect){
+void afficher_image(SDL_Renderer *renderer, SDL_Texture *image_tex){
+	SDL_Rect imgDestRect;
 	imgDestRect.x = 10;
 	imgDestRect.y = 50;
+	SDL_QueryTexture(image_tex, NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
 
+void afficher_texte(SDL_Rect txtDestRect, SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, int taille, char *chaine){
+	
+	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", taille);	
+
+	texte = TTF_RenderUTF8_Blended(police, chaine, couleurTitre);
+	SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);  
+	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
+
+	TTF_CloseFont(police);
+}
 
 /*Créer une structure pour le bouton avec ses tailles et une autre pour le menu où on utilise un tableau de bouton*/
 #define NB_BOUTON_MENU_JvsIA 5
@@ -56,60 +70,108 @@ static char* NOM_BOUTON_MENU_JvsIA[NB_BOUTON_MENU_JvsIA] = {"Nombre de joueur", 
 #define TAILLE_PROPOSITION 8
 static char* PROPOSITION[TAILLE_PROPOSITION] = {"joueur", "joueurs", "ordinateur", "ordinateurs", "pions", "facile", "moyen", "difficile"};
 
-void menuJoueurVsIA(TTF_Font *police, SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDestRect, int choix){
+void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDestRect, int choix, int w_pWindow){
 	//Affichage des boutons 
-	int i;
-	SDL_Surface *texte;
+	int i, param = 0;
+	SDL_Surface *texte = NULL;
 	//Grosse Rubrique
-	texte = TTF_RenderUTF8_Blended(police, NOM_BOUTON_MENU_JvsIA[choix], couleurNom);
-	SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte); 
-	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
+	afficher_texte(txtDestRect,renderer, couleurNom, texte, 50, NOM_BOUTON_MENU_JvsIA[choix]);
+
+	if(choix == 0)
+		param = 0;
+	else if(choix == 1)
+		param = 2;
+	else if(choix == 2)
+		param = 4;
+	else
+		param = 5;
+
+	txtDestRect.x = 500;
+	txtDestRect.y = 385;
+						 
 	//propositions
-	for(i = 0; i < NB_PROPOSITION; i++){
-		if(i == 0){
-			texte = TTF_RenderUTF8_Blended(police, PROPOSITION[i], couleurNom);
-			SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte); 
-			SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-			SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
+	for(i = 0; i <= NB_PROPOSITION; i++){
+		//printf("coord x : %d, coord y : %d, w_pWindow : %d", txtDestRect.x, txtDestRect.y, w_pWindow);
+		if(txtDestRect.y < w_pWindow + 75){
+			switch(param){
+				case 0 : if(i == 0){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+						 }
+						 else if(i == 1){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+							
+						 } 
+						 else if(i == 2){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i-1]);
+											
+						 }
+						 break;
+				case 2 : if(i == 0){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
+							
+						 }
+						else if(i == 1){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i+param]);
+							
+						 } 
+						 else if(i == 2){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+											
+						 }
+						 break;
+				case 4 : txtDestRect.x += 100;
+						 afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[param]);
+						 
+						 break;
+				case 5 : if(i == 0){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[param]);
+							
+						 }
+						 else if(i == 1){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i+1 + param]);
+							
+						 } 
+						 else if(i == 2){
+							txtDestRect.x += 100;
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
+							
+						 }
+						 break;
+				default : printf("Ça ne marche pas !");
+			}
 		}
-		else{
-			texte = TTF_RenderUTF8_Blended(police, PROPOSITION[i], couleurNom);
-			SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte); 
-			SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-			SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
-		}
+		txtDestRect.y += 100;
 	}
-	txtDestRect.y += 400;
-	//+ un if qui regarde si on est en bas de l'écran on se décale un peu vers la droite
 }
 
-void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleurTitre, int choix){
-	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", 50);
-	SDL_Surface *texte;
-	SDL_Rect txtDestRect, imgDestRect;
+void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleurTitre, int w_pWindow){
+	SDL_Rect txtDestRect;
 	int i;
 	SDL_Color couleurNom = {0, 0, 0};
 	
+	txtDestRect.x = 545;
+	txtDestRect.y = 100;
+
 	SDL_SetRenderDrawColor(renderer, 44, 75, 111, 255);
 	SDL_RenderClear(renderer);
-	
-	txtDestRect.x = 545;
-	txtDestRect.y = 100;	
 
-	texte = TTF_RenderUTF8_Blended(police, "PUISSANCE 4++", couleurTitre);
-	SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);  
-	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));								
-	SDL_QueryTexture(image_tex, NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-
-	afficher_image(renderer, image_tex, imgDestRect);
-
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
+	afficher_image(renderer, image_tex);
+	afficher_texte(txtDestRect,renderer, couleurTitre, NULL, 50, "PUISSANCE 4++");
 
 	//affichage d'une partie du menu de joueur VS IA
-	for(int i = 0, i < 4; i++){
-		menuJoueurVsIA(police, couleurNom, renderer, txtDestRect, choix += 1);
+	txtDestRect.x = 10;
+	txtDestRect.y = 375;
+	for(i = 0; i < 4; i++){
+		menuJoueurVsIA(couleurNom, renderer, txtDestRect, i, w_pWindow);
+		txtDestRect.y += 100;
 	}
 }
 
@@ -230,7 +292,7 @@ int main(int argc, char** argv){
 										printf("Menu joueur contre ia\n");
 										SDL_RenderClear(renderer);
 										
-										joueurVsIA(renderer, image_tex, couleurTitre);//fonction d'appel des graphismes de ce menu
+										joueurVsIA(renderer, image_tex, couleurTitre, w_pWindow);//fonction d'appel des graphismes de ce menu
 										etat = 2;
 										SDL_RenderPresent(renderer);
 									 }

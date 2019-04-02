@@ -20,6 +20,9 @@ $(PROG3) : case.o place.o grille.o joueur.o test_Ordi.o direction.o
 $(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o direction.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
+$(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o
+	$(CC) $^ -o $@ $(CFLAGS)
+
 %.o:%.c %.h
 	$(CC) -c $< $(CFLAGS) 
 
@@ -30,3 +33,5 @@ clean :
 	rm -rf $(PROG2)
 	rm -rf $(PROG3)
 	rm -rf $(PROG4)
+	rm -rf $(PROG4)
+

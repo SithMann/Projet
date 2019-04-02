@@ -50,7 +50,7 @@ void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
 int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){
-    int i, score;
+    int i, score, max_score;
     if(num_joueur >= nb_joueur)
         num_joueur = 0;
     
@@ -92,7 +92,7 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
 int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
-    int i, j, score;
+    int i, j, score, max_score;
 
     if(coup_gagnant || (profondeur == prof_max))
         return max_score;
@@ -121,14 +121,10 @@ void tour_ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
     if(coup_gagnant)
         // jouer coup_gagnant
     else{
-        int nb_piece_uti=0;
-        do{
-            // nouvel_etat =jouer le coup
-            nb_piece_uti++;
-        }while(coup_possible(grille, nb_piece_dispo, nb_piece_uti, nb_colonne));
-        // s'il existe un C[i]=+1 alors
-            // jouer le coup correspondant
-        else   
-            // coup au hasard
+        // Pour toute colonne
+            // pour tout type
+                // ordi();
+                // si score de ordi est mieux que score_max, on save score, type, colonne
+        // jouer le coup
     }
 }

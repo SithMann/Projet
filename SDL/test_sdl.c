@@ -95,54 +95,65 @@ void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDe
 		if(txtDestRect.y < w_pWindow + 75){
 			switch(param){
 				case 0 : if(i == 0){
-							txtDestRect.x += 100;
+							txtDestRect.x = 500;
 							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+							txtDestRect.x += 100;
+							printf("proposition de param vaut 0 et i 0: %s\n", PROPOSITION[i]);
+							break;
 						 }
 						 else if(i == 1){
 							txtDestRect.x += 100;
 							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
-							
+							printf("proposition de param vaut 0 et i 1: %s\n", PROPOSITION[i]);
+							break;
 						 } 
 						 else if(i == 2){
 							txtDestRect.x += 100;
 							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i-1]);
-											
+							printf("proposition de param vaut 0 et i 2: %s\n", PROPOSITION[i-1]);
+							break;
 						 }
 						 break;
 				case 2 : if(i == 0){
-							txtDestRect.x += 100;
+							txtDestRect.x = 500;
 							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
-							
+							txtDestRect.x += 100;
+							printf("proposition de param vaut 2 et i 0 : %s\n", PROPOSITION[i +param]);
+							break;
 						 }
 						else if(i == 1){
 							txtDestRect.x += 100;
 							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i+param]);
-							
+							printf("proposition de param vaut 2 et i 1: %s\n", PROPOSITION[i+param]);
+							break;
 						 } 
 						 else if(i == 2){
 							txtDestRect.x += 100;
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
-											
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i-1+param]);
+							printf("proposition de param vaut 2 et i 2: %s\n", PROPOSITION[i-1+param]);	
+							break;			
 						 }
 						 break;
-				case 4 : txtDestRect.x += 100;
+				case 4 : if(i == 0) txtDestRect.x = 500;
+						 txtDestRect.x += 100;
 						 afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[param]);
-						 
+						 printf("proposition de param vaut 4 : %s\n", PROPOSITION[param]);
 						 break;
 				case 5 : if(i == 0){
-							txtDestRect.x += 100;
+							txtDestRect.x = 500;
 							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[param]);
-							
+							txtDestRect.x += 100;
+							printf("proposition de param vaut 5 et i 0 : %s\n", PROPOSITION[param]);
 						 }
 						 else if(i == 1){
 							txtDestRect.x += 100;
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i+1 + param]);
-							
+							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
+							printf("proposition de param vaut 5 et i 1 : %s\n", PROPOSITION[i+param]);
 						 } 
 						 else if(i == 2){
 							txtDestRect.x += 100;
 							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
-							
+							printf("proposition de param vaut 5 et i 2 : %s\n", PROPOSITION[i+param]);
 						 }
 						 break;
 				default : printf("Ça ne marche pas !");

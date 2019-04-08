@@ -45,6 +45,13 @@ void afficher_image(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect img
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
 
+void afficher_fond(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgDestRect){
+	SDL_SetRenderDrawColor(renderer,44,75,111,255);
+	SDL_RenderFillRect(renderer ,&imgDestRect);
+	SDL_SetRenderDrawColor(renderer,0,0,0,0);
+	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
+}
+
 void afficher_texte(SDL_Rect txtDestRect, SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, int taille, char *chaine){
 	//printf("txtDestRect.x fonction affiche texte : %d\n", txtDestRect.x);
 	//printf("Adresse txtDestRect fonctiooooooooon: %d\n", &txtDestRect);
@@ -201,7 +208,7 @@ void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleu
 #define coordYbtnJoueurMini 390
 #define coordYbtnJoueurMaxi 420
 #define TAILLE_COORD_BOUTON 6
-static int coord_bouton_joueur[TAILLE_COORD_BOUTON] = {600, 710, 825, 960, 1050, 1190};
+static int coord_bouton_joueur[TAILLE_COORD_BOUTON] = {610, 710, 825, 960, 1050, 1190};
 
 int boutonJoueurValide(int x, int y){
 	int i, compt = 1;
@@ -268,57 +275,140 @@ int boutonDifficulteValide(int x, int y){
 
 void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoche_tex, SDL_Texture *fond_tex){
 	SDL_Rect encoche;
-	int etat_joueur = 0, etat_ordi = 0, etat_pions = 0, etat_difficulte = 0, temp;
-	int bouton_joueur ;
+	int etat_joueur = 0, etat_ordi = 0, etat_pions = 0, etat_difficulte = 0, temp, temp2 = 1, i, j = 1;
+	int bouton_joueur = boutonJoueurValide(x,y) ;
 	int bouton_ordi = boutonOrdiValide(x,y);
 	int bouton_pion = boutonPionsValide(x, y);
 	int bouton_difficulte = boutonDifficulteValide(x,y);
+	encoche.x = coord_bouton_joueur[temp2];
+	encoche.y = coordYbtnJoueurMini ;
+	encoche.w = 30;
+	encoche.h = 35;
 	while(etat_joueur != 1 && etat_pions != 1 && etat_ordi != 1 && etat_difficulte != 1){
-		if((bouton_joueur = boutonJoueurValide(x,y)) && etat_joueur == 0){
+		for(i = 0; i < 4; i++){
+			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
+			SDL_RenderFillRect(renderer ,&encoche);
+			SDL_SetRenderDrawColor(renderer,0,0,0,0);
+			SDL_RenderCopy(renderer, fond_tex, NULL, &encoche);
+			encoche.x = coord_bouton_joueur[j];
+			j += 2;
+		}
+		if(bouton_joueur){
 			printf("Bouton joueur : %d\n", bouton_joueur);
 			switch(bouton_joueur){
 				case 1 : temp = 1;
-						 break;
+						break;
 				case 2 : temp = 3;
-						 break;
+						break;
 				case 3 : temp = 5;
-						 break;
+						break;
 				default : printf("Erreur");
 			}
-			//Question de tableau pour stocker les valeurs déjà utilisées ?
 			encoche.x = coord_bouton_joueur[temp];
-			encoche.y = coordYbtnDifficulteMini ;
+			encoche.y = coordYbtnJoueurMini ;
 			printf("Coordonnées encoche x : %d, y : %d\n", encoche.x, encoche.y);
-			if(etat_joueur == 1){
-				afficher_image(renderer, fond_tex, encoche);
-				etat_joueur = 0;
-			}
 			afficher_image(renderer, encoche_tex, encoche);
 			printf("test après affichage\n");
 			etat_joueur = 1;
 		}
-		if(bouton_ordi && etat_ordi == 0){
+
+		//Partie sur les ordis
+		encoche.x = coord_bouton_ordi[temp2];
+		encoche.y = coordYbtnOrdiMini;
+		temp2 = 1;
+		j = 1;
+
+		for(i = 0; i < 4; i++){
+			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
+			SDL_RenderFillRect(renderer ,&encoche);
+			SDL_SetRenderDrawColor(renderer,0,0,0,0);
+			SDL_RenderCopy(renderer, fond_tex, NULL, &encoche);
+			encoche.x = coord_bouton_ordi[j];
+			j += 2;
+		}
+		if(bouton_ordi){
+			printf("Bouton ordi : %d\n", bouton_ordi);
+			switch(bouton_ordi){
+				case 1 : temp = 1;
+						break;
+				case 2 : temp = 3;
+						break;
+				case 3 : temp = 5;
+						break;
+				default : printf("Erreur");
+			}
+			encoche.x = coord_bouton_ordi[temp];
+			encoche.y = coordYbtnOrdiMini ;
+			printf("Coordonnées encoche x : %d, y : %d\n", encoche.x, encoche.y);
 			afficher_image(renderer, encoche_tex, encoche);
+			printf("test après affichage\n");
 			etat_ordi = 1;
 		}
-		if(bouton_pion && etat_pions == 0){
-			afficher_image(renderer, encoche_tex, encoche);
-			etat_pions = 1;
+
+		//Partie sur les pions
+		encoche.x = coord_bouton_pion[temp2];
+		encoche.y = coordYbtnPionsMini;
+		temp2 = 1;
+		j = 1;
+
+		for(i = 0; i < 4; i++){
+			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
+			SDL_RenderFillRect(renderer ,&encoche);
+			SDL_SetRenderDrawColor(renderer,0,0,0,0);
+			SDL_RenderCopy(renderer, fond_tex, NULL, &encoche);
+			encoche.x = coord_bouton_pion[j];
+			j += 2;
 		}
-		if(bouton_difficulte && etat_difficulte == 0){
+		if(bouton_pion){
+			printf("Bouton pion : %d\n", bouton_pion);
+			switch(bouton_pion){
+				case 1 : temp = 1;
+						break;
+				case 2 : temp = 3;
+						break;
+				case 3 : temp = 5;
+						break;
+				default : printf("Erreur");
+			}
+			encoche.x = coord_bouton_pion[temp];
+			encoche.y = coordYbtnPionsMini ;
+			printf("Coordonnées encoche x : %d, y : %d\n", encoche.x, encoche.y);
 			afficher_image(renderer, encoche_tex, encoche);
-			etat_difficulte = 1;
+			printf("test après affichage\n");
+			etat_ordi = 1;
 		}
 
-		
-		if(etat_ordi == 1){
-			afficher_image(renderer, fond_tex, encoche);
+		//Partie sur la difficulté
+		encoche.x = coord_bouton_difficulte[temp2];
+		encoche.y = coordYbtnDifficulteMini;
+		temp2 = 1;
+		j = 1;
+
+		for(i = 0; i < 4; i++){
+			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
+			SDL_RenderFillRect(renderer ,&encoche);
+			SDL_SetRenderDrawColor(renderer,0,0,0,0);
+			SDL_RenderCopy(renderer, fond_tex, NULL, &encoche);
+			encoche.x = coord_bouton_difficulte[j];
+			j += 2;
 		}
-		if(etat_pions == 1){
-			afficher_image(renderer, fond_tex, encoche);
-		}
-		if(etat_difficulte == 1){
-			afficher_image(renderer, fond_tex, encoche);
+		if(bouton_difficulte){
+			printf("Bouton difficulte : %d\n", bouton_difficulte);
+			switch(bouton_difficulte){
+				case 1 : temp = 1;
+						break;
+				case 2 : temp = 3;
+						break;
+				case 3 : temp = 5;
+						break;
+				default : printf("Erreur");
+			}
+			encoche.x = coord_bouton_difficulte[temp];
+			encoche.y = coordYbtnDifficulteMini ;
+			printf("Coordonnées encoche x : %d, y : %d\n", encoche.x, encoche.y);
+			afficher_image(renderer, encoche_tex, encoche);
+			printf("test après affichage\n");
+			etat_difficulte = 1;
 		}
 	}
 }
@@ -411,7 +501,7 @@ int main(int argc, char** argv){
 	image2 = IMG_Load("case.png");
 	image=IMG_Load("transparent.gif");
 	encoche = IMG_Load("encoche.png");
-	fond = IMG_Load("image_fond.jpg");
+	fond = IMG_Load("fond.png");
 
 	/*Test si l'image a bien été get*/
 	if(!image) {
@@ -458,9 +548,8 @@ int main(int argc, char** argv){
 									 	
 									 	SDL_RenderPresent(renderer);
 										etat = 2;
-										
 									 }
-									 else if(coordsouris.x > 520 && coordsouris.x < 980 && coordsouris.y > 300 && coordsouris.y < 340){//coord des boutons en plein écran
+									 else if(coordsouris.x > 520 && coordsouris.x < 980 && coordsouris.y > 430 && coordsouris.y < 480){//coord des boutons en plein écran
 										printf("Menu joueur contre joueur\n");
 										SDL_RenderClear(renderer);
 										//joueurvsJoueur();//fonction d'appel des graphismes de ce menu
@@ -481,6 +570,7 @@ int main(int argc, char** argv){
 									 }
 									 boutonProposition(coordsouris.x, coordsouris.y, renderer, encoche_tex, fond_tex);
 									 SDL_RenderPresent(renderer);
+
 							case 3 : printf("\n");//Dans le menu joueur VS joueur
 						}
 					break;

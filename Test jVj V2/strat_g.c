@@ -81,18 +81,25 @@ int evaluation(){
         }
         if(i == num_joueur)
             switch(count){
-                case 0: count -= 50; break;
-                case 1: count -= 25; break;
-                case 2: count += 25; break;
-                case 3: count += 50; break;
-                default : if(count > nb_joueur) count += 100;
+                case 0: score -= 50; break;
+                case 1: score -= 25; break;
+                case 2: score += 25; break;
+                case 3: score += 50; break;
+                default : if(count > nb_joueur) score += 100;
                           else printf("erreur dans la fonction d'evaluation\n");
             }
         else
             switch(count){
-
+                case 0: score += 50; break;
+                case 1: score += 25; break;
+                case 2: score -= 25; break;
+                case 3: score -= 50; break;
+                default : if(count > nb_joueur) score -= 100;
+                          else printf("erreur dans la fonction d'evaluation\n");
+            }
             }
     }
+    return score;
 }
 
 /**

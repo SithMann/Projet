@@ -51,11 +51,56 @@ int coup_gagnant(t_grille * grille, t_joueur *joueur){
 * \fn evaluation
 * \param
 * \return 
-* \brief si le score du min max ne permet pas de determiner une strategie gagante on evalue si c'est plus ou moins en notre faveur de faire un coup en particulier
+* \brief 
 */
-// int evaluation(){
+int evaluation(){
+/* Comment j'évalue : 
+* Je commence à 0 
+* Un adversaire a plus de possibilités que de joueurs = -100
+* Un adversaire a 3 possibilités =-50
+* Un adversaire a 2 possibilités =-25
+* Un adversaire a 1 possibilité =+25
+* Un adversaire a 0 possibilité =+50
+* J'ai 0 possibilité = -50
+* J'ai 1 possibilité = -25
+* J'ai 2 possibilités = +25
+* J'ai 3 possibilités = +50
+* J'ai plus possibilités que de joueurs = +100
+*/
 
-// }
+    for(int i = 0; i < nb_joueur){
+        count = 0;
+        for(t_piece type = PLEINE; type != VIDE; type++){
+            for(int j = 0; j < grille->largeur; j++){
+                if(nonPleine(type, j, grille, joueur[i])){
+                    if(gagnant(grille,nJetons, joueur[i]))
+                        count++;
+                    dejouer(type, j, grille, joueur[i]);
+                }
+            }
+        }
+        if(i == num_joueur)
+            switch(count){
+                case 0: score -= 50; break;
+                case 1: score -= 25; break;
+                case 2: score += 25; break;
+                case 3: score += 50; break;
+                default : if(count > nb_joueur) score += 100;
+                          else printf("erreur dans la fonction d'evaluation\n");
+            }
+        else
+            switch(count){
+                case 0: score += 50; break;
+                case 1: score += 25; break;
+                case 2: score -= 25; break;
+                case 3: score -= 50; break;
+                default : if(count > nb_joueur) score -= 100;
+                          else printf("erreur dans la fonction d'evaluation\n");
+            }
+            }
+    }
+    return score;
+}
 
 /**
 * \fn adversaire

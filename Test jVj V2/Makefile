@@ -17,11 +17,9 @@ $(PROG2) : case.o place.o grille.o joueur.o test_jvj.o direction.o
 $(PROG3) : case.o place.o grille.o joueur.o test_Ordi.o direction.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-$(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o direction.o
+$(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o direction.o strat_g.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-$(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o
-	$(CC) $^ -o $@ $(CFLAGS)
 
 %.o:%.c %.h
 	$(CC) -c $< $(CFLAGS) 

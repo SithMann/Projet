@@ -25,7 +25,7 @@ void creer_bouton_menu_princ(int x, int y, SDL_Surface *bouton, SDL_Renderer *re
 	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", 50);
 	SDL_Surface *texte;
 	SDL_Rect txtDestRect /*,button*/;
-	SDL_Color couleurNom = {0, 0, 0};
+	SDL_Color couleurNom = {255, 255, 255};
 
 	txtDestRect.x = x - 200;
 	txtDestRect.y = y - 100;
@@ -182,7 +182,7 @@ void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDe
 void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleurTitre, int w_pWindow){
 	SDL_Rect txtDestRect, imgDestRect;
 	int i;
-	SDL_Color couleurNom = {0, 0, 0};
+	SDL_Color couleurNom = {255, 255, 255};
 	
 	txtDestRect.x = 545;
 	txtDestRect.y = 100;

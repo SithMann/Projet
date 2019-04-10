@@ -8,7 +8,7 @@ PROG4 = test_classique_joueur
 
 all : $(PROG) $(PROG2) $(PROG3) $(PROG4)
 
-$(PROG) : menu.o case.o jeu.o place.o grille.o direction.o joueur.o main.o
+$(PROG) : menu.o case.o jeu.o place.o grille.o direction.o joueur.o strat_g.o main.o
 	$(CC) $^ -o $@ $(CFLAGS) 
 
 $(PROG2) : case.o place.o grille.o joueur.o test_jvj.o direction.o

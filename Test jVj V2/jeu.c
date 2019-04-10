@@ -5,6 +5,7 @@
 #include "objet.h"
 #include "grille.h"
 #include "direction.h"
+#include "strat_g.h"
 
 /**
 * \file jeu.c
@@ -36,7 +37,7 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
                         count++;
                     }
                     if(count >= nbJetons){
-                        printf("%s a gagné !! \n", joueur->pseudo);
+                        //printf("%s a gagné !! \n", joueur->pseudo);
                         //Save win 
                         return 1;
                     } 
@@ -52,7 +53,10 @@ int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
 int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs){
     for(int i = 0; i < nbJoueurs; i++){
         //fprintf(stderr, "Test boucle for un_gagnant\n");
-        if(gagnant(grille, nJetons, joueur+i)) return 1;
+        if(gagnant(grille, nJetons, joueur+i)){
+            printf("%s a gagné !! \n", joueur->pseudo);
+            return 1;
+        } 
     }
     return 0;
 }
@@ -174,13 +178,13 @@ void tour_joueur(t_joueur* joueur, t_grille * grille){
             printf("Veuillez hoisir le numéro de la colonne pour jouer (entier entre 1 et %d): ", grille->largeur);
             scanf("%d", &col);
         }while((col <= 0 || col >= grille->largeur) || !nonPleine(type-1, col-1, grille, joueur));
-    }else{
+    }/*else{
             type = 0;
             type = rand()%3+1;
             do{
                 col = rand()%grille->largeur+1;
             }while(!nonPleine(type-1, col-1, grille, joueur));
-    }
+    }*/
 }
 
 /**
@@ -337,9 +341,12 @@ int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots)
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_bots+nb_joueur; i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
-            tour_joueur(joueur+i, grille);
-            sleep(1);
-            system("clear");
+            if(joueur[i].estHumain)
+                tour_joueur(joueur+i, grille);
+            else
+                tour_ordi(grille, joueur, i, 4, nb_joueur+nb_bots, 4);
+            //sleep(1);
+           // system("clear");
             grille->p_affiche((t_objet * )grille);
             if(gagnant(grille, 4, joueur+i)){
                 // printf("%s a gagné !! \n", joueur[i].pseudo);

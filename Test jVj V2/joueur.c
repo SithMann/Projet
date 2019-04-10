@@ -9,6 +9,19 @@
 * \version 2
 */
 
+char * t_piece_str(t_piece p){
+    switch(p){
+        case BLOQUANTE:
+            return "BLOQUANTE"; break;
+        case CREUSE:
+            return "CREUSE"; break;
+        case PLEINE:
+            return "PLEINE"; break;
+        default:
+            return "VIDE"; break;
+    }
+}
+
 /**
 * \fn saisir_type 
 * \param un pointeur sur un joueur 

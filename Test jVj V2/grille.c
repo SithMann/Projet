@@ -84,12 +84,12 @@ void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* pjo
     if(grille->laGrille[x][y]->slot1->joueur == NULL){
         grille->laGrille[x][y]->slot1->piece = piece;
         grille->laGrille[x][y]->slot1->joueur = pjoueur;
-        fprintf(stderr, "Pièce ajoutée en slot1\n");
+        //fprintf(stderr, "Pièce ajoutée en slot1\n");
     }
     else{
         grille->laGrille[x][y]->slot2->piece = piece;
         grille->laGrille[x][y]->slot2->joueur = pjoueur;
-        fprintf(stderr, "Pièce ajoutée en slot2\n");
+        //fprintf(stderr, "Pièce ajoutée en slot2\n");
     }
 }
 

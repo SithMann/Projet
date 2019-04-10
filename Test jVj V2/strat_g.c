@@ -19,6 +19,7 @@
 * \brief fait l'inverse de jouer_le_coup (retire la piece de la grille)
 */
 void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
+    //fprintf(stderr,"DEJOUE \n");
     for( int i = 0; i < grille->longueur; i++){  
         if((lire_piece_slot(i,nbCol,1,grille) == piece)){
             grille->laGrille[i][nbCol]->slot1->piece = VIDE;
@@ -33,7 +34,7 @@ void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur){
     }
 }
 
-int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons){
+int jouer_coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons){
     for(int i = 0; i < grille->largeur; i++){
         for(t_piece type = PLEINE; type != VIDE; type++){
             if(nonPleine(type, i, grille, joueur)){
@@ -45,6 +46,21 @@ int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons){
         }
     }
     return 0;
+}
+
+int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons){
+    int gg = 0;
+    for(int i = 0; i < grille->largeur; i++){
+        for(t_piece type = PLEINE; type != VIDE; type++){
+            if(nonPleine(type, i, grille, joueur)){
+                if(gagnant(grille, nJetons, joueur)){
+                    gg = 1;
+                }
+                dejouer(type, i, grille, joueur);
+            }
+        }
+    }
+    return gg;
 }
 
 /**
@@ -85,7 +101,7 @@ int evaluation(t_grille * grille, t_joueur * joueur, int num_joueur, int nb_joue
                 case 1: score -= 25; break;
                 case 2: score += 25; break;
                 case 3: score += 50; break;
-                default : if(count > nb_joueur) score += 100;
+                default : if(count >= nb_joueur) score += 100;
                           else printf("erreur dans la fonction d'evaluation\n");
             }
         else
@@ -94,7 +110,7 @@ int evaluation(t_grille * grille, t_joueur * joueur, int num_joueur, int nb_joue
                 case 1: score += 25; break;
                 case 2: score -= 25; break;
                 case 3: score -= 50; break;
-                default : if(count > nb_joueur) score -= 100;
+                default : if(count >= nb_joueur) score -= 100;
                           else printf("erreur dans la fonction d'evaluation\n");
             }
     }
@@ -108,19 +124,27 @@ int evaluation(t_grille * grille, t_joueur * joueur, int num_joueur, int nb_joue
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
 int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur, int num_ordi, int nJetons){
-    int i, score, max_score;
-    
-    if(coup_gagnant(grille, &joueur[num_joueur], nJetons) || (profondeur == prof_max))
+    int i, score, min_score = 5000; //TODO: mettre la bonne valeur (borne supérieure du score)
+    int num_coup = 0;
+    /*for(i = 0; i < profondeur; i++)
+        fprintf(stderr,"\t");
+    fprintf(stderr,"Profondeur Adv : %d\n", profondeur);*/
+    if(coup_gagnant(grille, &joueur[num_joueur], nJetons) || (profondeur >= prof_max))
         return evaluation(grille, joueur, num_joueur, nb_joueur, nJetons);
     else{
-        if(num_joueur == num_ordi){
+        if((num_joueur+1)%nb_joueur == num_ordi){ // si le suivant est l'ordi 
             for(i = 0; i < grille->largeur; i++){
                 for(t_piece type = PLEINE; type != VIDE; type++){
                     if(nonPleine(type, i, grille, &joueur[num_joueur])){
-                        score = ordi(grille, joueur, (num_joueur+1)%nb_joueur, ++profondeur, prof_max, nb_joueur, num_ordi);
+                        
+                        for(int j = 0; j < profondeur; j++)
+                            fprintf(stderr,"\t");
+                        fprintf(stderr,"Profondeur Adv : %d - %d : %d, %s\n", profondeur, num_coup++, i, t_piece_str(type));
+                        
+                        score = ordi(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons);
                         dejouer(type, i, grille, &joueur[num_joueur]);
-                        if(score > max_score) 
-                            max_score = score;
+                        if(score < min_score) 
+                            min_score = score;
                     }
                 } 
             }
@@ -129,15 +153,20 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
             for(i = 0; i < grille->largeur; i++){
                 for(t_piece type = PLEINE; type != VIDE; type++){
                     if(nonPleine(type, i, grille, &joueur[num_joueur])){
-                        score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, ++profondeur, prof_max, nb_joueur, num_ordi, nJetons);
+                        
+                        for(int j = 0; j < profondeur; j++)
+                            fprintf(stderr,"\t");
+                        fprintf(stderr,"Profondeur Adv : %d - %d\n", profondeur, num_coup++);
+
+                        score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons);
                         dejouer(type, i, grille, &joueur[num_joueur]);
-                        if(score > max_score) 
-                            max_score = score;
+                        if(score < min_score) 
+                            min_score = score;
                     }
                 } 
             }
         }
-        return - max_score;
+        return  min_score;
     }
 }
 
@@ -147,16 +176,23 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
 * \return la fonction renvoie le max des scores pour savoir si on va plutot gagner ou plutot perdre
 * \brief attention, pour ne pas impacter le jeu il faut penser a retirer le coup une fois qu'il a ete joue
 */
-int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur, int num_ordi){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
-    int i, score, max_score = 0;
-
-    if(coup_gagnant(grille, &joueur[num_joueur], nJetons) || (profondeur == prof_max))
-        return evaluation(grille);
+int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur, int num_ordi, int nJetons){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
+    int i, score, max_score = -5000; //TODO: mettre la bonne valeur (borne inférieure du score)
+    int num_coup = 0;
+    if(coup_gagnant(grille, &joueur[num_joueur], nJetons) || (profondeur >= prof_max)){
+        //fprintf(stderr,"- Ordi RETURN -");
+        return evaluation(grille, joueur, num_joueur, nb_joueur, nJetons);
+    }
     else{
         for(i = 0; i < grille->largeur; i++){
             for(t_piece type = PLEINE; type != VIDE; type++){
                 if(nonPleine(type, i, grille, &joueur[num_joueur])){
-                    score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, ++profondeur, prof_max, nb_joueur, num_ordi, nJetons);
+                    
+                    for(int j = 0; j < profondeur; j++)
+                        fprintf(stderr,"\t");
+                    fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);
+                    
+                    score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons);
                     dejouer(type, i, grille, &joueur[num_joueur]);
                     if(score > max_score) 
                         max_score = score;
@@ -173,24 +209,33 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
 * \return 
 * \brief 
 */
-void tour_ordi(t_grille * grille, t_joueur * joueur, int num_ordi, int profondeur, int prof_max, int nb_joueur){
-    int i, score, max_score, save_colonne = 0, num_joueur = num_ordi;
+void tour_ordi(t_grille * grille, t_joueur * joueur, int num_ordi, int prof_max, int nb_joueur, int nJetons){
+    int i, score, max_score  = -5000, save_colonne = 0, num_joueur = num_ordi, profondeur = 1;
     t_piece save_piece = VIDE;
-    if(!coup_gagnant(grille, joueur[num_joueur], nJetons)){ // coup_gagnant joue le coup et l'annule si non gagnant
+    int num_coup = 0;
+    if(!jouer_coup_gagnant(grille, &joueur[num_joueur], nJetons)){ // coup_gagnant joue le coup et l'annule si non gagnant
                 // si score de ordi est mieux que score_max, on save score, type, colonne
         // jouer le coup    
-        for(i = 0; i < grille->largeur; i++)// Pour toute colonne
+        for(i = 0; i < grille->largeur; i++){// Pour toute colonne
+            //fprintf(stderr,"Dans tour_ordi : %d\n", i);
             for(t_piece type = PLEINE; type != VIDE; type++){// pour tout type
                 if(nonPleine(type, i, grille, &joueur[num_joueur])){
-                    score = adversaire(grille, joueur, num_joueur+1, ++profondeur, prof_max, nb_joueur, num_ordi);
-                    dejouer(type, i, grille, joueur[num_joueur]);
+                    
+                    for(int j = 0; j < profondeur; j++)
+                        fprintf(stderr,"\t");
+                    fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);
+                    
+                    score = adversaire(grille, joueur, num_joueur+1, profondeur, prof_max, nb_joueur, num_ordi, nJetons);
+                    dejouer(type, i, grille, &joueur[num_joueur]);
                     if(score > max_score){
                         save_piece = type;
                         save_colonne = i;
                         max_score = score;
-                    }  
+                    }
+                }  
             }
-            nonPleine(save_piece, save_colonne, grille, joueur);
-            }
+        }
+        fprintf(stderr,"Joue le coup \n");
+        nonPleine(save_piece, save_colonne, grille, &joueur[num_joueur]);
     }
 }

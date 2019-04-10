@@ -40,5 +40,5 @@ typedef struct s_joueur{
 
 int saisir_type(t_joueur * joueur);
 t_joueur creer_joueur(int nbJ, int nb_piece_b, int nb_piece_p, int nb_piece_c);
-
+char* t_piece_str(t_piece); /* renvoie un chaine de caractères permettant d'afficher le type de la piece */ 
 #endif

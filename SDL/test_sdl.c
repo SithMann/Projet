@@ -54,7 +54,8 @@ void afficher_fond(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgD
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
 
-void afficher_texte(SDL_Rect txtDestRect, SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, int taille, char *chaine){
+void afficher_texte(SDL_Rect *ptxtDestRect, SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, int taille, char *chaine){
+	SDL_Rect txtDestRect = *ptxtDestRect;
 	//printf("txtDestRect.x fonction affiche texte : %d\n", txtDestRect.x);
 	//printf("Adresse txtDestRect fonctiooooooooon: %d\n", &txtDestRect);
 	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", taille);	
@@ -62,6 +63,7 @@ void afficher_texte(SDL_Rect txtDestRect, SDL_Renderer *renderer, SDL_Color coul
 	texte = TTF_RenderUTF8_Blended(police, chaine, couleurTitre);
 	SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);  
 	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+	fprintf(stderr, "%s ,coord w : %d, h : %d\n", chaine, txtDestRect.w, txtDestRect.h);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
 
@@ -79,21 +81,21 @@ static char* PROPOSITION[TAILLE_PROPOSITION] = {"joueur", "joueurs", "ordinateur
 
 #define ECART 150 //Ecart entre les propositions
 
-void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDestRect, int choix, int w_pWindow){
+void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDestRect, int rubrique, int w_pWindow, SDL_Rect **mat_texte){
 	//Affichage des boutons 
-	int i, param;
+	int i;
 	SDL_Surface *texte = NULL;
 	//Grosse Rubrique
-	afficher_texte(txtDestRect,renderer, couleurNom, texte, 50, NOM_BOUTON_MENU_JvsIA[choix]);
+	afficher_texte(&txtDestRect,renderer, couleurNom, texte, 50, NOM_BOUTON_MENU_JvsIA[rubrique]);
 
-	if(choix == 0)
-		param = 0;
-	else if(choix == 1)
-		param = 2;
-	else if(choix == 2)
-		param = 4;
-	else
-		param = 5;
+	if(rubrique == 0) //joueur
+		rubrique = 0;
+	else if(rubrique == 1) // ordi
+		rubrique = 2;
+	else if(rubrique == 2) //pions
+		rubrique = 4;
+	else //difficulté
+		rubrique = 5;
 
 	//printf("Adresse txtDestRect menu : %d\n", &txtDestRect);
 
@@ -104,75 +106,94 @@ void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDe
 	for(i = 0; i <= NB_PROPOSITION; i++){
 		//printf("coord x : %d, coord y : %d, w_pWindow : %d", txtDestRect.x, txtDestRect.y, w_pWindow);
 		if(txtDestRect.y < w_pWindow + 75){
-			switch(param){
+			switch(rubrique){
 				case 0 : txtDestRect.y = 385;
 						 if(i == 0){
 							txtDestRect.x = 600;
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+							// txtDestRect contient la position/taille de la texture
+							// il faudrait sauver le rectangle dans la matrice tab_texte[0][0]
+							printf("COORD DE textDestRect : x = : %d, y = %d, w = %d, h = %d\n", txtDestRect.x, txtDestRect.y, txtDestRect.w, txtDestRect.h);
+							mat_texte[rubrique][i] = txtDestRect;
+	
 							txtDestRect.x += (ECART+75);
-							//printf("proposition de param vaut 0 et i 0: %s\n", PROPOSITION[i]);
+							printf("proposition de param vaut 0 et i 0: %s\n", PROPOSITION[i]);
 							break;
 						 }
 						 else if(i == 1){
 							//printf("txtDestRect avant fonction affiche texte : %d\n", txtDestRect.x);
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i]);
+							mat_texte[rubrique][i] = txtDestRect;
 							txtDestRect.x += (ECART+75);
-							//printf("proposition de param vaut 0 et i 1: %s\n", PROPOSITION[i]);
+							printf("proposition de param vaut 0 et i 1: %s\n", PROPOSITION[i]);
 							break;
 						 } 
 						 else if(i == 2){
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i-1]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i-1]);
+							mat_texte[rubrique][i] = txtDestRect;
 							txtDestRect.x += (ECART+75);
-							//printf("proposition de param vaut 0 et i 2: %s\n", PROPOSITION[i-1]);
+							printf("proposition de param vaut 0 et i 2: %s\n", PROPOSITION[i-1]);
 							break;
 						 }
 						 break;
 				case 2 : txtDestRect.y = 485;
 						 if(i == 0){
 							txtDestRect.x = 600;
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + rubrique]);
+							mat_texte[rubrique][i] = txtDestRect;
 							txtDestRect.x += (ECART+100);
-							printf("proposition de param vaut 2 et i 0 : %s\n", PROPOSITION[i +param]);
+							printf("proposition de rubrique vaut 2 et i 0 : %s\n", PROPOSITION[i +rubrique]);
 							break;
 						 }
 						else if(i == 1){
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i+param]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i+rubrique]);
+							mat_texte[rubrique][i] = txtDestRect;
 							txtDestRect.x += (ECART+100);
-							printf("proposition de param vaut 2 et i 1: %s\n", PROPOSITION[i+param]);
+							printf("proposition de rubrique vaut 2 et i 1: %s\n", PROPOSITION[i+rubrique]);
 							break;
 						 } 
 						 else if(i == 2){
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i-1+param]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i-1+rubrique]);
+							mat_texte[rubrique][i] = txtDestRect;
 							txtDestRect.x += (ECART+100);
-							printf("proposition de param vaut 2 et i 2: %s\n", PROPOSITION[i-1+param]);	
+							printf("proposition de rubrique vaut 2 et i 2: %s\n", PROPOSITION[i-1+rubrique]);	
 							break;			
 						 }
 						 break;
 				case 4 : txtDestRect.y = 585;
+				fprintf(stderr, "zrgvzrz\n");
 						 if(i == 0) txtDestRect.x = 600;
+						 fprintf(stderr, "zrgvzrz\n");
 						 if(i < 3){
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[param]);
+							 fprintf(stderr, "zrgvzrz\n");
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[rubrique]);
+							fprintf(stderr, "zrgvzrz\n");
+							mat_texte[rubrique-1][i] = txtDestRect;
+							fprintf(stderr, "zrgvzrz\n");
 							txtDestRect.x += ECART;
-							printf("proposition de param vaut 4 : %s\n", PROPOSITION[param]);
+							printf("proposition de rubrique vaut 4 : %s\n", PROPOSITION[rubrique]);
 							break;
 						 }
 						 break;
 				case 5 : txtDestRect.y = 685;
 						 if(i == 0){
 							txtDestRect.x = 600;
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[param]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[rubrique]);
+							mat_texte[rubrique-2][i] = txtDestRect;
 							txtDestRect.x += ECART;
-							printf("proposition de param vaut 5 et i 0 : %s\n", PROPOSITION[param]);
+							printf("proposition de rubrique vaut 5 et i 0 : %s\n", PROPOSITION[rubrique]);
 						 }
 						 else if(i == 1){
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + rubrique]);
+							mat_texte[rubrique-2][i] = txtDestRect;
 							txtDestRect.x += ECART;
-							printf("proposition de param vaut 5 et i 1 : %s\n", PROPOSITION[i+param]);
+							printf("proposition de rubrique vaut 5 et i 1 : %s\n", PROPOSITION[i+rubrique]);
 						 } 
 						 else if(i == 2){
-							afficher_texte(txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + param]);
+							afficher_texte(&txtDestRect,renderer, couleurNom, texte, 30, PROPOSITION[i + rubrique]);
+							mat_texte[rubrique-2][i] = txtDestRect;
 							txtDestRect.x += ECART;
-							printf("proposition de param vaut 5 et i 2 : %s\n", PROPOSITION[i+param]);
+							printf("proposition de rubrique vaut 5 et i 2 : %s\n", PROPOSITION[i+rubrique]);
 						 }
 						 break;
 				default : printf("Ça ne marche pas !");
@@ -181,9 +202,9 @@ void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDe
 	}
 }
 
-void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleurTitre, int w_pWindow){
+void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleurTitre, int w_pWindow, SDL_Rect **mat_texte){
 	SDL_Rect txtDestRect, imgDestRect;
-	int i;
+	int rubrique;
 	SDL_Color couleurNom = {255, 255, 255};
 	
 	txtDestRect.x = 545;
@@ -191,18 +212,21 @@ void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleu
 
 	imgDestRect.x = 10;
 	imgDestRect.y = 50;
-
+	
 	SDL_SetRenderDrawColor(renderer, 44, 75, 111, 255);
 	SDL_RenderClear(renderer);
 
 	afficher_image(renderer, image_tex, imgDestRect);
-	afficher_texte(txtDestRect,renderer, couleurTitre, NULL, 50, "PUISSANCE 4++");
+	afficher_texte(&txtDestRect,renderer, couleurTitre, NULL, 50, "PUISSANCE 4++");
 
 	//affichage d'une partie du menu de joueur VS IA
 	txtDestRect.x = 10;
 	txtDestRect.y = 375;
-	for(i = 0; i < 4; i++){
-		menuJoueurVsIA(couleurNom, renderer, txtDestRect, i, w_pWindow);
+
+	for(rubrique = 0; rubrique < 4; rubrique++){
+		
+		menuJoueurVsIA(couleurNom, renderer, txtDestRect, rubrique, w_pWindow, mat_texte);
+		
 		txtDestRect.y += 100;
 	}
 }
@@ -272,34 +296,47 @@ int boutonDifficulteValide(int x, int y){
 	return 0;
 }
 
-void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoche_tex, SDL_Texture *fond_tex){
+int coord_boutons_width[TAILLE_COORD_BOUTON * 4] = {100, 140, 140, 180, 200, 200, 190, 190, 190, 100, 110, 130};
+
+void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoche_tex, SDL_Texture *fond_tex, SDL_Rect **tab_texte){
 
 	SDL_Rect tab_encoche[NB_RUBRIQUE];
-	SDL_Rect encoche;
-	int etat_joueur = 0, etat_ordi = 0, etat_pions = 0, etat_difficulte = 0, temp, temp2 = 1, i, j = 1;
+	int etat_joueur = 0, etat_ordi = 0, etat_pions = 0, etat_difficulte = 0, temp, temp2 = 1;
+	int i, j = 1;
 	int bouton_joueur = boutonJoueurValide(x,y) ;
 	int bouton_ordi = boutonOrdiValide(x,y);
 	int bouton_pion = boutonPionsValide(x, y);
 	int bouton_difficulte = boutonDifficulteValide(x,y);
+	
+	//Remplissage du tableau encoche
 	tab_encoche[0].x = coord_bouton_joueur[temp2];
 	tab_encoche[0].y = coordYbtnJoueurMini ;
-	tab_encoche[0].w = 30;
-	tab_encoche[0].h = 35;
-	tab_encoche[1].w = 30;
-	tab_encoche[1].h = 35;
-	tab_encoche[2].w = 30;
-	tab_encoche[2].h = 35;
-	tab_encoche[3].w = 30;
-	tab_encoche[3].h = 35;
-	while(etat_joueur != 1 && etat_pions != 1 && etat_ordi != 1 && etat_difficulte != 1){
-		for(i = 0; i < 4; i++){
-			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
-			SDL_RenderFillRect(renderer , &tab_encoche[0]);
-			SDL_SetRenderDrawColor(renderer,0,0,0,0);
-			SDL_RenderCopy(renderer, fond_tex, NULL, &tab_encoche[0]);
-			tab_encoche[0].x = coord_bouton_joueur[j];
-			j += 2;
+	for(i = 0; i<NB_RUBRIQUE; i++){
+		tab_encoche[i].w = 30;
+		tab_encoche[i].h = 35;
+	}
+	
+	//Affichage du fond de l'endroit où sera l'encoche
+	for(i = 0; i < NB_RUBRIQUE; i++){
+		for(j = 0; j < NB_PROPOSITION; j++){
+			printf("x : %d, y : %d, w : %d, h : %d\n", tab_texte[i][j].x, tab_texte[i][j].y, tab_texte[i][j].w, tab_texte[i][j].h);
+			SDL_Rect tr = tab_texte[i][j];
+			SDL_Rect rect = {tr.x+tr.w+20, tr.y, 35, 30};
+			afficher_fond(renderer, fond_tex, rect);
 		}
+	}
+
+	j = 0;
+	for(i = 0; i < NB_RUBRIQUE; i++){
+		SDL_Rect tr = tab_texte[i][j];
+		SDL_Rect rect = {tr.x+tr.w+1, tr.y, 35, 30};
+		afficher_image(renderer, encoche_tex, rect);
+	}
+	
+
+
+
+	while(etat_joueur != 1 && etat_pions != 1 && etat_ordi != 1 && etat_difficulte != 1){
 		if(bouton_joueur){
 			printf("Bouton joueur : %d\n", bouton_joueur);
 			switch(bouton_joueur){
@@ -325,14 +362,6 @@ void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoch
 		temp2 = 1;
 		j = 1;
 
-		for(i = 0; i < 4; i++){
-			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
-			SDL_RenderFillRect(renderer , &tab_encoche[1]);
-			SDL_SetRenderDrawColor(renderer,0,0,0,0);
-			SDL_RenderCopy(renderer, fond_tex, NULL, &tab_encoche[1]);
-			tab_encoche[1].x = coord_bouton_ordi[j];
-			j += 2;
-		}
 		if(bouton_ordi){
 			printf("Bouton ordi : %d\n", bouton_ordi);
 			switch(bouton_ordi){
@@ -358,14 +387,6 @@ void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoch
 		temp2 = 1;
 		j = 1;
 
-		for(i = 0; i < 4; i++){
-			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
-			SDL_RenderFillRect(renderer , &tab_encoche[2]);
-			SDL_SetRenderDrawColor(renderer,0,0,0,0);
-			SDL_RenderCopy(renderer, fond_tex, NULL, &tab_encoche[2]);
-			tab_encoche[2].x = coord_bouton_pion[j];
-			j += 2;
-		}
 		if(bouton_pion){
 			printf("Bouton pion : %d\n", bouton_pion);
 			switch(bouton_pion){
@@ -391,14 +412,6 @@ void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoch
 		temp2 = 1;
 		j = 1;
 
-		for(i = 0; i < 4; i++){
-			SDL_SetRenderDrawColor(renderer,44, 75, 111, 255);
-			SDL_RenderFillRect(renderer , &tab_encoche[3]);
-			SDL_SetRenderDrawColor(renderer,0,0,0,0);
-			SDL_RenderCopy(renderer, fond_tex, NULL, &tab_encoche[3]);
-			tab_encoche[3].x = coord_bouton_difficulte[j];
-			j += 2;
-		}
 		if(bouton_difficulte){
 			printf("Bouton difficulte : %d\n", bouton_difficulte);
 			switch(bouton_difficulte){
@@ -437,6 +450,11 @@ int main(int argc, char** argv){
 	SDL_Renderer *renderer=NULL;
 	SDL_Rect txtDestRect,imgDestRect, coordsouris;
 
+	SDL_Rect **tab_texte = malloc(sizeof(SDL_Rect*) * NB_RUBRIQUE);
+		for(int l = 0; l < NB_RUBRIQUE; l++)
+			tab_texte[l] = malloc(sizeof(SDL_Rect) * NB_PROPOSITION);
+
+	fprintf(stderr, "eafaefaefe");
 	// Le pointeur vers notre police
 	TTF_Font *police = NULL;
 	// Une variable de couleur bleue
@@ -551,7 +569,7 @@ int main(int argc, char** argv){
 							case 1 : if(coordsouris.x > 520 && coordsouris.x < 910 && coordsouris.y > 300 && coordsouris.y < 340){//coord des boutons en plein écran
 										printf("Menu joueur contre ia\n");
 										SDL_RenderClear(renderer);
-										joueurVsIA(renderer, image_tex, couleurTitre, w_pWindow);//fonction d'appel des graphismes de ce menu
+										joueurVsIA(renderer, image_tex, couleurTitre, w_pWindow, tab_texte);//fonction d'appel des graphismes de ce menu
 									 	
 									 	SDL_RenderPresent(renderer);
 										etat = 2;
@@ -572,10 +590,10 @@ int main(int argc, char** argv){
 									 
 									 if(compt == 0){
 										SDL_RenderClear(renderer);
-									 	joueurVsIA(renderer, image_tex, couleurTitre, w_pWindow);//fonction d'appel des graphismes de ce menu
+									 	joueurVsIA(renderer, image_tex, couleurTitre, w_pWindow, tab_texte);//fonction d'appel des graphismes de ce menu
 										 compt = 1;
 									 }
-									 boutonProposition(coordsouris.x, coordsouris.y, renderer, encoche_tex, fond_tex);
+									 boutonProposition(coordsouris.x, coordsouris.y, renderer, encoche_tex, fond_tex, tab_texte);
 									 SDL_RenderPresent(renderer);
 
 							case 3 : printf("\n");//Dans le menu joueur VS joueur

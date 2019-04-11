@@ -344,7 +344,7 @@ int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots)
             if(joueur[i].estHumain)
                 tour_joueur(joueur+i, grille);
             else
-                tour_ordi(grille, joueur, i, 4, nb_joueur+nb_bots, 4);
+                tour_ordi(grille, joueur, i, 3, nb_joueur+nb_bots, 4);
             //sleep(1);
            // system("clear");
             grille->p_affiche((t_objet * )grille);

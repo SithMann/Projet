@@ -14,7 +14,7 @@ $(PROG) : menu.o case.o jeu.o place.o grille.o direction.o joueur.o strat_g.o ma
 $(PROG2) : case.o place.o grille.o joueur.o test_jvj.o direction.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-$(PROG3) : case.o place.o grille.o joueur.o test_Ordi.o direction.o
+$(PROG3) : case.o place.o grille.o joueur.o test_Ordi.o direction.o strat_g.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
 $(PROG4) : case.o place.o grille.o joueur.o test_classique_joueur.o direction.o strat_g.o

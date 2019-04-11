@@ -137,9 +137,9 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
                 for(t_piece type = PLEINE; type != VIDE; type++){
                     if(nonPleine(type, i, grille, &joueur[num_joueur])){
                         
-                        for(int j = 0; j < profondeur; j++)
+                        /*for(int j = 0; j < profondeur; j++)
                             fprintf(stderr,"\t");
-                        fprintf(stderr,"Profondeur Adv : %d - %d : %d, %s\n", profondeur, num_coup++, i, t_piece_str(type));
+                        fprintf(stderr,"Profondeur Adv : %d - %d : %d, %s\n", profondeur, num_coup++, i, t_piece_str(type));*/
                         
                         score = ordi(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons);
                         dejouer(type, i, grille, &joueur[num_joueur]);
@@ -153,10 +153,10 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
             for(i = 0; i < grille->largeur; i++){
                 for(t_piece type = PLEINE; type != VIDE; type++){
                     if(nonPleine(type, i, grille, &joueur[num_joueur])){
-                        
+                        /*
                         for(int j = 0; j < profondeur; j++)
                             fprintf(stderr,"\t");
-                        fprintf(stderr,"Profondeur Adv : %d - %d\n", profondeur, num_coup++);
+                        fprintf(stderr,"Profondeur Adv : %d - %d\n", profondeur, num_coup++);*/
 
                         score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons);
                         dejouer(type, i, grille, &joueur[num_joueur]);
@@ -187,10 +187,10 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
         for(i = 0; i < grille->largeur; i++){
             for(t_piece type = PLEINE; type != VIDE; type++){
                 if(nonPleine(type, i, grille, &joueur[num_joueur])){
-                    
+                    /*
                     for(int j = 0; j < profondeur; j++)
                         fprintf(stderr,"\t");
-                    fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);
+                    fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);*/
                     
                     score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons);
                     dejouer(type, i, grille, &joueur[num_joueur]);
@@ -220,10 +220,10 @@ void tour_ordi(t_grille * grille, t_joueur * joueur, int num_ordi, int prof_max,
             //fprintf(stderr,"Dans tour_ordi : %d\n", i);
             for(t_piece type = PLEINE; type != VIDE; type++){// pour tout type
                 if(nonPleine(type, i, grille, &joueur[num_joueur])){
-                    
+                    /*
                     for(int j = 0; j < profondeur; j++)
                         fprintf(stderr,"\t");
-                    fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);
+                    fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);*/
                     
                     score = adversaire(grille, joueur, num_joueur+1, profondeur, prof_max, nb_joueur, num_ordi, nJetons);
                     dejouer(type, i, grille, &joueur[num_joueur]);

@@ -3,7 +3,17 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 
+#define ECART 150 //Ecart entre les propositions
+#define NB_BOUTON 3 //Menu principal
+#define NB_BOUTON_MENU_JvsIA 5
+#define NB_PROPOSITION 3
 #define NB_RUBRIQUE 4
+#define TAILLE_PROPOSITION 8 //taille du tableau contenant les propositions
+
+typedef struct texture{
+		SDL_Rect pos;
+		SDL_Texture *tex[];
+	}t_texture;
 
 /*Faire une fonction qui fait une colonne en fonction du nombre de ligne choisies*/
 void creer_grille(int nb_ligne, int nb_colonne, SDL_Renderer *renderer, SDL_Texture *image_tex){
@@ -19,14 +29,14 @@ void creer_grille(int nb_ligne, int nb_colonne, SDL_Renderer *renderer, SDL_Text
 }
 
 /*Créer une structure pour le bouton avec ses tailles et une autre pour le menu où on utilise un tableau de bouton*/
-#define NB_BOUTON 3
+
 static char* NOM_BOUTON_MENU_PRINC[NB_BOUTON] = {"JoueurVsOrdi", "JoueurVsJoueur", "Quitter"};
 
 void creer_bouton_menu_princ(int x, int y, SDL_Surface *bouton, SDL_Renderer *renderer){
 	int i;
-	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", 50);
+	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", 50); //ouverture de la police
 	SDL_Surface *texte;
-	SDL_Rect txtDestRect /*,button*/;
+	SDL_Rect txtDestRect;
 	SDL_Color couleurNom = {255, 255, 255};
 
 	txtDestRect.x = x - 200;
@@ -35,7 +45,7 @@ void creer_bouton_menu_princ(int x, int y, SDL_Surface *bouton, SDL_Renderer *re
 	for(i = 0; i < NB_BOUTON; i++){
 		texte = TTF_RenderUTF8_Blended(police, NOM_BOUTON_MENU_PRINC[i], couleurNom);
 		SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte); 
-		SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+		SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h)); //met la width et la height dans txtDestRect
 		SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
 		txtDestRect.y += 100;
 	}
@@ -48,38 +58,49 @@ void afficher_image(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect img
 }
 
 void afficher_fond(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgDestRect){
-	SDL_SetRenderDrawColor(renderer,44,75,111,255);
+	SDL_SetRenderDrawColor(renderer,44,75,111,255);//met la couleur r,g,b en background avec une opacité de 255
 	SDL_RenderFillRect(renderer ,&imgDestRect);
 	SDL_SetRenderDrawColor(renderer,0,0,0,0);
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
 
-void afficher_texte(SDL_Rect *ptxtDestRect, SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, int taille, char *chaine){
-	SDL_Rect txtDestRect = *ptxtDestRect;
-	//printf("txtDestRect.x fonction affiche texte : %d\n", txtDestRect.x);
-	//printf("Adresse txtDestRect fonctiooooooooon: %d\n", &txtDestRect);
-	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", taille);	
+void creer_texture(SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, t_texture *tab_tex[], SDL_Rect *ptxtDestRect){
+	int i;
+	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", 30);	
+	for(i = 0; i < TAILLE_PROPOSITION; i++){
+		texte = TTF_RenderUTF8_Blended(police, PROPOSITION[i], couleurTitre);
+		SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);
+		tab_tex[i] = texte;
+	}
 
-	texte = TTF_RenderUTF8_Blended(police, chaine, couleurTitre);
-	SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);  
-	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
-	fprintf(stderr, "%s ,coord w : %d, h : %d\n", chaine, txtDestRect.w, txtDestRect.h);
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
-
+	TTF_CloseFont(police);
+	TTF_Font *police = TTF_OpenFont("Sketch 3D.otf", 50);
+	for(i = 0; i < NB_BOUTON_MENU_JvsIA; i++){
+		texte = TTF_RenderUTF8_Blended(police, NOM_BOUTON_MENU_JvsIA[i], couleurTitre);
+		SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);
+		tab_tex[i + TAILLE_PROPOSITION] = texte;
+	}
+	  
 	TTF_CloseFont(police);
 }
 
+void afficher_texte(SDL_Texture *texte_tex, SDL_Rect *ptxtDestRect, SDL_Renderer *renderer){
+	SDL_Rect txtDestRect = *ptxtDestRect;
+	//printf("Adresse txtDestRect fonctiooooooooon: %d\n", &txtDestRect);
+	//printf("txtDestRect.x fonction affiche texte : %d\n", txtDestRect.x);
+	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
+	//fprintf(stderr, "%s ,coord w : %d, h : %d\n", chaine, txtDestRect.w, txtDestRect.h);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
+}
+
 /*Créer une structure pour le bouton avec ses tailles et une autre pour le menu où on utilise un tableau de bouton*/
-#define NB_BOUTON_MENU_JvsIA 5
 static char* NOM_BOUTON_MENU_JvsIA[NB_BOUTON_MENU_JvsIA] = {"Nombre de joueur", "Nombre d'ordinateur", "Pions à aligner", "Difficulté"};
 
 /*Créer une structure pour le bouton avec ses tailles et une autre pour le menu où on utilise un tableau de bouton*/
-#define NB_PROPOSITION 3
-#define TAILLE_PROPOSITION 8
 static char* PROPOSITION[TAILLE_PROPOSITION] = {"joueur", "joueurs", "ordinateur", "ordinateurs", "pions", "facile", "moyen", "difficile"};
 
-#define ECART 150 //Ecart entre les propositions
+
 
 void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDestRect, int rubrique, int w_pWindow, SDL_Rect **mat_texte){
 	//Affichage des boutons 
@@ -438,23 +459,27 @@ void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoch
 
 
 int main(int argc, char** argv){
+	//Nombres de ligne et colonne temporaire
 	int nb_ligne = 5;
 	int nb_colonne = 7; 
 
     //Le pointeur vers la fenetre
-	SDL_Window* pWindow = NULL;
+	SDL_Window* pWindow = NULL; //crée une variable qui prend les coordonnées de la fenêtre 
 	int w_pWindow, h_pWindow;
 	//Le pointeur vers la surface incluse dans la fenetre
     SDL_Surface *texte=NULL, *image=NULL, *image2 = NULL, *encoche = NULL, *fond = NULL;
 	SDL_Surface *bouton = NULL;
-	SDL_Renderer *renderer=NULL;
-	SDL_Rect txtDestRect,imgDestRect, coordsouris;
+	SDL_Renderer *renderer=NULL;//Fais office d'écran, un seul par programme, c'est ce que l'on met à jour
+	SDL_Rect txtDestRect,imgDestRect, coordsouris;//rectangle imaginaire pour placer mes textures et pour les utiliser
 
+	//Création de ma matrice dans laquelle je rentre toutes les coords de chacune de mes textures
 	SDL_Rect **tab_texte = malloc(sizeof(SDL_Rect*) * NB_RUBRIQUE);
 		for(int l = 0; l < NB_RUBRIQUE; l++)
 			tab_texte[l] = malloc(sizeof(SDL_Rect) * NB_PROPOSITION);
 
-	fprintf(stderr, "eafaefaefe");
+	t_texture *tab_tex[100];//passer ce tableau en paramètre de creer_texte pour pouvoir les stocker
+
+	//fprintf(stderr, "eafaefaefe");
 	// Le pointeur vers notre police
 	TTF_Font *police = NULL;
 	// Une variable de couleur bleue
@@ -517,14 +542,14 @@ int main(int argc, char** argv){
 	txtDestRect.y = 100;
 	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
 
-	
+	//Initialisation des textures pour chaque image que je charge
 	SDL_Texture *image_tex; 
 	SDL_Texture *image2_tex;
 	SDL_Texture *encoche_tex;
 	SDL_Texture *fond_tex;
-	// load sample.png into image
+	// Chargement/importation des images
 	image2 = IMG_Load("case.png");
-	image=IMG_Load("transparent.gif");
+	image = IMG_Load("transparent.gif");
 	encoche = IMG_Load("encoche.png");
 	fond = IMG_Load("fond.png");
 
@@ -533,6 +558,7 @@ int main(int argc, char** argv){
 		printf("IMG_LoadPNG_RW: %s\n", IMG_GetError());
 	}
 
+	//Création des textures à partir de la surface de toutes mes textures
 	image_tex = SDL_CreateTextureFromSurface(renderer, image);
 	image2_tex = SDL_CreateTextureFromSurface(renderer, image2);//pingouin transparent siur les bords
 	encoche_tex = SDL_CreateTextureFromSurface(renderer, encoche);//encoche de validation des proposistions
@@ -552,16 +578,17 @@ int main(int argc, char** argv){
 	int compt = 0;
 	if( pWindow ){
 		int running = 1; 
-		while(running) { 
+		while(running) { //cas d'arrêt (bouton quitter)
 			SDL_Event e; 
-			while(SDL_PollEvent(&e)) { 
-				switch(e.type) { 
-					case SDL_QUIT: running = 0; 
+			while(SDL_PollEvent(&e)) { //attente d'un événement
+				switch(e.type) { //Quel événement ?
+					case SDL_QUIT: running = 0; //croix pour fermer la fenêtre
 					break; 
-					case SDL_MOUSEBUTTONUP:
+					case SDL_MOUSEBUTTONUP: //cas d'un clic
 
         				if (e.button.button == SDL_BUTTON_LEFT){ /*Si clic gauche alors*/
-							coordsouris.x = e.button.x;
+							//récupération des coordonnées du clic
+							coordsouris.x = e.button.x; 
 							coordsouris.y = e.button.y;
 						}
 
@@ -571,7 +598,7 @@ int main(int argc, char** argv){
 										SDL_RenderClear(renderer);
 										joueurVsIA(renderer, image_tex, couleurTitre, w_pWindow, tab_texte);//fonction d'appel des graphismes de ce menu
 									 	
-									 	SDL_RenderPresent(renderer);
+									 	SDL_RenderPresent(renderer);//affiche le renderer nue fois toute les modifs exécutées
 										etat = 2;
 									 }
 									 else if(coordsouris.x > 520 && coordsouris.x < 980 && coordsouris.y > 430 && coordsouris.y < 480){//coord des boutons en plein écran
@@ -590,6 +617,7 @@ int main(int argc, char** argv){
 									 
 									 if(compt == 0){
 										SDL_RenderClear(renderer);
+										//a enlever : mettre la fonction afficher
 									 	joueurVsIA(renderer, image_tex, couleurTitre, w_pWindow, tab_texte);//fonction d'appel des graphismes de ce menu
 										 compt = 1;
 									 }

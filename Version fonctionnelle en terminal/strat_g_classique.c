@@ -6,9 +6,9 @@
 //#include "joueur.h" il est deja include dans grille 
 
 /**
-* \file strat_g.c
-* \author Noémie Farizon et Mathis Despres
-* \date 20 mars 2019
+* \file strat_g_classique.c
+* \author Mathis Despres
+* \date 11 avril 2019
 * \version 1
 */
 
@@ -86,15 +86,13 @@ int evaluation(t_grille * grille, t_joueur * joueur, int num_joueur, int nb_joue
     int count, score = 0;
     for(int i = 0; i < nb_joueur; i++){
         count = 0;
-        for(t_piece type = PLEINE; type != VIDE; type++){
             for(int j = 0; j < grille->largeur; j++){
-                if(nonPleine(type, j, grille, &joueur[i])){
+                if(nonPleine(BLOQUANTE, j, grille, &joueur[i])){
                     if(gagnant(grille,nJetons, &joueur[i]))
                         count++;
-                    dejouer(type, j, grille, &joueur[i]);
+                    dejouer(BLOQUANTE, j, grille, &joueur[i]);
                 }
             }
-        }
         if(i == num_joueur)
             switch(count){
                 case 0: score -= 50; break;
@@ -136,15 +134,14 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
     else{
         if((num_joueur+1)%nb_joueur == num_ordi){ // si le suivant est l'ordi 
             for(i = 0; i < grille->largeur; i++){
-                for(t_piece type = PLEINE; type != VIDE; type++){
-                    if(nonPleine(type, i, grille, &joueur[num_joueur])){
+                    if(nonPleine(BLOQUANTE, i, grille, &joueur[num_joueur])){
                         
                         /*for(int j = 0; j < profondeur; j++)
                             fprintf(stderr,"\t");
                         fprintf(stderr,"Profondeur Adv : %d - %d : %d, %s\n", profondeur, num_coup++, i, t_piece_str(type));*/
                         
                         score = ordi(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons, min_score);
-                        dejouer(type, i, grille, &joueur[num_joueur]);
+                        dejouer(BLOQUANTE, i, grille, &joueur[num_joueur]);
                         // mise à jour du minimum
                         if(score < min_score) 
                             min_score = score;
@@ -153,25 +150,22 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
                         if(min_score <= alpha){
                                 return min_score;
                         } 
-                    }
-                } 
+                    } 
             }
         }
         else{
             for(i = 0; i < grille->largeur; i++){
-                for(t_piece type = PLEINE; type != VIDE; type++){
-                    if(nonPleine(type, i, grille, &joueur[num_joueur])){
+                    if(nonPleine(BLOQUANTE, i, grille, &joueur[num_joueur])){
                         /*
                         for(int j = 0; j < profondeur; j++)
                             fprintf(stderr,"\t");
                         fprintf(stderr,"Profondeur Adv : %d - %d\n", profondeur, num_coup++);*/
 
                         score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons, alpha);
-                        dejouer(type, i, grille, &joueur[num_joueur]);
+                        dejouer(BLOQUANTE, i, grille, &joueur[num_joueur]);
                         if(score < min_score) 
                             min_score = score;
                     }
-                } 
             }
         }
         return  min_score;
@@ -193,15 +187,14 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
     }
     else{
         for(i = 0; i < grille->largeur; i++){
-            for(t_piece type = PLEINE; type != VIDE; type++){
-                if(nonPleine(type, i, grille, &joueur[num_joueur])){
+                if(nonPleine(BLOQUANTE, i, grille, &joueur[num_joueur])){
                     /*
                     for(int j = 0; j < profondeur; j++)
                         fprintf(stderr,"\t");
                     fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);*/
                     
                     score = adversaire(grille, joueur, (num_joueur+1)%nb_joueur, profondeur+1, prof_max, nb_joueur, num_ordi, nJetons, max_score);
-                    dejouer(type, i, grille, &joueur[num_joueur]);
+                    dejouer(BLOQUANTE, i, grille, &joueur[num_joueur]);
                         // mise à jour du minimum
                         if(score > max_score) 
                             max_score = score;
@@ -211,7 +204,6 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
                                 return max_score;
                         }
                 }
-            } 
         }
     }
     return max_score;
@@ -225,7 +217,6 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
 */
 void tour_ordi(t_grille * grille, t_joueur * joueur, int num_ordi, int prof_max, int nb_joueur, int nJetons){
     int i, score, max_score  = -5000, save_colonne = 0, num_joueur = num_ordi, profondeur = 1;
-    t_piece save_piece = VIDE;
     int alpha = -5000, beta = 5000;
     int num_coup = 0;
     if(!jouer_coup_gagnant(grille, &joueur[num_joueur], nJetons)){ // coup_gagnant joue le coup et l'annule si non gagnant
@@ -233,24 +224,21 @@ void tour_ordi(t_grille * grille, t_joueur * joueur, int num_ordi, int prof_max,
         // jouer le coup    
         for(i = 0; i < grille->largeur; i++){// Pour toute colonne
             //fprintf(stderr,"Dans tour_ordi : %d\n", i);
-            for(t_piece type = PLEINE; type != VIDE; type++){// pour tout type
-                if(nonPleine(type, i, grille, &joueur[num_joueur])){
+                if(nonPleine(BLOQUANTE, i, grille, &joueur[num_joueur])){
                     /*
                     for(int j = 0; j < profondeur; j++)
                         fprintf(stderr,"\t");
                     fprintf(stderr,"Profondeur Ordi : %d - %d\n", profondeur, num_coup++);*/
                     
                     score = adversaire(grille, joueur, num_joueur+1, profondeur, prof_max, nb_joueur, num_ordi, nJetons, alpha);
-                    dejouer(type, i, grille, &joueur[num_joueur]);
+                    dejouer(BLOQUANTE, i, grille, &joueur[num_joueur]);
                     if(score > max_score){
-                        save_piece = type;
                         save_colonne = i;
                         max_score = score;
                     }
                 }  
-            }
         }
         fprintf(stderr,"Joue le coup \n");
-        nonPleine(save_piece, save_colonne, grille, &joueur[num_joueur]);
+        nonPleine(BLOQUANTE, save_colonne, grille, &joueur[num_joueur]);
     }
 }

@@ -1,5 +1,5 @@
-#ifndef __STRAT_H__
-#define __STRAT_H__
+#ifndef __STRATCLASSIQUE_H__
+#define __STRATCLASSIQUE_H__
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -8,9 +8,9 @@
 
 /**
 * \file case.h
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Mathis Despres et Noémie Farizon
+* \date 15 mars 2019
+* \version finale
 */
 
 /* Structure représentant une case dans la grille, elle contient deux slots pour des pieces

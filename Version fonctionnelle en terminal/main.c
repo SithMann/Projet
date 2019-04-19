@@ -3,10 +3,10 @@
 #include "menu.h"
 
 /**
-* \file main.c
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \file main.c 
+* \author Clement Dubois et Mathis Despres
+* \date 5 mars 2019
+* \version finale
 */
 
 int main(){
@@ -20,6 +20,7 @@ int main(){
         printf("Selectionnez le mode de jeu : \n");
         printf("1- Joueur vs IA \n");
         printf("2- Joueur vs Joueur \n");
+        printf("3- Puissance 4 classique\n");
         printf("3- Quitter \n");
 
         printf("\n\n Choix : ");
@@ -29,6 +30,8 @@ int main(){
             case 1 : menu_joueur_ia(&nb_ligne, &nb_colonne);
                     break;
             case 2 : menu_joueur(&nb_ligne, &nb_colonne);
+                    break;
+            case 3 : printf("Attend la suite \n");
                     break;
             default : printf("Aurevoir ! \n");
                     break;

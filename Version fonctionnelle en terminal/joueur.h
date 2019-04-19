@@ -7,8 +7,8 @@
 /**
 * \file joueur.h
 * \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \date 6 mars 2019
+* \version finale
 */
 
 /**

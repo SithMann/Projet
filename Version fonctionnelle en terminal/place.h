@@ -9,13 +9,13 @@
 /**
 * \file place.h
 * \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \date 9 mars 2019
+* \version finale
 */
 
 /**
 * \typedef structure
-* \struct t_place 
+* \struct s_place 
 * \brief represente une place dans une case de la grille, car il y a plusieurs pieces qui peuvent se trouver dans la meme case. elle sauvegarde le joueur et la piece pour avoir acces a la couleur et au type de la piece.
 */
 typedef struct s_place{

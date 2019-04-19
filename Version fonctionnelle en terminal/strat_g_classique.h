@@ -4,12 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
-
 /**
 * \file strat_g_classique.h
 * \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \date 11 avril 2019
+* \version finale
 */
 
 int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons);

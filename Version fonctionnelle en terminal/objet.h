@@ -4,8 +4,8 @@
 /**
 * \file objet.h
 * \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \date 9 mars 2019
+* \version finale
 */
 
 /**

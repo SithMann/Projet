@@ -12,8 +12,8 @@
 * \file test_Ordi.c
 * \author Mathis Despres et Clement Dubois 
 * \date 15 mars 2019
-* \version 1
-* \brief fichier de teste pas a pas pour la simulation
+* \version finale
+* \brief fichier de test pas a pas pour la simulation
 */
 
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){

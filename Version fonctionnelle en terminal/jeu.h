@@ -8,9 +8,9 @@
 
 /**
 * \file jeu.h
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Mathis Despres et Clement Dubois 
+* \date 15 mars 2019
+* \version finale
 */
 
 int gagnant(t_grille * grille, int nbJetons, t_joueur * joueur);

@@ -1,16 +1,16 @@
+/**
+* \file strat_g.c
+* \author Noémie Farizon et Mathis Despres
+* \date 20 mars 2019
+* \version finale
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
 #include "strat_g.h"
 #include "jeu.h"
-//#include "joueur.h" il est deja include dans grille 
 
-/**
-* \file strat_g.c
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
-*/
 
 /**
 * \fn dejouer

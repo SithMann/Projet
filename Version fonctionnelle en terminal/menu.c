@@ -4,10 +4,10 @@
 #include "grille.h"
 
 /**
-* \file menu.c
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \file menu.c 
+* \author Clement Dubois 
+* \date 5 mars 2019
+* \version finale
 */
 
 /**

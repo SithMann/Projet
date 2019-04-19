@@ -7,11 +7,10 @@
 
 /**
 * \file strat_g.h
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Noémie Farizon et Mathis Despres
+* \date 20 mars 2019
+* \version finale
 */
-
 int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons);
 int jouer_coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons);
 void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur);

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Puissance 4++: jeu.h File Reference</title>
+<title>Puissance 4++: test_classique_joueur.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,37 +83,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">jeu.h File Reference</div>  </div>
+<div class="title">test_classique_joueur.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="grille_8h_source.html">grille.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="objet_8h_source.html">objet.h</a>&quot;</code><br />
-</div>
-<p><a href="jeu_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+<code>#include &quot;<a class="el" href="grille_8h_source.html">grille.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="direction_8h_source.html">direction.h</a>&quot;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4be22d051b89b98b220f7e6719144082"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4be22d051b89b98b220f7e6719144082"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>gagnant</b> (<a class="el" href="structs__grille.html">t_grille</a> *grille, int nbJetons, <a class="el" href="structt__joueur.html">t_joueur</a> *joueur)</td></tr>
 <tr class="separator:a4be22d051b89b98b220f7e6719144082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af93183f66c50d342173de363e6cdfdf9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af93183f66c50d342173de363e6cdfdf9"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>un_gagnant</b> (<a class="el" href="structs__grille.html">t_grille</a> *grille, int nJetons, <a class="el" href="structt__joueur.html">t_joueur</a> *joueur, int nbJoueurs)</td></tr>
+<tr class="separator:af93183f66c50d342173de363e6cdfdf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4020520051a746dcc73e5e1465510ffe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4020520051a746dcc73e5e1465510ffe"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>nonPleine</b> (<a class="el" href="joueur_8h.html#abaae233af7d7c466ecddef6f4567ea1f">t_piece</a> piece, int nbCol, <a class="el" href="structs__grille.html">t_grille</a> *grille, <a class="el" href="structt__joueur.html">t_joueur</a> *joueur)</td></tr>
 <tr class="separator:a4020520051a746dcc73e5e1465510ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3951dc0d75ead730c8f0378f8d0ab67"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab3951dc0d75ead730c8f0378f8d0ab67"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>tour_joueur</b> (<a class="el" href="structt__joueur.html">t_joueur</a> *joueur, <a class="el" href="structs__grille.html">t_grille</a> *grille)</td></tr>
 <tr class="separator:ab3951dc0d75ead730c8f0378f8d0ab67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21a2ff036fbb947b9f6e1815a7aae373"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21a2ff036fbb947b9f6e1815a7aae373"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>joueurVSjoueur</b> (<a class="el" href="structs__grille.html">t_grille</a> *grille, <a class="el" href="structt__joueur.html">t_joueur</a> *joueur, int nb_joueur, int nb_pion)</td></tr>
-<tr class="separator:a21a2ff036fbb947b9f6e1815a7aae373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8af15aebf27d699a4fc9dd81594c3a89"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8af15aebf27d699a4fc9dd81594c3a89"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>joueurVSia</b> (<a class="el" href="structs__grille.html">t_grille</a> *grille, <a class="el" href="structt__joueur.html">t_joueur</a> *joueur, int nb_joueur, int nb_bots, int nb_pion)</td></tr>
-<tr class="separator:a8af15aebf27d699a4fc9dd81594c3a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> ()</td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Mathis Despres et Clement Dubois </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>15 mars 2019 </dd></dl>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Mathis Despres </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>11 avril 2019 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>finale </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->

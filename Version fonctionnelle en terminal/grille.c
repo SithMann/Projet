@@ -4,9 +4,9 @@
 
 /**
 * \file grille.c
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Noemie Farizon et Mathis Despres
+* \date 15 mars 2019
+* \version finale
 */
 
 /**

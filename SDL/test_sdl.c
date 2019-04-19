@@ -3,6 +3,14 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 
+/**
+* \file test_sdl.c
+* \author Clement Dubois
+* \date 16 mars 2019
+* \version 1
+*/
+
+
 #define ECART 150 //Ecart entre les propositions
 #define NB_BOUTON 3 //Menu principal
 #define NB_BOUTON_MENU_JvsIA 5
@@ -10,10 +18,23 @@
 #define NB_RUBRIQUE 4
 #define TAILLE_PROPOSITION 8 //taille du tableau contenant les propositions
 
+
+/**
+* \typedef structure
+* \struc texture
+* \brief structure qui permet de stocker les informations relatives aux textures
+*/
 typedef struct texture{
 		SDL_Rect pos;
 		SDL_Texture *tex[];
 	}t_texture;
+
+/**
+* \fn creer_grille
+* \param un pointeur sur le renderer,un pointeur sur une texture, et deux entiers pour le nombre de lignes et de colonnes
+* \return la fonction ne retourne rien 
+* \brief cette fonction crée la grille de jeu avec l'image faite pour 
+*/
 
 /*Faire une fonction qui fait une colonne en fonction du nombre de ligne choisies*/
 void creer_grille(int nb_ligne, int nb_colonne, SDL_Renderer *renderer, SDL_Texture *image_tex){
@@ -31,6 +52,13 @@ void creer_grille(int nb_ligne, int nb_colonne, SDL_Renderer *renderer, SDL_Text
 /*Créer une structure pour le bouton avec ses tailles et une autre pour le menu où on utilise un tableau de bouton*/
 
 static char* NOM_BOUTON_MENU_PRINC[NB_BOUTON] = {"JoueurVsOrdi", "JoueurVsJoueur", "Quitter"};
+
+/**
+* \fn chosesConstantes
+* \param un pointeur sur le renderer,un pointeur sur une surface bouton, et deux entiers 
+* \return la fonction ne retourne rien 
+* \brief cette fonction crée les boutons du menu principal 
+*/
 
 void creer_bouton_menu_princ(int x, int y, SDL_Surface *bouton, SDL_Renderer *renderer){
 	int i;
@@ -52,10 +80,24 @@ void creer_bouton_menu_princ(int x, int y, SDL_Surface *bouton, SDL_Renderer *re
 	TTF_CloseFont(police);
 }
 
+/**
+* \fn afficher_image
+* \param un pointeur sur le renderer,un pointeur sur une texture, et un SDL_Rect
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche une image aux coordonnées fournies par le SDL_Rect
+*/
+
 void afficher_image(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgDestRect){
 	SDL_QueryTexture(image_tex, NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
+
+/**
+* \fn afficher_fond
+* \param un pointeur sur le renderer,un pointeur sur une surface texte, un SDL_Rect
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche le fond de l'endroit où se situe l'encoche
+*/
 
 void afficher_fond(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgDestRect){
 	SDL_SetRenderDrawColor(renderer,44,75,111,255);//met la couleur r,g,b en background avec une opacité de 255
@@ -63,6 +105,13 @@ void afficher_fond(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgD
 	SDL_SetRenderDrawColor(renderer,0,0,0,0);
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
+
+/**
+* \fn creer_texture
+* \param un pointeur sur le renderer,un pointeur sur une surface texte, et un pointeur sur un SDL_Rect, un SDL_Color, un tableau de texture
+* \return la fonction ne retourne rien 
+* \brief cette fonction crée toutes les textures
+*/
 
 void creer_texture(SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, t_texture *tab_tex[], SDL_Rect *ptxtDestRect){
 	int i;
@@ -84,6 +133,13 @@ void creer_texture(SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *
 	TTF_CloseFont(police);
 }
 
+/**
+* \fn afficher_texte
+* \param un pointeur sur le renderer,un pointeur sur une surface texte, et un pointeur sur un SDL_Rect, un SDL_Color, un int et une chaine de caractère
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche la chaine avec la taille et la couleur pour la police aux coordonnées fournies par le SDL_Rect
+*/
+
 void afficher_texte(SDL_Texture *texte_tex, SDL_Rect *ptxtDestRect, SDL_Renderer *renderer){
 	SDL_Rect txtDestRect = *ptxtDestRect;
 	//printf("Adresse txtDestRect fonctiooooooooon: %d\n", &txtDestRect);
@@ -100,13 +156,19 @@ static char* NOM_BOUTON_MENU_JvsIA[NB_BOUTON_MENU_JvsIA] = {"Nombre de joueur", 
 /*Créer une structure pour le bouton avec ses tailles et une autre pour le menu où on utilise un tableau de bouton*/
 static char* PROPOSITION[TAILLE_PROPOSITION] = {"joueur", "joueurs", "ordinateur", "ordinateurs", "pions", "facile", "moyen", "difficile"};
 
-
+/**
+* \fn menuJoueurVsIA
+* \param un pointeur sur le renderer, une matrice de SDL_Rect, un SDL_Rect, un SDL_Color, un nombre de rubrique int, et un int pour la longueur de la fenêtre
+* \return la fonction ne retourne rien 
+* \brief cette fonction crée toutes les propositions et les affiche
+*/
 
 void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDestRect, int rubrique, int w_pWindow, SDL_Rect **mat_texte){
 	//Affichage des boutons 
 	int i;
 	SDL_Surface *texte = NULL;
 	//Grosse Rubrique
+	//Pas le temps de modifier tout les afficher_texte à cause du changement de dernière minute de manière de faire
 	afficher_texte(&txtDestRect,renderer, couleurNom, texte, 50, NOM_BOUTON_MENU_JvsIA[rubrique]);
 
 	if(rubrique == 0) //joueur
@@ -223,6 +285,13 @@ void menuJoueurVsIA(SDL_Color couleurNom, SDL_Renderer *renderer, SDL_Rect txtDe
 	}
 }
 
+/**
+* \fn joueurVsIA
+* \param un pointeur sur le renderer, un pointeur sur texture, une matrice de SDL_Rect, un SDL_Color, un int pour la longueur de la fenêtre
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche tout le menu de joueurVsIA
+*/
+
 void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleurTitre, int w_pWindow, SDL_Rect **mat_texte){
 	SDL_Rect txtDestRect, imgDestRect;
 	int rubrique;
@@ -257,6 +326,13 @@ void joueurVsIA(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Color couleu
 #define TAILLE_COORD_BOUTON 6
 static int coord_bouton_joueur[TAILLE_COORD_BOUTON] = {610, 710, 825, 960, 1050, 1190};
 
+/**
+* \fn boutonJoueurValide
+* \param deux entiers de coordonnées
+* \return la fonction ne retourne rien 
+* \brief cette fonction vérifie si l'on clique sur les cases correspondant aux coordonnées
+*/
+
 int boutonJoueurValide(int x, int y){
 	int i, compt = 1;
 	for(i = 0; i < TAILLE_COORD_BOUTON; i++){
@@ -272,6 +348,13 @@ int boutonJoueurValide(int x, int y){
 #define coordYbtnOrdiMini 485
 #define coordYbtnOrdiMaxi 520
 static int coord_bouton_ordi[TAILLE_COORD_BOUTON] = {600, 780, 845, 1050, 1100, 1300};
+
+/**
+* \fn boutonOrdiValide
+* \param deux entiers de coordonnées
+* \return la fonction ne retourne rien 
+* \brief cette fonction vérifie si l'on clique sur les cases correspondant aux coordonnées
+*/
 
 int boutonOrdiValide(int x, int y){
 	int i, compt = 1;
@@ -289,6 +372,13 @@ int boutonOrdiValide(int x, int y){
 #define coordYbtnPionsMaxi 625
 static int coord_bouton_pion[TAILLE_COORD_BOUTON] = {600, 690, 750, 840, 900, 990};
 
+/**
+* \fn boutonPionsValide
+* \param deux entiers de coordonnées
+* \return la fonction ne retourne rien 
+* \brief cette fonction vérifie si l'on clique sur les cases correspondant aux coordonnées
+*/
+
 int boutonPionsValide(int x, int y){
 	int i, compt = 1;
 	for(i = 0; i < TAILLE_COORD_BOUTON; i++){
@@ -305,6 +395,13 @@ int boutonPionsValide(int x, int y){
 #define coordYbtnDifficulteMaxi 725
 static int coord_bouton_difficulte[TAILLE_COORD_BOUTON] = {600, 700, 750, 860, 900, 1030};
 
+/**
+* \fn boutonDifficulteValide
+* \param deux entiers de coordonnées
+* \return la fonction ne retourne rien 
+* \brief cette fonction vérifie si l'on clique sur les cases correspondant aux coordonnées
+*/
+
 int boutonDifficulteValide(int x, int y){
 	int i, compt = 1;
 	for(i = 0; i < TAILLE_COORD_BOUTON; i++){
@@ -318,6 +415,13 @@ int boutonDifficulteValide(int x, int y){
 }
 
 int coord_boutons_width[TAILLE_COORD_BOUTON * 4] = {100, 140, 140, 180, 200, 200, 190, 190, 190, 100, 110, 130};
+
+/**
+* \fn boutonProposition
+* \param deux entiers de coordonnées, un pointeur sur renderer, deux pointeurs sur textures et une matrice de SDL_Rect
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche les encoches quand le clic est correct
+*/
 
 void boutonProposition(int x, int y, SDL_Renderer *renderer, SDL_Texture *encoche_tex, SDL_Texture *fond_tex, SDL_Rect **tab_texte){
 

@@ -3,11 +3,31 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 
+/**
+* \file test_grille.c
+* \author Clement Dubois
+* \date 16 mars 2019
+* \version 1
+*/
+
+/**
+* \fn afficher_image
+* \param un pointeur sur le renderer,un pointeur sur une texture, et un SDL_Rect
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche une image aux coordonnées fournies par le SDL_Rect
+*/
 
 void afficher_image(SDL_Renderer *renderer, SDL_Texture *image_tex, SDL_Rect imgDestRect){
 	SDL_QueryTexture(image_tex, NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
+
+/**
+* \fn afficher_texte
+* \param un pointeur sur le renderer,un pointeur sur une surface texte, et un pointeur sur un SDL_Rect, un SDL_Color, un int et une chaine de caractère
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche la chaine avec la taille et la couleur pour la police aux coordonnées fournies par le SDL_Rect
+*/
 
 void afficher_texte(SDL_Rect *ptxtDestRect, SDL_Renderer *renderer, SDL_Color couleurTitre, SDL_Surface *texte, int taille, char *chaine){
 	SDL_Rect txtDestRect = *ptxtDestRect;
@@ -25,6 +45,13 @@ void afficher_texte(SDL_Rect *ptxtDestRect, SDL_Renderer *renderer, SDL_Color co
 
 #define NB_BOUTON 3 //Menu principal
 
+/**
+* \fn creer_grille
+* \param un pointeur sur le renderer,un pointeur sur une texture, et deux entiers pour le nombre de lignes et de colonnes
+* \return la fonction ne retourne rien 
+* \brief cette fonction crée la grille de jeu avec l'image faite pour 
+*/
+
 /*Faire une fonction qui fait une colonne en fonction du nombre de ligne choisies*/
 void creer_grille(int nb_ligne, int nb_colonne, SDL_Renderer *renderer, SDL_Texture *image_tex){
 	SDL_Rect imgDestRect = {200,100,100,100}; //{point de départ en x, point de départ en y, largeur image, longueur image}
@@ -37,7 +64,14 @@ void creer_grille(int nb_ligne, int nb_colonne, SDL_Renderer *renderer, SDL_Text
 		imgDestRect.y = 100;
 	}
 }
-	
+
+/**
+* \fn chosesConstantes
+* \param un pointeur sur le renderer,un pointeur sur une texture
+* \return la fonction ne retourne rien 
+* \brief cette fonction affiche l'image qui reste tout le temps ainsi que le titre et le background
+*/
+
 void choseConstantes(SDL_Renderer *renderer, SDL_Texture *image_tex){
 	SDL_Color couleurTitre = {44, 117, 255};
 	SDL_Rect txtDestRect, imgDestRect;
@@ -59,6 +93,13 @@ void choseConstantes(SDL_Renderer *renderer, SDL_Texture *image_tex){
 /*Créer une structure pour le bouton avec ses tailles et une autre pour le menu où on utilise un tableau de bouton*/
 
 static char* NOM_BOUTON_MENU_PRINC[NB_BOUTON] = {"JoueurVsOrdi", "JoueurVsJoueur", "Quitter"};
+
+/**
+* \fn chosesConstantes
+* \param un pointeur sur le renderer,un pointeur sur une surface bouton, et deux entiers 
+* \return la fonction ne retourne rien 
+* \brief cette fonction crée les boutons du menu principal 
+*/
 
 void creer_bouton_menu_princ(int x, int y, SDL_Surface *bouton, SDL_Renderer *renderer){
 	int i;

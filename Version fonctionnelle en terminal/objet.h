@@ -10,7 +10,7 @@
 
 /**
 * \typedef structure
-* \struct t_objet
+* \struct s_objet
 * \brief reunie l'ensemble des objets qui sont utilises dans le programme
 */
 typedef struct s_objet t_objet ;

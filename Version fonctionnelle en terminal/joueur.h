@@ -26,7 +26,7 @@ typedef enum {PLEINE, CREUSE, BLOQUANTE, VIDE } t_piece;
 
 /**
 * \typedef structure
-* \struct t_joueur 
+* \struct s_joueur 
 * \brief permet de stocker l'ensemble des informations relatives a un joueur
 */
 typedef struct s_joueur{

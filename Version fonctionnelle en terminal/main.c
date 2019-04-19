@@ -21,7 +21,7 @@ int main(){
         printf("1- Joueur vs IA \n");
         printf("2- Joueur vs Joueur \n");
         printf("3- Puissance 4 classique\n");
-        printf("3- Quitter \n");
+        printf("4- Quitter \n");
 
         printf("\n\n Choix : ");
         scanf("%d", &choix);
@@ -31,7 +31,7 @@ int main(){
                     break;
             case 2 : menu_joueur(&nb_ligne, &nb_colonne);
                     break;
-            case 3 : printf("Attend la suite \n");
+            case 3 : printf("Est dans un programme à part pour le moment\n");
                     break;
             default : printf("Aurevoir ! \n");
                     break;

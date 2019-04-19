@@ -1,0 +1,51 @@
+\hypertarget{grille_8h}{}\section{grille.\+h File Reference}
+\label{grille_8h}\index{grille.\+h@{grille.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}objet.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}case.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}attributs\+\_\+objet.\+h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structs__grille}{s\+\_\+grille}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structs__grille}{s\+\_\+grille} {\bfseries t\+\_\+grille}\hypertarget{grille_8h_ab0379477466f03cf266e97181b87309d}{}\label{grille_8h_ab0379477466f03cf266e97181b87309d}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structs__grille}{t\+\_\+grille} $\ast$ {\bfseries creer\+\_\+grille} (int longueur, int largeur, int taille)\hypertarget{grille_8h_ac956839ae09ca3d8d6fc4510c1aa85fc}{}\label{grille_8h_ac956839ae09ca3d8d6fc4510c1aa85fc}
+
+\item 
+void {\bfseries detruire\+\_\+grille} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8h_a7d1f197316881865c67508274314496d}{}\label{grille_8h_a7d1f197316881865c67508274314496d}
+
+\item 
+void {\bfseries ajouter\+\_\+piece} (int x, int y, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{joueur_8h_abaae233af7d7c466ecddef6f4567ea1f}{t\+\_\+piece} piece, \hyperlink{structt__joueur}{t\+\_\+joueur} $\ast$joueur)\hypertarget{grille_8h_aa4e056fbeb1a944d68948cb2f4a9952c}{}\label{grille_8h_aa4e056fbeb1a944d68948cb2f4a9952c}
+
+\item 
+int {\bfseries est\+\_\+valide} (int ligne, int colonne, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8h_a2d6f5d7292e3331a4ee3c5f03fffc6cc}{}\label{grille_8h_a2d6f5d7292e3331a4ee3c5f03fffc6cc}
+
+\item 
+t\+\_\+couleur {\bfseries lire\+\_\+couleur\+\_\+joueur\+\_\+slot} (int x, int y, int n\+Slot, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8h_afb2c70dc6f3fe842ffe8a81022e6aa8e}{}\label{grille_8h_afb2c70dc6f3fe842ffe8a81022e6aa8e}
+
+\item 
+\hyperlink{joueur_8h_abaae233af7d7c466ecddef6f4567ea1f}{t\+\_\+piece} {\bfseries lire\+\_\+piece\+\_\+slot} (int x, int y, int n\+Slot, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8h_ab5e62c5046307b551fdba199bd661045}{}\label{grille_8h_ab5e62c5046307b551fdba199bd661045}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Mathis Despres 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+17 avril 2019 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+à rendre 
+\end{DoxyVersion}

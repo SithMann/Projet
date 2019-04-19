@@ -1,0 +1,128 @@
+\hypertarget{test__sdl_8c}{}\section{test\+\_\+sdl.\+c File Reference}
+\label{test__sdl_8c}\index{test\_sdl.c@{test\_sdl.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L2/\+S\+D\+L.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L2/\+S\+D\+L\+\_\+ttf.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L2/\+S\+D\+L\+\_\+image.\+h$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtexture}{texture}}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a47599fcc29508d9d62123c63d7ff84ef}\label{test__sdl_8c_a47599fcc29508d9d62123c63d7ff84ef}} 
+\#define {\bfseries E\+C\+A\+RT}~150
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ae42584dd1f06cfc6de220011d32b327e}\label{test__sdl_8c_ae42584dd1f06cfc6de220011d32b327e}} 
+\#define {\bfseries N\+B\+\_\+\+B\+O\+U\+T\+ON}~3
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a9f41e521464528b681c8b9314853db60}\label{test__sdl_8c_a9f41e521464528b681c8b9314853db60}} 
+\#define {\bfseries N\+B\+\_\+\+B\+O\+U\+T\+O\+N\+\_\+\+M\+E\+N\+U\+\_\+\+Jvs\+IA}~5
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a53c5c9f591cc6254eca30dc45a689a8a}\label{test__sdl_8c_a53c5c9f591cc6254eca30dc45a689a8a}} 
+\#define {\bfseries N\+B\+\_\+\+P\+R\+O\+P\+O\+S\+I\+T\+I\+ON}~3
+\item 
+\mbox{\Hypertarget{test__sdl_8c_afb202fab7025396303a11377658d2733}\label{test__sdl_8c_afb202fab7025396303a11377658d2733}} 
+\#define {\bfseries N\+B\+\_\+\+R\+U\+B\+R\+I\+Q\+UE}~4
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a4d3a6d05ae5d025c516d503037699533}\label{test__sdl_8c_a4d3a6d05ae5d025c516d503037699533}} 
+\#define {\bfseries T\+A\+I\+L\+L\+E\+\_\+\+P\+R\+O\+P\+O\+S\+I\+T\+I\+ON}~8
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a93fe0ddd2a7329cb275fea6b23e3e7f7}\label{test__sdl_8c_a93fe0ddd2a7329cb275fea6b23e3e7f7}} 
+\#define {\bfseries coord\+Ybtn\+Joueur\+Mini}~390
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a4af816da45f4b2a6a72c51be92ab6a6d}\label{test__sdl_8c_a4af816da45f4b2a6a72c51be92ab6a6d}} 
+\#define {\bfseries coord\+Ybtn\+Joueur\+Maxi}~420
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a5441e4a3a9985d6bb62fffaa442e63f4}\label{test__sdl_8c_a5441e4a3a9985d6bb62fffaa442e63f4}} 
+\#define {\bfseries T\+A\+I\+L\+L\+E\+\_\+\+C\+O\+O\+R\+D\+\_\+\+B\+O\+U\+T\+ON}~6
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a580a2b08b24f2143bb2035ba2ed04561}\label{test__sdl_8c_a580a2b08b24f2143bb2035ba2ed04561}} 
+\#define {\bfseries coord\+Ybtn\+Ordi\+Mini}~485
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ae68cdeb5390501ff6aeb12015c619bf0}\label{test__sdl_8c_ae68cdeb5390501ff6aeb12015c619bf0}} 
+\#define {\bfseries coord\+Ybtn\+Ordi\+Maxi}~520
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a5c5d1b77f971c31d54d29e566391776f}\label{test__sdl_8c_a5c5d1b77f971c31d54d29e566391776f}} 
+\#define {\bfseries coord\+Ybtn\+Pions\+Mini}~585
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a0c3c2f56cc6c7b04761c56d62d30d8be}\label{test__sdl_8c_a0c3c2f56cc6c7b04761c56d62d30d8be}} 
+\#define {\bfseries coord\+Ybtn\+Pions\+Maxi}~625
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ad19744650a7c6e4bc24cbab74ee491e8}\label{test__sdl_8c_ad19744650a7c6e4bc24cbab74ee491e8}} 
+\#define {\bfseries coord\+Ybtn\+Difficulte\+Mini}~685
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a21010731057df4764b849b016c70fec9}\label{test__sdl_8c_a21010731057df4764b849b016c70fec9}} 
+\#define {\bfseries coord\+Ybtn\+Difficulte\+Maxi}~725
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ae40d1d6b8482f3e27c2bd7b56eef7382}\label{test__sdl_8c_ae40d1d6b8482f3e27c2bd7b56eef7382}} 
+typedef struct \mbox{\hyperlink{structtexture}{texture}} {\bfseries t\+\_\+texture}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ac7f809c8a1e186c2b881a160f29e73a0}\label{test__sdl_8c_ac7f809c8a1e186c2b881a160f29e73a0}} 
+void {\bfseries creer\+\_\+grille} (int nb\+\_\+ligne, int nb\+\_\+colonne, S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Texture $\ast$image\+\_\+tex)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_acae6129eb659e19c90d3e8753145fc1e}\label{test__sdl_8c_acae6129eb659e19c90d3e8753145fc1e}} 
+void {\bfseries creer\+\_\+bouton\+\_\+menu\+\_\+princ} (int x, int y, S\+D\+L\+\_\+\+Surface $\ast$bouton, S\+D\+L\+\_\+\+Renderer $\ast$renderer)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a5cf12a7a0834157e4574aabdc1118540}\label{test__sdl_8c_a5cf12a7a0834157e4574aabdc1118540}} 
+void {\bfseries afficher\+\_\+image} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Texture $\ast$image\+\_\+tex, S\+D\+L\+\_\+\+Rect img\+Dest\+Rect)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ab5cb6dd25f612f92662d11ca3f3f1897}\label{test__sdl_8c_ab5cb6dd25f612f92662d11ca3f3f1897}} 
+void {\bfseries afficher\+\_\+fond} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Texture $\ast$image\+\_\+tex, S\+D\+L\+\_\+\+Rect img\+Dest\+Rect)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a9396e1bf8bf728d61d421cafbb5ea413}\label{test__sdl_8c_a9396e1bf8bf728d61d421cafbb5ea413}} 
+void {\bfseries creer\+\_\+texture} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Color couleur\+Titre, S\+D\+L\+\_\+\+Surface $\ast$texte, \mbox{\hyperlink{structtexture}{t\+\_\+texture}} $\ast$tab\+\_\+tex\mbox{[}$\,$\mbox{]}, S\+D\+L\+\_\+\+Rect $\ast$ptxt\+Dest\+Rect)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a5c4dbaa975575815b42f2d2712262f31}\label{test__sdl_8c_a5c4dbaa975575815b42f2d2712262f31}} 
+void {\bfseries afficher\+\_\+texte} (S\+D\+L\+\_\+\+Texture $\ast$texte\+\_\+tex, S\+D\+L\+\_\+\+Rect $\ast$ptxt\+Dest\+Rect, S\+D\+L\+\_\+\+Renderer $\ast$renderer)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a5c0de0d8e774c835d76970cb788413b0}\label{test__sdl_8c_a5c0de0d8e774c835d76970cb788413b0}} 
+void {\bfseries menu\+Joueur\+Vs\+IA} (S\+D\+L\+\_\+\+Color couleur\+Nom, S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Rect txt\+Dest\+Rect, int rubrique, int w\+\_\+p\+Window, S\+D\+L\+\_\+\+Rect $\ast$$\ast$mat\+\_\+texte)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a31828ae891c44718206e946b2f5b21f9}\label{test__sdl_8c_a31828ae891c44718206e946b2f5b21f9}} 
+void {\bfseries joueur\+Vs\+IA} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Texture $\ast$image\+\_\+tex, S\+D\+L\+\_\+\+Color couleur\+Titre, int w\+\_\+p\+Window, S\+D\+L\+\_\+\+Rect $\ast$$\ast$mat\+\_\+texte)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_aeaf8bd079a6ef15334d94093eefc5f35}\label{test__sdl_8c_aeaf8bd079a6ef15334d94093eefc5f35}} 
+int {\bfseries bouton\+Joueur\+Valide} (int x, int y)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ae81f4593e10f597a2e83633af06e957e}\label{test__sdl_8c_ae81f4593e10f597a2e83633af06e957e}} 
+int {\bfseries bouton\+Ordi\+Valide} (int x, int y)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a066a72ebd179daf6a49b25be14cac2d2}\label{test__sdl_8c_a066a72ebd179daf6a49b25be14cac2d2}} 
+int {\bfseries bouton\+Pions\+Valide} (int x, int y)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a72a8d0819e188f7e4f21145445b18675}\label{test__sdl_8c_a72a8d0819e188f7e4f21145445b18675}} 
+int {\bfseries bouton\+Difficulte\+Valide} (int x, int y)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_aa0cd70dd22121ca6fe5f78d34bd0f139}\label{test__sdl_8c_aa0cd70dd22121ca6fe5f78d34bd0f139}} 
+void {\bfseries bouton\+Proposition} (int x, int y, S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Texture $\ast$encoche\+\_\+tex, S\+D\+L\+\_\+\+Texture $\ast$fond\+\_\+tex, S\+D\+L\+\_\+\+Rect $\ast$$\ast$tab\+\_\+texte)
+\item 
+\mbox{\Hypertarget{test__sdl_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{test__sdl_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+int {\bfseries main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{test__sdl_8c_ad6cdeecc28dfeebdb542a65435335818}\label{test__sdl_8c_ad6cdeecc28dfeebdb542a65435335818}} 
+int {\bfseries coord\+\_\+boutons\+\_\+width} \mbox{[}T\+A\+I\+L\+L\+E\+\_\+\+C\+O\+O\+R\+D\+\_\+\+B\+O\+U\+T\+ON $\ast$4\mbox{]} = \{100, 140, 140, 180, 200, 200, 190, 190, 190, 100, 110, 130\}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Clement Dubois 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+16 mars 2019 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+1 
+\end{DoxyVersion}

@@ -91,6 +91,7 @@ void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* pjo
         grille->laGrille[x][y]->slot2->joueur = pjoueur;
         //fprintf(stderr, "Pièce ajoutée en slot2\n");
     }
+    //pjoueur->piece[piece] --;
 }
 
 /**

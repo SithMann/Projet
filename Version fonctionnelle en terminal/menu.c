@@ -4,10 +4,10 @@
 #include "grille.h"
 
 /**
-* \file menu.c 
-* \author Clement Dubois 
-* \date 5 mars 2019
-* \version 1
+* \file menu.c
+* \author Mathis Despres
+* \date 17 avril 2019
+* \version à rendre
 */
 
 /**
@@ -109,7 +109,7 @@ void menu_joueur(int * nb_ligne, int * nb_colonne){
         joueur[i] = creer_joueur(i+1, nb_piece_b, nb_piece_p, nb_piece_c);
     }
 
-    joueurVSjoueur(grille, joueur, nb_joueur);
+    joueurVSjoueur(grille, joueur, nb_joueur, nb_pion);
 }
 
 /**
@@ -227,6 +227,6 @@ void menu_joueur_ia(int * nb_ligne, int * nb_colonne){
         joueur[i].estHumain = 0;
     }
     fprintf(stderr,"ICI\n");
-    joueurVSia(grille, joueur, nb_joueur, nb_bots);
+    joueurVSia(grille, joueur, nb_joueur, nb_bots, nb_pion);
 }
 

@@ -6,9 +6,9 @@
 
 /**
 * \file menu.h
-* \author Clement Dubois 
-* \date 5 mars 2019
-* \version 1
+* \author Mathis Despres
+* \date 17 avril 2019
+* \version à rendre
 */
 
 void menu_joueur(int * nb_ligne, int * nb_colonne);

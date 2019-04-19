@@ -1,16 +1,16 @@
+/**
+* \file strat_g.c
+* \author Noémie Farizon et Mathis Despres
+* \date 20 mars 2019
+* \version finale
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "grille.h"
 #include "strat_g.h"
 #include "jeu.h"
-//#include "joueur.h" il est deja include dans grille 
 
-/**
-* \file strat_g.c
-* \author Noémie Farizon et Mathis Despres
-* \date 20 mars 2019
-* \version 1
-*/
 
 /**
 * \fn dejouer
@@ -65,9 +65,8 @@ int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons){
 
 /**
 * \fn evaluation
-* \param
-* \return 
-* \brief 
+* \param le joueur et l'état courant
+* \return un score qui reflète si le joueur est en bonne position
 */
 int evaluation(t_grille * grille, t_joueur * joueur, int num_joueur, int nb_joueur, int nJetons){
 /* Comment j'évalue : 
@@ -127,7 +126,6 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
     int i, score;
     int min_score = 5000; //TODO: mettre la bonne valeur (borne supérieure du score)
     //NOTE:  le min_score correspond au beta !!!
-    int num_coup = 0;
     /*for(i = 0; i < profondeur; i++)
         fprintf(stderr,"\t");
     fprintf(stderr,"Profondeur Adv : %d\n", profondeur);*/
@@ -186,7 +184,6 @@ int adversaire(t_grille * grille, t_joueur * joueur, int num_joueur, int profond
 */
 int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, int prof_max, int nb_joueur, int num_ordi, int nJetons, int beta){ // lien avec la table joueur pour avoir la couleur ? ou juste actionner par un compteur en fonction du nombre d'appels de la fonction
     int i, score, max_score = -5000; //TODO: mettre la bonne valeur (borne inférieure du score)
-    int num_coup = 0;
     if(coup_gagnant(grille, &joueur[num_joueur], nJetons) || (profondeur >= prof_max)){
         //fprintf(stderr,"- Ordi RETURN -");
         return evaluation(grille, joueur, num_joueur, nb_joueur, nJetons);
@@ -226,8 +223,7 @@ int ordi(t_grille * grille, t_joueur * joueur, int num_joueur, int profondeur, i
 void tour_ordi(t_grille * grille, t_joueur * joueur, int num_ordi, int prof_max, int nb_joueur, int nJetons){
     int i, score, max_score  = -5000, save_colonne = 0, num_joueur = num_ordi, profondeur = 1;
     t_piece save_piece = VIDE;
-    int alpha = -5000, beta = 5000;
-    int num_coup = 0;
+    int alpha = -5000;
     if(!jouer_coup_gagnant(grille, &joueur[num_joueur], nJetons)){ // coup_gagnant joue le coup et l'annule si non gagnant
                 // si score de ordi est mieux que score_max, on save score, type, colonne
         // jouer le coup    

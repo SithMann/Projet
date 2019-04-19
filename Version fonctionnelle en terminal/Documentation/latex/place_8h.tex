@@ -1,0 +1,57 @@
+\hypertarget{place_8h}{}\section{place.\+h File Reference}
+\label{place_8h}\index{place.\+h@{place.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}objet.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}joueur.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}attributs\+\_\+objet.\+h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structs__place}{s\+\_\+place}
+\begin{DoxyCompactList}\small\item\em represente une place dans une case de la grille, car il y a plusieurs pieces qui peuvent se trouver dans la meme case. elle sauvegarde le joueur et la piece pour avoir acces a la couleur et au type de la piece. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structs__place}{s\+\_\+place} {\bfseries t\+\_\+place}\hypertarget{place_8h_a4c2dd18cb160a1ab3cff86c150c59664}{}\label{place_8h_a4c2dd18cb160a1ab3cff86c150c59664}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structs__place}{t\+\_\+place} $\ast$ \hyperlink{place_8h_ae6465f0ffba34d3fed50917d73e00caa}{creer\+\_\+place} ()
+\begin{DoxyCompactList}\small\item\em cette fonction alloue de la memoire pour un slot dans une case de la grille de jeu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Mathis Despres 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+9 mars 2019 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+finale 
+\end{DoxyVersion}
+
+
+\subsection{Function Documentation}
+\index{place.\+h@{place.\+h}!creer\+\_\+place@{creer\+\_\+place}}
+\index{creer\+\_\+place@{creer\+\_\+place}!place.\+h@{place.\+h}}
+\subsubsection[{\texorpdfstring{creer\+\_\+place()}{creer_place()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+place}$\ast$ creer\+\_\+place (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{place_8h_ae6465f0ffba34d3fed50917d73e00caa}{}\label{place_8h_ae6465f0ffba34d3fed50917d73e00caa}
+
+
+cette fonction alloue de la memoire pour un slot dans une case de la grille de jeu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em la} & focntion ne prend rien en parametres \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la fonction retourne un pointeur sur un slot 
+\end{DoxyReturn}

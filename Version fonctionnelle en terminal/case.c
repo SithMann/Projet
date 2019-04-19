@@ -4,9 +4,9 @@
 
 /**
 * \file case.c
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Mathis Despres et Noémie Farizon
+* \date 15 mars 2019
+* \version finale
 */
 
 /**

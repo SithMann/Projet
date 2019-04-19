@@ -4,9 +4,9 @@
 
 /**
 * \file grille.c
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Noemie Farizon et Mathis Despres
+* \date 15 mars 2019
+* \version finale
 */
 
 /**
@@ -91,6 +91,7 @@ void ajouter_piece(int x, int y, t_grille * grille, t_piece piece, t_joueur* pjo
         grille->laGrille[x][y]->slot2->joueur = pjoueur;
         //fprintf(stderr, "Pièce ajoutée en slot2\n");
     }
+    //pjoueur->piece[piece] --;
 }
 
 /**

@@ -7,7 +7,7 @@
 * \file place.c
 * \author Mathis Despres
 * \date 9 mars 2019
-* \version 2
+* \version finale
 */
 
 /**

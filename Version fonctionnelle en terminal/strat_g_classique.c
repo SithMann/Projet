@@ -9,7 +9,7 @@
 * \file strat_g_classique.c
 * \author Mathis Despres
 * \date 11 avril 2019
-* \version 1
+* \version finale
 */
 
 /**

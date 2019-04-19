@@ -1,0 +1,41 @@
+\hypertarget{strat__g_8h}{}\section{strat\+\_\+g.\+h File Reference}
+\label{strat__g_8h}\index{strat\+\_\+g.\+h@{strat\+\_\+g.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}grille.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries coup\+\_\+gagnant} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int n\+Jetons)\hypertarget{strat__g_8h_a0e5355607f5eb7fdb55dcf830a29f029}{}\label{strat__g_8h_a0e5355607f5eb7fdb55dcf830a29f029}
+
+\item 
+int {\bfseries jouer\+\_\+coup\+\_\+gagnant} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int n\+Jetons)\hypertarget{strat__g_8h_aed5e69c21935d0104af93e82bd42bfe3}{}\label{strat__g_8h_aed5e69c21935d0104af93e82bd42bfe3}
+
+\item 
+void {\bfseries dejouer} (\hyperlink{joueur_8h_abaae233af7d7c466ecddef6f4567ea1f}{t\+\_\+piece} piece, int nb\+Col, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur)\hypertarget{strat__g_8h_a9e8a26e74c3d4f7da7b1df3921f9dab3}{}\label{strat__g_8h_a9e8a26e74c3d4f7da7b1df3921f9dab3}
+
+\item 
+int {\bfseries adversaire} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int num\+\_\+joueur, int profondeur, int prof\+\_\+max, int nb\+\_\+joueur, int num\+\_\+ordi, int n\+Jetons, int alpha)\hypertarget{strat__g_8h_af53bcca6cb45f1ac31bb66150916b862}{}\label{strat__g_8h_af53bcca6cb45f1ac31bb66150916b862}
+
+\item 
+int {\bfseries ordi} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int num\+\_\+joueur, int profondeur, int prof\+\_\+max, int nb\+\_\+joueur, int num\+\_\+ordi, int n\+Jetons, int beta)\hypertarget{strat__g_8h_a11dcee802fe87d16b5d0cbd12f46aa08}{}\label{strat__g_8h_a11dcee802fe87d16b5d0cbd12f46aa08}
+
+\item 
+void {\bfseries tour\+\_\+ordi} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int num\+\_\+joueur, int prof\+\_\+max, int nb\+\_\+joueur, int n\+Jetons)\hypertarget{strat__g_8h_ac8588f704d1c3c2735455a33e384419d}{}\label{strat__g_8h_ac8588f704d1c3c2735455a33e384419d}
+
+\item 
+int {\bfseries evaluation} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int num\+\_\+joueur, int nb\+\_\+joueur, int n\+Jetons)\hypertarget{strat__g_8h_ac2a53781543311426dac5217c2283e90}{}\label{strat__g_8h_ac2a53781543311426dac5217c2283e90}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Noémie Farizon et Mathis Despres 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+20 mars 2019 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+finale 
+\end{DoxyVersion}

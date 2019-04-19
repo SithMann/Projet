@@ -1,0 +1,43 @@
+\hypertarget{jeu_8c}{}\section{jeu.\+c File Reference}
+\label{jeu_8c}\index{jeu.\+c@{jeu.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}objet.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}grille.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}direction.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}strat\+\_\+g.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries gagnant} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, int nb\+Jetons, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur)\hypertarget{jeu_8c_a4be22d051b89b98b220f7e6719144082}{}\label{jeu_8c_a4be22d051b89b98b220f7e6719144082}
+
+\item 
+int {\bfseries un\+\_\+gagnant} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, int n\+Jetons, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int nb\+Joueurs)\hypertarget{jeu_8c_af93183f66c50d342173de363e6cdfdf9}{}\label{jeu_8c_af93183f66c50d342173de363e6cdfdf9}
+
+\item 
+int {\bfseries non\+Pleine} (\hyperlink{joueur_8h_abaae233af7d7c466ecddef6f4567ea1f}{t\+\_\+piece} piece, int nb\+Col, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur)\hypertarget{jeu_8c_a4020520051a746dcc73e5e1465510ffe}{}\label{jeu_8c_a4020520051a746dcc73e5e1465510ffe}
+
+\item 
+void {\bfseries tour\+\_\+joueur} (\hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{jeu_8c_ab3951dc0d75ead730c8f0378f8d0ab67}{}\label{jeu_8c_ab3951dc0d75ead730c8f0378f8d0ab67}
+
+\item 
+void {\bfseries joueur\+V\+Sjoueur} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int nb\+\_\+joueur, int nb\+\_\+pion)\hypertarget{jeu_8c_a21a2ff036fbb947b9f6e1815a7aae373}{}\label{jeu_8c_a21a2ff036fbb947b9f6e1815a7aae373}
+
+\item 
+int {\bfseries joueur\+V\+Sia} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$joueur, int nb\+\_\+joueur, int nb\+\_\+bots, int nb\+\_\+pion)\hypertarget{jeu_8c_a8af15aebf27d699a4fc9dd81594c3a89}{}\label{jeu_8c_a8af15aebf27d699a4fc9dd81594c3a89}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Mathis Despres et Clement Dubois 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15 mars 2019 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+finale 
+\end{DoxyVersion}

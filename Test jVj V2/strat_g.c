@@ -65,9 +65,8 @@ int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons){
 
 /**
 * \fn evaluation
-* \param
-* \return 
-* \brief 
+* \param le joueur et l'état courant
+* \return un score qui reflète si le joueur est en bonne position
 */
 int evaluation(t_grille * grille, t_joueur * joueur, int num_joueur, int nb_joueur, int nJetons){
 /* Comment j'évalue : 

@@ -5,12 +5,12 @@
 * \file objet.h
 * \author Mathis Despres
 * \date 9 mars 2019
-* \version 1
+* \version finale
 */
 
 /**
 * \typedef structure
-* \struct t_objet
+* \struct s_objet
 * \brief reunie l'ensemble des objets qui sont utilises dans le programme
 */
 typedef struct s_objet t_objet ;

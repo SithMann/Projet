@@ -8,14 +8,14 @@
 
 /**
 * \file grille.h
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Noemie Farizon et Mathis Despres
+* \date 15 mars 2019
+* \version finale
 */
 
 /**
 * \typedef structure
-* \struc s_case
+* \struc s_grille
 * \brief structure qui permet de stocker les informations relatives a la grille
 */
 typedef struct s_grille{

@@ -1,0 +1,38 @@
+\hypertarget{grille_8c}{}\section{grille.\+c File Reference}
+\label{grille_8c}\index{grille.\+c@{grille.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}grille.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries est\+\_\+valide} (int ligne, int colonne, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8c_a2d6f5d7292e3331a4ee3c5f03fffc6cc}{}\label{grille_8c_a2d6f5d7292e3331a4ee3c5f03fffc6cc}
+
+\item 
+\hyperlink{joueur_8h_abaae233af7d7c466ecddef6f4567ea1f}{t\+\_\+piece} {\bfseries lire\+\_\+piece\+\_\+slot} (int x, int y, int n\+Slot, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8c_ab5e62c5046307b551fdba199bd661045}{}\label{grille_8c_ab5e62c5046307b551fdba199bd661045}
+
+\item 
+t\+\_\+couleur {\bfseries lire\+\_\+couleur\+\_\+joueur\+\_\+slot} (int x, int y, int n\+Slot, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8c_afb2c70dc6f3fe842ffe8a81022e6aa8e}{}\label{grille_8c_afb2c70dc6f3fe842ffe8a81022e6aa8e}
+
+\item 
+void {\bfseries ajouter\+\_\+piece} (int x, int y, \hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille, \hyperlink{joueur_8h_abaae233af7d7c466ecddef6f4567ea1f}{t\+\_\+piece} piece, \hyperlink{structs__joueur}{t\+\_\+joueur} $\ast$pjoueur)\hypertarget{grille_8c_ae67279d475dba1bfe7193cef24ee9618}{}\label{grille_8c_ae67279d475dba1bfe7193cef24ee9618}
+
+\item 
+\hyperlink{structs__grille}{t\+\_\+grille} $\ast$ {\bfseries creer\+\_\+grille} (int longueur, int largeur, int taille)\hypertarget{grille_8c_ac956839ae09ca3d8d6fc4510c1aa85fc}{}\label{grille_8c_ac956839ae09ca3d8d6fc4510c1aa85fc}
+
+\item 
+void {\bfseries detruire\+\_\+grille} (\hyperlink{structs__grille}{t\+\_\+grille} $\ast$grille)\hypertarget{grille_8c_a7d1f197316881865c67508274314496d}{}\label{grille_8c_a7d1f197316881865c67508274314496d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Noemie Farizon et Mathis Despres 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+15 mars 2019 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+finale 
+\end{DoxyVersion}

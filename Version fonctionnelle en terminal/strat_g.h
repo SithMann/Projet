@@ -5,6 +5,12 @@
 #include <stdlib.h>
 #include "grille.h"
 
+/**
+* \file strat_g.h
+* \author Noémie Farizon et Mathis Despres
+* \date 20 mars 2019
+* \version finale
+*/
 int coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons);
 int jouer_coup_gagnant(t_grille * grille, t_joueur *joueur, int nJetons);
 void dejouer(t_piece piece, int nbCol, t_grille * grille, t_joueur* joueur);

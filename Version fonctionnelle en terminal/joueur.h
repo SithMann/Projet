@@ -7,8 +7,8 @@
 /**
 * \file joueur.h
 * \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \date 6 mars 2019
+* \version finale
 */
 
 /**
@@ -26,7 +26,7 @@ typedef enum {PLEINE, CREUSE, BLOQUANTE, VIDE } t_piece;
 
 /**
 * \typedef structure
-* \struct t_joueur 
+* \struct s_joueur 
 * \brief permet de stocker l'ensemble des informations relatives a un joueur
 */
 typedef struct s_joueur{

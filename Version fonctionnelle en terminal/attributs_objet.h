@@ -2,7 +2,7 @@
 * \file attributs_objet.h
 * \author Mathis Despres
 * \date 17 avril 2019
-* \version à rendre
+* \version finale
 */
 
 /**

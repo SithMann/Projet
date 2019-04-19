@@ -184,7 +184,7 @@ int main(){
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_joueur && !gagnant(grille,4,joueur-1); i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
-            tour_ordi(grille, joueur, i, 3, nb_joueur, 4);
+            tour_ordi(grille, joueur, i, 2, nb_joueur, 4);
             system("clear");
             grille->p_affiche((t_objet * )grille);
             if(gagnant(grille, 4, joueur)/*fin*/){

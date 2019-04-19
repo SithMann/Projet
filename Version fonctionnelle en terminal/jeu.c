@@ -9,9 +9,9 @@
 
 /**
 * \file jeu.c
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Mathis Despres et Clement Dubois 
+* \date 15 mars 2019
+* \version finale
 */
 
 /**
@@ -54,7 +54,7 @@ int un_gagnant(t_grille * grille, int nJetons, t_joueur * joueur, int nbJoueurs)
     for(int i = 0; i < nbJoueurs; i++){
         //fprintf(stderr, "Test boucle for un_gagnant\n");
         if(gagnant(grille, nJetons, joueur+i)){
-            printf("%s a gagné !! \n", joueur->pseudo);
+            //printf("%s a gagné !! \n", joueur->pseudo);
             return 1;
         } 
     }
@@ -177,7 +177,7 @@ void tour_joueur(t_joueur* joueur, t_grille * grille){
         do{
             printf("Veuillez hoisir le numéro de la colonne pour jouer (entier entre 1 et %d): ", grille->largeur);
             scanf("%d", &col);
-        }while((col <= 0 || col >= grille->largeur) || !nonPleine(type-1, col-1, grille, joueur));
+        }while((col <= 0 || col > grille->largeur) || !nonPleine(type-1, col-1, grille, joueur));
     }/*else{
             type = 0;
             type = rand()%3+1;
@@ -193,7 +193,7 @@ void tour_joueur(t_joueur* joueur, t_grille * grille){
 * \return la fonction ne retourne rien 
 * \brief cette fonction contient la boucle principale du mode de jeu joueur contre joueur
 */
-void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){ 
+void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_pion){ 
     int i;
     char color;
     int test_color;
@@ -242,16 +242,20 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
                        break;
         }
     }
-    i=nb_joueur-1;
-    while(i == nb_joueur-1){
+
+    while(!un_gagnant(grille, 4, joueur, nb_joueur)){
         system("clear");
         grille->p_affiche((t_objet * )grille);
-        for( i = 0; i < nb_joueur && !un_gagnant(grille, 4, joueur, nb_joueur); i++){
+        for( i = 0; i < nb_joueur; i++){
             printf("Au tour de J%d %s : \n", joueur[i].nJoueur ,joueur[i].pseudo);
             tour_joueur(joueur+i, grille);
             system("clear");
             grille->p_affiche((t_objet * )grille);
-
+            if(gagnant(grille, 4, joueur)){
+                printf("%s a gagné !! \n", joueur[i].pseudo);
+                break;
+                /*Appel de la save des scores à faire quand la fonction sera fini*/
+            }
         }
     }
 }
@@ -262,7 +266,7 @@ void joueurVSjoueur(t_grille * grille, t_joueur * joueur, int nb_joueur){
 * \return la fonction ne retourne rien 
 * \brief cette fonction contient la boucle principale du mode de jeu joueur contre joueur
 */
-int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots){ 
+int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots, int nb_pion){ 
     fprintf(stderr,"ICI\n");
     int i;
     char color;
@@ -336,7 +340,7 @@ int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots)
         }
     }
 
-    while(!un_gagnant(grille, 4, joueur, nb_joueur+nb_bots)){
+    while(!un_gagnant(grille, nb_pion, joueur, nb_joueur+nb_bots)){
         //system("clear");
         grille->p_affiche((t_objet * )grille);
         for( i = 0; i < nb_bots+nb_joueur; i++){
@@ -344,11 +348,11 @@ int joueurVSia(t_grille * grille, t_joueur * joueur, int nb_joueur, int nb_bots)
             if(joueur[i].estHumain)
                 tour_joueur(joueur+i, grille);
             else
-                tour_ordi(grille, joueur, i, 3, nb_joueur+nb_bots, 4);
+                tour_ordi(grille, joueur, i, 3, nb_joueur+nb_bots, nb_pion);
             //sleep(1);
            // system("clear");
             grille->p_affiche((t_objet * )grille);
-            if(gagnant(grille, 4, joueur+i)){
+            if(gagnant(grille, nb_pion, joueur+i)){
                 // printf("%s a gagné !! \n", joueur[i].pseudo);
                 return 1;
                 /*Appel de la save des scores à faire quand la fonction sera fini*/

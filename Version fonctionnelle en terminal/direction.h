@@ -7,9 +7,9 @@
 
 /**
 * \file direction.h
-* \author Mathis Despres
-* \date 17 avril 2019
-* \version à rendre
+* \author Clement Dubois
+* \date 16 mars 2019
+* \version finale
 */
 
 /**

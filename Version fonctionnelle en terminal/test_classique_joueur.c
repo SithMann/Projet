@@ -7,9 +7,10 @@
 
 
 /**
-* \fn gagnant
-* \param un pointeur sur grille, un entier pour le nombre de jetons, un pointeur sur un joueur 
-* \return la fonction retourn eun entier 
+* \file test_classique_joueur.c
+* \author Mathis Despres
+* \date 11 avril 2019
+* \version finale
 */
 int gagnant(t_grille * grille, int nbJetons, t_joueur *joueur){
    int i, j, k, count = 0;

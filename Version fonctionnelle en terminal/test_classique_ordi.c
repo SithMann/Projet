@@ -6,6 +6,12 @@
 #include "direction.h"
 #include "strat_g_classique.h"
 
+/**
+* \file test_classique_ordi.c
+* \author Mathis Despres
+* \date 11 avril 2019
+* \version finale
+*/
 
 /**
 * \fn gagnant
